@@ -13,6 +13,7 @@ namespace WaterTrans.DailyReport.UnitTests
     [TestClass]
     public class TestEnvironment
     {
+        public static string WebApiBaseAddress { get; private set; }
         public static DBSettings DBSettings { get; } = new DBSettings();
         private static Process _process;
 
@@ -25,6 +26,7 @@ namespace WaterTrans.DailyReport.UnitTests
 
             var configuration = builder.Build();
             configuration.GetSection("DBSettings").Bind(DBSettings);
+            WebApiBaseAddress = configuration["WebApiBaseAddress"];
             DBSettings.SqlProviderFactory = SqlClientFactory.Instance;
 
             DataConfiguration.Initialize();

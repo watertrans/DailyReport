@@ -19,6 +19,7 @@
 		<ProjectReference Include="..\WaterTrans.DailyReport.Application\WaterTrans.DailyReport.Application.csproj" />
 		<ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
 		<ProjectReference Include="..\WaterTrans.DailyReport.Persistence\WaterTrans.DailyReport.Persistence.csproj" />
+		<ProjectReference Include="..\WaterTrans.DailyReport.Web.Api\WaterTrans.DailyReport.Web.Api.csproj" />
 	</ItemGroup>
 
 </Project>
