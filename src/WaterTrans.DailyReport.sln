@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Domain", "WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj", "{F1A7852B-CD77-4837-9FA5-84218F01CF83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0220BAC-0987-444F-812A-60FD03B354DD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Application", "WaterTrans.DailyReport.Application\WaterTrans.DailyReport.Application.csproj", "{85DEB24E-4B34-48B3-BC39-AC3F14719132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Persistence", "WaterTrans.DailyReport.Persistence\WaterTrans.DailyReport.Persistence.csproj", "{7CB93D1F-26A4-41F6-B6AA-849A70BA9F72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.UnitTests", "WaterTrans.DailyReport.UnitTests\WaterTrans.DailyReport.UnitTests.csproj", "{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.DailyReport.Web.Common", "WaterTrans.DailyReport.Web.Common\WaterTrans.DailyReport.Web.Common.csproj", "{A445C7B3-6505-46E7-89BE-9CEA315B624E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.DailyReport.Web.Api", "WaterTrans.DailyReport.Web.Api\WaterTrans.DailyReport.Web.Api.csproj", "{1438834A-3975-4416-8335-6589A4759E26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1A7852B-CD77-4837-9FA5-84218F01CF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A7852B-CD77-4837-9FA5-84218F01CF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A7852B-CD77-4837-9FA5-84218F01CF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A7852B-CD77-4837-9FA5-84218F01CF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85DEB24E-4B34-48B3-BC39-AC3F14719132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85DEB24E-4B34-48B3-BC39-AC3F14719132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85DEB24E-4B34-48B3-BC39-AC3F14719132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85DEB24E-4B34-48B3-BC39-AC3F14719132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB93D1F-26A4-41F6-B6AA-849A70BA9F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB93D1F-26A4-41F6-B6AA-849A70BA9F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB93D1F-26A4-41F6-B6AA-849A70BA9F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB93D1F-26A4-41F6-B6AA-849A70BA9F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A445C7B3-6505-46E7-89BE-9CEA315B624E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A445C7B3-6505-46E7-89BE-9CEA315B624E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A445C7B3-6505-46E7-89BE-9CEA315B624E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A445C7B3-6505-46E7-89BE-9CEA315B624E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1438834A-3975-4416-8335-6589A4759E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1438834A-3975-4416-8335-6589A4759E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1438834A-3975-4416-8335-6589A4759E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1438834A-3975-4416-8335-6589A4759E26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {774B0813-FC84-4F49-A290-2F9768A40F41}
+	EndGlobalSection
+EndGlobal

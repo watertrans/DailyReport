@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>bin\WaterTrans.DailyReport.Persistence.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.0.78" />
+		<PackageReference Include="Dapper.FastCrud" Version="2.5.0.39" />
+		<PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.2" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WaterTrans.DailyReport.Application\WaterTrans.DailyReport.Application.csproj" />
+	  <ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\SqlSchema.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SqlSchema.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\SqlSchema.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>SqlSchema.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="TypeHandlers\" />
+	</ItemGroup>
+
+</Project>

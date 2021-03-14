@@ -1,0 +1,125 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using WaterTrans.DailyReport.Application.Utils;
+
+namespace WaterTrans.DailyReport.UnitTests.Application.Utils
+{
+    [TestClass]
+    public class JsonUtilTest
+    {
+        [TestMethod]
+        public void Serialize_正常_nullはnullに変換されること()
+        {
+            string expected = null;
+            dynamic value = null;
+            string actual = JsonUtil.Serialize(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Serialize_正常_日本語が文字参照にならないこと()
+        {
+            string expected = "{\"value\":\"日本語\"}";
+            dynamic value = new { Value = "日本語" };
+            string actual = JsonUtil.Serialize(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Serialize_正常_プロパティ名がキャメルケースになること()
+        {
+            dynamic value = new { MyProperty = "Value" };
+            string expected = "{\"myProperty\":\"Value\"}";
+            string actual = JsonUtil.Serialize(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Serialize_正常_ディクショナリのキー名がキャメルケースになること()
+        {
+            var dic = new Dictionary<string, object>();
+            dic["KeyName1"] = "Value";
+            dic["KeyName2"] = "Value";
+            string expected = "{\"myDictionary\":{\"keyName1\":\"Value\",\"keyName2\":\"Value\"}}";
+            dynamic value = new { MyDictionary = dic };
+            string actual = JsonUtil.Serialize(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        private enum TestEnum
+        {
+            YES,
+            NO,
+            UNKNOWN
+        }
+
+        [TestMethod]
+        public void Serialize_正常_Enumの値が文字列になること()
+        {
+            string expected = "{\"value1\":\"YES\",\"value2\":\"UNKNOWN\"}";
+            dynamic value = new { Value1 = TestEnum.YES, Value2 = TestEnum.UNKNOWN };
+            string actual = JsonUtil.Serialize(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Deserialize_正常_nullはnullに変換されること()
+        {
+            string value = null;
+            DeserializeTestClass1 actual = JsonUtil.Deserialize<DeserializeTestClass1>(value);
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
+        public void Deserialize_正常_空文字はnullに変換されること()
+        {
+            string value = string.Empty;
+            DeserializeTestClass1 actual = JsonUtil.Deserialize<DeserializeTestClass1>(value);
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
+        public void Deserialize_正常_日本語が読み取りできることかつキャメルケースでマッピングできること()
+        {
+            DeserializeTestClass1 expected = new DeserializeTestClass1 { Value = "日本語" };
+            string value = "{\"value\":\"日本語\"}";
+            DeserializeTestClass1 actual = JsonUtil.Deserialize<DeserializeTestClass1>(value);
+            Assert.AreEqual(expected.Value, actual.Value);
+        }
+
+        private class DeserializeTestClass1
+        {
+            public string Value { get; set; }
+        }
+
+        [TestMethod]
+        public void Deserialize_正常_ディクショナリのキー名を読み取り可能であること()
+        {
+            string value = "{\"myDictionary\":{\"keyName1\":\"Value1\",\"keyName2\":\"Value2\"}}";
+            DeserializeTestClass2 actual = JsonUtil.Deserialize<DeserializeTestClass2>(value);
+            Assert.AreEqual("Value1", actual.MyDictionary["keyName1"].ToString());
+            Assert.AreEqual("Value2", actual.MyDictionary["keyName2"].ToString());
+        }
+
+        private class DeserializeTestClass2
+        {
+            public Dictionary<string, object> MyDictionary { get; set; }
+        }
+
+        [TestMethod]
+        public void Deserialize_正常_Enumの文字列値が読み込めること()
+        {
+            string value = "{\"enumValue\":\"Yes\", \"enumValue2\":\"NO\"}";
+            DeserializeTestClass3 actual = JsonUtil.Deserialize<DeserializeTestClass3>(value);
+            Assert.AreEqual(TestEnum.YES, actual.EnumValue);
+            Assert.AreEqual(TestEnum.NO, actual.EnumValue2);
+        }
+
+        private class DeserializeTestClass3
+        {
+            public TestEnum EnumValue { get; set; }
+            public TestEnum EnumValue2 { get; set; }
+        }
+    }
+}
+
