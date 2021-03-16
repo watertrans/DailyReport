@@ -105,6 +105,31 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Group&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE [Group] (
+        ///        GroupId UNIQUEIDENTIFIER PRIMARY KEY
+        ///      , GroupCode NVARCHAR(20) NOT NULL
+        ///      , GroupTree NVARCHAR(8) NOT NULL
+        ///      , Name NVARCHAR(100) NOT NULL
+        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Status NVARCHAR(20) NOT NULL
+        ///      , SortNo INT
+        ///      , CreateTime DATETIMEOFFSET NOT NULL
+        ///      , UpdateTime DATETIMEOFFSET NOT NULL
+        ///      , DeleteTime DATETIMEOFFSET
+        ///    );
+        ///
+        ///  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CreateGroup {
+            get {
+                return ResourceManager.GetString("CreateGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Person&apos; and xtype=&apos;U&apos;)
         ///BEGIN
         ///
@@ -126,6 +151,76 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         internal static string CreatePerson {
             get {
                 return ResourceManager.GetString("CreatePerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Project&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE Project (
+        ///        ProjectId UNIQUEIDENTIFIER PRIMARY KEY
+        ///      , ProjectCode NVARCHAR(20) NOT NULL
+        ///      , Name NVARCHAR(100) NOT NULL
+        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Status NVARCHAR(20) NOT NULL
+        ///      , SortNo INT
+        ///      , CreateTime DATETIMEOFFSET NOT NULL
+        ///      , UpdateTime DATETIMEOFFSET NOT NULL
+        ///      , DeleteTime DATETIMEOFFSET
+        ///    );
+        ///
+        ///    CREATE UNIQUE INDEX ix_Project_ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CreateProject {
+            get {
+                return ResourceManager.GetString("CreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Tag&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE Tag (
+        ///        TagId UNIQUEIDENTIFIER PRIMARY KEY
+        ///      , TargetId UNIQUEIDENTIFIER NOT NULL
+        ///      , TargetTable NVARCHAR(100) NOT NULL
+        ///      , Value NVARCHAR(100) NOT NULL
+        ///      , CreateTime DATETIMEOFFSET NOT NULL
+        ///    );
+        ///
+        ///    CREATE INDEX ix_Tag_TargetId ON Tag (TargetId);
+        ///    CREATE INDEX ix_Tag_Value ON Tag (Value);
+        ///
+        ///END;
+        ///.
+        /// </summary>
+        internal static string CreateTag {
+            get {
+                return ResourceManager.GetString("CreateTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;WorkType&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE WorkType (
+        ///        WorkTypeId UNIQUEIDENTIFIER PRIMARY KEY
+        ///      , WorkTypeCode NVARCHAR(20) NOT NULL
+        ///      , WorkTypeTree NVARCHAR(8) NOT NULL
+        ///      , Name NVARCHAR(100) NOT NULL
+        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Status NVARCHAR(20) NOT NULL
+        ///      , SortNo INT
+        ///      , CreateTime DATETIMEOFFSET NOT NULL
+        ///      , UpdateTime DATETIMEOFFSET NOT NULL
+        ///      , DeleteTime DATETIMEOFFSET [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CreateWorkType {
+            get {
+                return ResourceManager.GetString("CreateWorkType", resourceCulture);
             }
         }
         

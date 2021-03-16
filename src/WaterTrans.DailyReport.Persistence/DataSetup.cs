@@ -61,7 +61,11 @@ namespace WaterTrans.DailyReport.Persistence
         {
             Connection.Execute(SqlSchema.CreateAccessToken);
             Connection.Execute(SqlSchema.CreateApplication);
+            Connection.Execute(SqlSchema.CreateGroup);
             Connection.Execute(SqlSchema.CreatePerson);
+            Connection.Execute(SqlSchema.CreateProject);
+            Connection.Execute(SqlSchema.CreateTag);
+            Connection.Execute(SqlSchema.CreateWorkType);
         }
 
         /// <summary>
@@ -87,7 +91,11 @@ namespace WaterTrans.DailyReport.Persistence
         {
             Connection.Execute("DROP TABLE IF EXISTS AccessToken");
             Connection.Execute("DROP TABLE IF EXISTS Application");
+            Connection.Execute("DROP TABLE IF EXISTS [Group]");
             Connection.Execute("DROP TABLE IF EXISTS Person");
+            Connection.Execute("DROP TABLE IF EXISTS Project");
+            Connection.Execute("DROP TABLE IF EXISTS Tag");
+            Connection.Execute("DROP TABLE IF EXISTS WorkType");
         }
     }
 }
