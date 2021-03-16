@@ -61,6 +61,7 @@ namespace WaterTrans.DailyReport.Web.Api
         {
             services.AddAutoMapper(typeof(Startup));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<EnvSettings>(Configuration.GetSection("EnvSettings"));
             services.Configure<DBSettings>(options =>
             {
                 Configuration.GetSection("DBSettings").Bind(options);
@@ -68,6 +69,7 @@ namespace WaterTrans.DailyReport.Web.Api
             });
 
             services.AddTransient<IAppSettings>(x => x.GetService<IOptionsMonitor<AppSettings>>().CurrentValue);
+            services.AddTransient<IEnvSettings>(x => x.GetService<IOptionsMonitor<EnvSettings>>().CurrentValue);
             services.AddTransient<IDBSettings>(x => x.GetService<IOptionsMonitor<DBSettings>>().CurrentValue);
 
             // This is work around. See https://github.com/dotnet/aspnetcore/issues/4853 @zhurinvlad commented on 5 Sep 2018

@@ -12,6 +12,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     /// </summary>
     [ApiController]
     [ApiVersion("1")]
+    [DebugOnlyFilter]
     public class DebugController : ControllerBase
     {
         private readonly ILogger<DebugController> _logger;
