@@ -7,7 +7,7 @@ namespace WaterTrans.DailyReport.Application.TableEntities
     /// <summary>
     /// プロジェクトテーブルエンティティ
     /// </summary>
-    [Table("Person")]
+    [Table("Project")]
     public class ProjectTableEntity : SqlTableEntity
     {
         /// <summary>

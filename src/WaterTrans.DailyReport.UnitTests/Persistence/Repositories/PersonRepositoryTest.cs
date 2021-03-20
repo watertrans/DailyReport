@@ -17,11 +17,11 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             var person = new PersonTableEntity
             {
                 PersonId = Guid.NewGuid(),
-                PersonCode = "Dummy001",
-                Name = "Name",
-                Title = "Tile",
-                Description = "Description",
-                SortNo = null,
+                PersonCode = new string('X', 20),
+                Name = new string('X', 100),
+                Title = new string('X', 100),
+                Description = new string('X', 400),
+                SortNo = int.MaxValue,
                 Status = PersonStatus.NORMAL.ToString(),
                 CreateTime = now,
                 UpdateTime = now,
@@ -64,15 +64,15 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             var person = new PersonTableEntity
             {
                 PersonId = Guid.NewGuid(),
-                PersonCode = "Dummy002",
-                Name = "Name",
-                Title = "Tile",
-                Description = "Description",
+                PersonCode = new string('Y', 20),
+                Name = new string('X', 100),
+                Title = new string('X', 100),
+                Description = new string('X', 400),
                 SortNo = null,
-                Status = PersonStatus.NORMAL.ToString(),
+                Status = PersonStatus.DELETED.ToString(),
                 CreateTime = now,
                 UpdateTime = now,
-                DeleteTime = null,
+                DeleteTime = now,
             };
             var personRepository = new PersonRepository(TestEnvironment.DBSettings);
             personRepository.Create(person);
