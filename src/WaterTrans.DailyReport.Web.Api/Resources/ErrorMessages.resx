@@ -247,4 +247,7 @@
   <data name="ValidationDataNotFound" xml:space="preserve">
     <value>'{0}'に指定した'{1}'に対応するデータが存在しません。</value>
   </data>
+  <data name="ValidationDuplicated" xml:space="preserve">
+    <value>'{0}'の値はすでに登録されています。</value>
+  </data>
 </root>

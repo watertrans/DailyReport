@@ -37,7 +37,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// 並び順
         /// </summary>
-        public int? SortNo { get; set; }
+        public int SortNo { get; set; }
 
         /// <summary>
         /// タグ

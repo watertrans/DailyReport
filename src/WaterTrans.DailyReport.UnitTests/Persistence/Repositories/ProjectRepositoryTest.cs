@@ -64,7 +64,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 ProjectCode = new string('Y', 20),
                 Name = new string('X', 100),
                 Description = new string('X', 400),
-                SortNo = null,
+                SortNo = int.MaxValue,
                 Status = ProjectStatus.DELETED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,

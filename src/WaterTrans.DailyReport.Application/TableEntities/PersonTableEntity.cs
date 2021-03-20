@@ -44,7 +44,7 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         /// <summary>
         /// ソート番号
         /// </summary>
-        public int? SortNo { get; set; }
+        public int SortNo { get; set; }
 
         /// <summary>
         /// 作成日時

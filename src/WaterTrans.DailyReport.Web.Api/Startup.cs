@@ -18,6 +18,7 @@ using WaterTrans.DailyReport.Application.Abstractions;
 using WaterTrans.DailyReport.Application.Services;
 using WaterTrans.DailyReport.Application.Settings;
 using WaterTrans.DailyReport.Domain.Constants;
+using WaterTrans.DailyReport.Persistence.QueryServices;
 using WaterTrans.DailyReport.Persistence.Repositories;
 using WaterTrans.DailyReport.Web.Api.AttributeAdapters;
 using WaterTrans.DailyReport.Web.Api.Filters;
@@ -78,6 +79,13 @@ namespace WaterTrans.DailyReport.Web.Api
             services.AddTransient<IAccessTokenRepository, AccessTokenRepository>();
             services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddTransient<IAuthorizeService, AuthorizeService>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IPersonQueryService, PersonQueryService>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IWorkTypeRepository, WorkTypeRepository>();
 
             if (!WebHostEnvironment.IsProduction())
             {

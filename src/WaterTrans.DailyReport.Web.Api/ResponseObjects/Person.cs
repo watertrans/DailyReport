@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using WaterTrans.DailyReport.Domain.Constants;
+﻿using System.Collections.Generic;
 
-namespace WaterTrans.DailyReport.Domain.Entities
+namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
 {
     /// <summary>
     /// 従業員
@@ -12,7 +10,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// 従業員ID
         /// </summary>
-        public Guid PersonId { get; set; }
+        public string PersonId { get; set; }
 
         /// <summary>
         /// 従業員コード
@@ -25,7 +23,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// 役職
+        /// 肩書き
         /// </summary>
         public string Title { get; set; }
 
@@ -37,31 +35,26 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// ステータス
         /// </summary>
-        public PersonStatus Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
-        /// 並び順
+        /// ステータス
         /// </summary>
         public int SortNo { get; set; }
 
         /// <summary>
         /// タグ
         /// </summary>
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<string> Tags { get; set; }
 
         /// <summary>
         /// 作成日時
         /// </summary>
-        public DateTimeOffset CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
         /// <summary>
         /// 更新日時
         /// </summary>
-        public DateTimeOffset UpdateTime { get; set; }
-
-        /// <summary>
-        /// 削除日時
-        /// </summary>
-        public DateTimeOffset? DeleteTime { get; set; }
+        public string UpdateTime { get; set; }
     }
 }

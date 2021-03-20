@@ -115,13 +115,11 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , Name NVARCHAR(100) NOT NULL
         ///      , Description NVARCHAR(400) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
-        ///      , SortNo INT
+        ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///      , DeleteTime DATETIMEOFFSET
-        ///    );
-        ///
-        ///  [rest of string was truncated]&quot;;.
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateGroup {
             get {
@@ -140,13 +138,11 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , Title NVARCHAR(100) NOT NULL
         ///      , Description NVARCHAR(400) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
-        ///      , SortNo INT
+        ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///      , DeleteTime DATETIMEOFFSET
-        ///    );
-        ///
-        ///  [rest of string was truncated]&quot;;.
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreatePerson {
             get {
@@ -164,13 +160,13 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , Name NVARCHAR(100) NOT NULL
         ///      , Description NVARCHAR(400) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
-        ///      , SortNo INT
+        ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///      , DeleteTime DATETIMEOFFSET
         ///    );
         ///
-        ///    CREATE UNIQUE INDEX ix_Project_ [rest of string was truncated]&quot;;.
+        ///    CREATE UNIQUE INDEX ix [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateProject {
             get {
@@ -213,10 +209,10 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , Name NVARCHAR(100) NOT NULL
         ///      , Description NVARCHAR(400) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
-        ///      , SortNo INT
+        ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///      , DeleteTime DATETIMEOFFSET [rest of string was truncated]&quot;;.
+        ///      , DeleteTime DATET [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateWorkType {
             get {

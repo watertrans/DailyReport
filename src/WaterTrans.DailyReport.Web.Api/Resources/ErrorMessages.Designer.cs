@@ -410,5 +410,14 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
                 return ResourceManager.GetString("ValidationDataNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;の値はすでに登録されています。.
+        /// </summary>
+        public static string ValidationDuplicated {
+            get {
+                return ResourceManager.GetString("ValidationDuplicated", resourceCulture);
+            }
+        }
     }
 }

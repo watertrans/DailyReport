@@ -8,7 +8,7 @@ BEGIN
       , Title NVARCHAR(100) NOT NULL
       , Description NVARCHAR(400) NOT NULL
       , Status NVARCHAR(20) NOT NULL
-      , SortNo INT
+      , SortNo INT NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL
       , DeleteTime DATETIMEOFFSET

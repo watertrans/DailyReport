@@ -68,7 +68,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Name = new string('X', 100),
                 Title = new string('X', 100),
                 Description = new string('X', 400),
-                SortNo = null,
+                SortNo = int.MaxValue,
                 Status = PersonStatus.DELETED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,

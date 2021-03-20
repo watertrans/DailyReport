@@ -68,7 +68,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 WorkTypeTree = new string('0', 8),
                 Name = new string('X', 100),
                 Description = new string('X', 400),
-                SortNo = null,
+                SortNo = int.MaxValue,
                 Status = WorkTypeStatus.DELETED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,

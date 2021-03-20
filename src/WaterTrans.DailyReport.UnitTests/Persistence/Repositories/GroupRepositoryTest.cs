@@ -68,7 +68,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 GroupTree = new string('0', 8),
                 Name = new string('X', 100),
                 Description = new string('X', 400),
-                SortNo = null,
+                SortNo = int.MaxValue,
                 Status = GroupStatus.DELETED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,

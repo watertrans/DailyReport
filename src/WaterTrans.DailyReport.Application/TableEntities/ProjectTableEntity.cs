@@ -39,7 +39,7 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         /// <summary>
         /// 並び順
         /// </summary>
-        public int? SortNo { get; set; }
+        public int SortNo { get; set; }
 
         /// <summary>
         /// 作成日時
