@@ -4,7 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using WaterTrans.DailyReport.Application.Settings;
 using WaterTrans.DailyReport.Persistence;
 
@@ -51,6 +53,27 @@ namespace WaterTrans.DailyReport.UnitTests
             startInfo.EnvironmentVariables["DBSettings__ReplicaSqlConnectionString"] = DBSettings.ReplicaSqlConnectionString;
 
             _process = Process.Start(startInfo);
+
+            StartupWebApiProject();
+        }
+
+        private static void StartupWebApiProject()
+        {
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = delegate { return true; };
+            var httpclient = new HttpClient(httpClientHandler);
+            httpclient.BaseAddress = new Uri(TestEnvironment.WebApiBaseAddress);
+
+            HttpResponseMessage response;
+            for (int i = 0; i < 10; i++)
+            {
+                response = httpclient.GetAsync("swagger").ConfigureAwait(false).GetAwaiter().GetResult();
+                if (response.IsSuccessStatusCode)
+                {
+                    break;
+                }
+                Thread.Sleep(200);
+            }
         }
 
         [AssemblyCleanup]
