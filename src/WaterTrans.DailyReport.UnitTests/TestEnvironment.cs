@@ -67,8 +67,16 @@ namespace WaterTrans.DailyReport.UnitTests
             HttpResponseMessage response;
             for (int i = 0; i < 10; i++)
             {
-                response = httpclient.GetAsync("swagger").ConfigureAwait(false).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
+                try
+                {
+                    response = httpclient.GetAsync("swagger").ConfigureAwait(false).GetAwaiter().GetResult();
+                }
+                catch (Exception)
+                {
+                    response = null;
+                }
+                
+                if (response != null && response.IsSuccessStatusCode)
                 {
                     break;
                 }
