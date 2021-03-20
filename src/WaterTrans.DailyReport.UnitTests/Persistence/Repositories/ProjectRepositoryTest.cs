@@ -13,7 +13,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
         [TestMethod]
         public void Create_ê≥èÌ_ó·äOÇ™î≠ê∂ÇµÇ»Ç¢Ç±Ç∆()
         {
-            var now = DateUtil.Now;
             var project = new ProjectTableEntity
             {
                 ProjectId = Guid.NewGuid(),
@@ -22,8 +21,8 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,
                 Status = ProjectStatus.NORMAL.ToString(),
-                CreateTime = now,
-                UpdateTime = now,
+                CreateTime = DateTimeOffset.MaxValue,
+                UpdateTime = DateTimeOffset.MaxValue,
                 DeleteTime = null,
             };
             var projectRepository = new ProjectRepository(TestEnvironment.DBSettings);
@@ -59,7 +58,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
         [TestMethod]
         public void Delete_ê≥èÌ_ó·äOÇ™î≠ê∂ÇµÇ»Ç¢Ç±Ç∆()
         {
-            var now = DateUtil.Now;
             var project = new ProjectTableEntity
             {
                 ProjectId = Guid.NewGuid(),
@@ -68,9 +66,9 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Description = new string('X', 400),
                 SortNo = null,
                 Status = ProjectStatus.DELETED.ToString(),
-                CreateTime = now,
-                UpdateTime = now,
-                DeleteTime = now,
+                CreateTime = DateTimeOffset.MaxValue,
+                UpdateTime = DateTimeOffset.MaxValue,
+                DeleteTime = DateTimeOffset.MaxValue,
             };
             var projectRepository = new ProjectRepository(TestEnvironment.DBSettings);
             projectRepository.Create(project);
