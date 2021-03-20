@@ -22,7 +22,7 @@ namespace WaterTrans.DailyReport.UnitTests
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("testsettings.json");
 
             var configuration = builder.Build();
             configuration.GetSection("DBSettings").Bind(DBSettings);

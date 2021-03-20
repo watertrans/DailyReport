@@ -16,9 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.UnitTests", "WaterTrans.DailyReport.UnitTests\WaterTrans.DailyReport.UnitTests.csproj", "{8F1E73EB-86AC-4ECC-9DEF-2AE47F4B7EF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.DailyReport.Web.Common", "WaterTrans.DailyReport.Web.Common\WaterTrans.DailyReport.Web.Common.csproj", "{A445C7B3-6505-46E7-89BE-9CEA315B624E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Web.Common", "WaterTrans.DailyReport.Web.Common\WaterTrans.DailyReport.Web.Common.csproj", "{A445C7B3-6505-46E7-89BE-9CEA315B624E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaterTrans.DailyReport.Web.Api", "WaterTrans.DailyReport.Web.Api\WaterTrans.DailyReport.Web.Api.csproj", "{1438834A-3975-4416-8335-6589A4759E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WaterTrans.DailyReport.Web.Api", "WaterTrans.DailyReport.Web.Api\WaterTrans.DailyReport.Web.Api.csproj", "{1438834A-3975-4416-8335-6589A4759E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
