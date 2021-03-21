@@ -26,7 +26,6 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader)]
     public class PersonsController : Controller
     {
-        private readonly ILogger<PersonsController> _logger;
         private readonly IMapper _mapper;
         private readonly IPersonService _personService;
         private readonly IPersonQueryService _personQueryService;
@@ -34,17 +33,14 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="logger"><see cref="ILogger"/></param>
         /// <param name="mapper"><see cref="IMapper"/></param>
         /// <param name="personService"><see cref="IPersonService"/></param>
         /// <param name="personQueryService"><see cref="IPersonQueryService"/></param>
         public PersonsController(
-            ILogger<PersonsController> logger,
             IMapper mapper,
             IPersonService personService,
             IPersonQueryService personQueryService)
         {
-            _logger = logger;
             _mapper = mapper;
             _personService = personService;
             _personQueryService = personQueryService;

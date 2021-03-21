@@ -19,22 +19,18 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [ApiVersion("1")]
     public class TokenController : ControllerBase
     {
-        private readonly ILogger<TokenController> _logger;
         private readonly IAppSettings _appSetgings;
         private readonly IAuthorizeService _authorizeService;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="logger"><see cref="ILogger"/></param>
         /// <param name="appSetgings"><see cref="IAppSettings"/></param>
         /// <param name="authorizeService"><see cref="IAuthorizeService"/></param>
         public TokenController(
-            ILogger<TokenController> logger,
             IAppSettings appSetgings,
             IAuthorizeService authorizeService)
         {
-            _logger = logger;
             _appSetgings = appSetgings;
             _authorizeService = authorizeService;
         }
