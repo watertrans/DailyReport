@@ -6,6 +6,16 @@
     public class PagingQuery
     {
         /// <summary>
+        /// デフォルトのページ番号
+        /// </summary>
+        public const int DefaultPage = 1;
+
+        /// <summary>
+        /// デフォルトのページサイズ
+        /// </summary>
+        public const int DefaultPageSize = 20;
+
+        /// <summary>
         /// ページ番号
         /// </summary>
         public int Page { get; set; }

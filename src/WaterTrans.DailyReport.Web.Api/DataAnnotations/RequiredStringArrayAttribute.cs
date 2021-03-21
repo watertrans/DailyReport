@@ -10,7 +10,7 @@ namespace WaterTrans.DailyReport.Web.Api.DataAnnotations
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Parameter,
         AllowMultiple = false)]
-    public class RequiredStringArrayAttribute : RequiredAttribute
+    public class RequiredStringArrayAttribute : AdapteredValidationAttribute
     {
         /// <summary>
         /// コンストラクタ。
@@ -34,7 +34,10 @@ namespace WaterTrans.DailyReport.Web.Api.DataAnnotations
 
             foreach (var str in value as IEnumerable<string>)
             {
-                return base.IsValid(str);
+                if (str == null || str == string.Empty)
+                {
+                    return false;
+                }
             }
 
             return true;

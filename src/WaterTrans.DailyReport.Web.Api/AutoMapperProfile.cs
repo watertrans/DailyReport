@@ -29,6 +29,8 @@ namespace WaterTrans.DailyReport.Web.Api
                 .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
             CreateMap<PersonUpdateRequest, PersonUpdateDto>();
             CreateMap<PersonQueryRequest, PersonQueryDto>()
+                .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
                 .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
         }
     }

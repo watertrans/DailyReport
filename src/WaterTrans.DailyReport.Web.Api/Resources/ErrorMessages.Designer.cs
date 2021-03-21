@@ -403,6 +403,105 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{1}&apos;に対する値&apos;{0}&apos;は正しくありません。.
+        /// </summary>
+        public static string ModelBindingAttemptedValueIsInvalidAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingAttemptedValueIsInvalidAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;に対するパラメーターまたはプロパティが指定されていません。.
+        /// </summary>
+        public static string ModelBindingMissingBindRequiredValueAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingMissingBindRequiredValueAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 値を入力してください。.
+        /// </summary>
+        public static string ModelBindingMissingKeyOrValueAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingMissingKeyOrValueAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 空文字以外の本文を入力してください。.
+        /// </summary>
+        public static string ModelBindingMissingRequestBodyRequiredValueAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingMissingRequestBodyRequiredValueAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 値&apos;{0}&apos;は正しくありません。.
+        /// </summary>
+        public static string ModelBindingNonPropertyAttemptedValueIsInvalidAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingNonPropertyAttemptedValueIsInvalidAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 指定された値が無効です。.
+        /// </summary>
+        public static string ModelBindingNonPropertyUnknownValueIsInvalidAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingNonPropertyUnknownValueIsInvalidAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to フィールドは数字を指定してください。.
+        /// </summary>
+        public static string ModelBindingNonPropertyValueMustBeANumberAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingNonPropertyValueMustBeANumberAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;に対する値は正しくありません。.
+        /// </summary>
+        public static string ModelBindingUnknownValueIsInvalidAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingUnknownValueIsInvalidAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 値&apos;{0}&apos;は正しくありません。.
+        /// </summary>
+        public static string ModelBindingValueIsInvalidAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingValueIsInvalidAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to フィールド&apos;{0}&apos;は数字を指定してください。.
+        /// </summary>
+        public static string ModelBindingValueMustBeANumberAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingValueMustBeANumberAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 値&apos;{0}&apos;は正しくありません。.
+        /// </summary>
+        public static string ModelBindingValueMustNotBeNullAccessor {
+            get {
+                return ResourceManager.GetString("ModelBindingValueMustNotBeNullAccessor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos;に指定した&apos;{1}&apos;に対応するデータが存在しません。.
         /// </summary>
         public static string ValidationDataNotFound {

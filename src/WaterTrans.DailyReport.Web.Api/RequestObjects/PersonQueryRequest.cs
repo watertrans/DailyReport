@@ -13,14 +13,14 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayCommonPage")]
         [Range(1, 999, ErrorMessage = "DataAnnotationRange")]
-        public int? Page { get; set; } = 1;
+        public int? Page { get; set; }
 
         /// <summary>
         /// ページサイズ
         /// </summary>
         [Display(Name = "DisplayCommonPageSize")]
         [Range(1, 100, ErrorMessage = "DataAnnotationRange")]
-        public int? PageSize { get; set; } = 20;
+        public int? PageSize { get; set; }
 
         /// <summary>
         /// 検索条件

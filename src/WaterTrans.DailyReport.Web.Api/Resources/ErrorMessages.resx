@@ -244,6 +244,50 @@
     <value>入力エラーが発生しました。エラーメッセージを確認してください。</value>
     <comment>汎用的な入力エラーメッセージ。</comment>
   </data>
+  <data name="ModelBindingAttemptedValueIsInvalidAccessor" xml:space="preserve">
+    <value>'{1}'に対する値'{0}'は正しくありません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingMissingBindRequiredValueAccessor" xml:space="preserve">
+    <value>'{0}'に対するパラメーターまたはプロパティが指定されていません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingMissingKeyOrValueAccessor" xml:space="preserve">
+    <value>値を入力してください。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingMissingRequestBodyRequiredValueAccessor" xml:space="preserve">
+    <value>空文字以外の本文を入力してください。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingNonPropertyAttemptedValueIsInvalidAccessor" xml:space="preserve">
+    <value>値'{0}'は正しくありません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingNonPropertyUnknownValueIsInvalidAccessor" xml:space="preserve">
+    <value>指定された値が無効です。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingNonPropertyValueMustBeANumberAccessor" xml:space="preserve">
+    <value>フィールドは数字を指定してください。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingUnknownValueIsInvalidAccessor" xml:space="preserve">
+    <value>'{0}'に対する値は正しくありません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingValueIsInvalidAccessor" xml:space="preserve">
+    <value>値'{0}'は正しくありません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingValueMustBeANumberAccessor" xml:space="preserve">
+    <value>フィールド'{0}'は数字を指定してください。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
+  <data name="ModelBindingValueMustNotBeNullAccessor" xml:space="preserve">
+    <value>値'{0}'は正しくありません。</value>
+    <comment>ModelBinderの標準エラーメッセージ。</comment>
+  </data>
   <data name="ValidationDataNotFound" xml:space="preserve">
     <value>'{0}'に指定した'{1}'に対応するデータが存在しません。</value>
   </data>

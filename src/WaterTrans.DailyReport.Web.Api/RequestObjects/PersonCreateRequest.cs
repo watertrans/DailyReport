@@ -13,8 +13,9 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// <summary>
         /// 従業員コード
         /// </summary>
-        [Display(Name = "DisplayPersonCode")]
+        [Display(Name = "DisplayPersonPersonCode")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
+        [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string PersonCode { get; set; }
 
         /// <summary>
