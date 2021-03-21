@@ -12,7 +12,6 @@ BEGIN
       , ExpiryTime DATETIMEOFFSET NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL
-      , DeleteTime DATETIMEOFFSET
     );
 
 END;

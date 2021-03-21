@@ -10,7 +10,6 @@ BEGIN
       , SortNo INT NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL
-      , DeleteTime DATETIMEOFFSET
     );
 
     CREATE UNIQUE INDEX ix_Project_ProjectCode ON Project (ProjectCode);

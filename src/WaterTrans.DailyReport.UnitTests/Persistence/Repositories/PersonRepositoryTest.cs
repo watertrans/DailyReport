@@ -25,7 +25,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Status = PersonStatus.NORMAL.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = null,
             };
             var personRepository = new PersonRepository(TestEnvironment.DBSettings);
             personRepository.Create(person);
@@ -69,10 +68,9 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Title = new string('X', 100),
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,
-                Status = PersonStatus.DELETED.ToString(),
+                Status = PersonStatus.SUSPENDED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = DateTimeOffset.MaxValue,
             };
             var personRepository = new PersonRepository(TestEnvironment.DBSettings);
             personRepository.Create(person);

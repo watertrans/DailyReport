@@ -11,11 +11,6 @@
         NORMAL,
 
         /// <summary>
-        /// 削除
-        /// </summary>
-        DELETED,
-
-        /// <summary>
         /// 停止
         /// </summary>
         SUSPENDED,

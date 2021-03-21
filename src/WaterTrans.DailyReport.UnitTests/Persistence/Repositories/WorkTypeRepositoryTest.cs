@@ -25,7 +25,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Status = WorkTypeStatus.NORMAL.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = null,
             };
             var workTypeRepository = new WorkTypeRepository(TestEnvironment.DBSettings);
             workTypeRepository.Create(workType);
@@ -69,10 +68,9 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Name = new string('X', 100),
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,
-                Status = WorkTypeStatus.DELETED.ToString(),
+                Status = WorkTypeStatus.SUSPENDED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = DateTimeOffset.MaxValue,
             };
             var workTypeRepository = new WorkTypeRepository(TestEnvironment.DBSettings);
             workTypeRepository.Create(workType);

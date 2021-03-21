@@ -79,7 +79,6 @@ namespace WaterTrans.DailyReport.Application.Services
                 ExpiryTime = now.AddSeconds(_appSettings.AccessTokenExpiresIn),
                 CreateTime = now,
                 UpdateTime = now,
-                DeleteTime = null,
             };
 
             _accessTokenRepository.Create(accessToken);
@@ -97,7 +96,6 @@ namespace WaterTrans.DailyReport.Application.Services
                 Status = (AccessTokenStatus)Enum.Parse(typeof(AccessTokenStatus), accessToken.Status),
                 CreateTime = accessToken.CreateTime,
                 UpdateTime = accessToken.UpdateTime,
-                DeleteTime = accessToken.DeleteTime,
             };
 
             return result;
@@ -141,7 +139,6 @@ namespace WaterTrans.DailyReport.Application.Services
                 Status = (AccessTokenStatus)Enum.Parse(typeof(AccessTokenStatus), accessToken.Status),
                 CreateTime = accessToken.CreateTime,
                 UpdateTime = accessToken.UpdateTime,
-                DeleteTime = accessToken.DeleteTime,
             };
 
             return result;
@@ -174,7 +171,6 @@ namespace WaterTrans.DailyReport.Application.Services
                 Status = (ApplicationStatus)Enum.Parse(typeof(ApplicationStatus), application.Status),
                 CreateTime = application.CreateTime,
                 UpdateTime = application.UpdateTime,
-                DeleteTime = application.DeleteTime,
             };
 
             return result;

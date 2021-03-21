@@ -118,8 +118,9 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///      , DeleteTime DATETIMEOFFSET
-        ///   [rest of string was truncated]&quot;;.
+        ///    );
+        ///
+        ///    CREATE UNIQUE INDEX ix_ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateGroup {
             get {
@@ -141,8 +142,9 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///      , DeleteTime DATETIMEOFFSET
-        ///   [rest of string was truncated]&quot;;.
+        ///    );
+        ///
+        ///    CREATE UNIQUE INDEX ix_ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreatePerson {
             get {
@@ -163,10 +165,9 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///      , DeleteTime DATETIMEOFFSET
         ///    );
         ///
-        ///    CREATE UNIQUE INDEX ix [rest of string was truncated]&quot;;.
+        ///    CREATE UNIQUE INDEX ix_Project_ProjectCode ON Project (Pr [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateProject {
             get {
@@ -212,7 +213,9 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///      , DeleteTime DATET [rest of string was truncated]&quot;;.
+        ///    );
+        ///
+        ///    CREATE UNI [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateWorkType {
             get {
@@ -222,8 +225,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime, DeleteTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;, N&apos;owner-secret&apos;, N&apos;管理者ロールアプリケーション&apos;,   N&apos;管理者ロールを付与したアプリケーションです。&apos;,   N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET(), NULL);
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;, N&apos;owner-secret&apos;, N&apos;管理者ロールアプリケーション&apos;,   N&apos;管理者ロールを付与したアプリケーションです。&apos;,   N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, G [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadInitialData {
             get {
@@ -233,8 +236,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime, DeleteTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;, N&apos;owner-secret&apos;, N&apos;owner-normal&apos;,   N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET(), NULL);
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, Gr [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;, N&apos;owner-secret&apos;, N&apos;owner-normal&apos;,   N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status,  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadUnitTestData {
             get {

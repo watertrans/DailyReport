@@ -63,10 +63,5 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// 更新日時
         /// </summary>
         public DateTimeOffset UpdateTime { get; set; }
-
-        /// <summary>
-        /// 削除日時
-        /// </summary>
-        public DateTimeOffset? DeleteTime { get; set; }
     }
 }

@@ -56,7 +56,6 @@ namespace WaterTrans.DailyReport.Application.Services
                 SortNo = dto.SortNo,
                 CreateTime = now,
                 UpdateTime = now,
-                DeleteTime = null,
             };
 
             using (var tran = new TransactionScope())
@@ -148,10 +147,8 @@ namespace WaterTrans.DailyReport.Application.Services
         {
             using (var tran = new TransactionScope())
             {
-                var person = _personRepository.Read(new PersonTableEntity { PersonId = personId });
-                person.Status = PersonStatus.DELETED.ToString();
-                person.DeleteTime = DateUtil.Now;
-                _personRepository.Update(person);
+                _tagRepository.DeleteByTargetId(personId);
+                _personRepository.Delete(new PersonTableEntity { PersonId = personId });
                 tran.Complete();
             }
         }

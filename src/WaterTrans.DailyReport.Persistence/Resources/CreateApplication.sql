@@ -13,7 +13,6 @@ BEGIN
       , Status NVARCHAR(20) NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL
-      , DeleteTime DATETIMEOFFSET
     );
 
     CREATE UNIQUE INDEX ix_Application_ClientId ON Application (ClientId);

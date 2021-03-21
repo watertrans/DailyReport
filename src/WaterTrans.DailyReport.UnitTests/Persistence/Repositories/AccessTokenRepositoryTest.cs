@@ -26,7 +26,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 ExpiryTime = DateTimeOffset.MaxValue,
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = null,
             };
             var accessTokenRepository = new AccessTokenRepository(TestEnvironment.DBSettings);
             accessTokenRepository.Create(accessToken);
@@ -70,11 +69,10 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 PrincipalType = PrincipalType.APPLICATION.ToString(),
                 PrincipalId = Guid.NewGuid(),
                 Scopes = new string('X', 8000),
-                Status = AccessTokenStatus.DELETED.ToString(),
+                Status = AccessTokenStatus.SUSPENDED.ToString(),
                 ExpiryTime = DateTimeOffset.MaxValue,
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = DateTimeOffset.MaxValue,
             };
             var accessTokenRepository = new AccessTokenRepository(TestEnvironment.DBSettings);
             accessTokenRepository.Create(accessToken);

@@ -148,12 +148,9 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 request.PersonCode != person.PersonCode &&
                 _personQueryService.ExistsPersonCode(request.PersonCode))
             {
-                return ErrorObjectResultFactory.ValidationError(new Error
-                {
-                    Code = ErrorCodes.ValidationErrorDetail,
-                    Message = string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonPersonCode),
-                    Target = "personCode",
-                });
+                return ErrorObjectResultFactory.ValidationErrorDetail(
+                    string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonPersonCode),
+                    "personCode");
             }
 
             var dto = _mapper.Map<PersonUpdateRequest, PersonUpdateDto>(request);
@@ -174,12 +171,9 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         {
             if (_personQueryService.ExistsPersonCode(request.PersonCode))
             {
-                return ErrorObjectResultFactory.ValidationError(new Error
-                {
-                    Code = ErrorCodes.ValidationErrorDetail,
-                    Message = string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonPersonCode),
-                    Target = "personCode",
-                });
+                return ErrorObjectResultFactory.ValidationErrorDetail(
+                    string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonPersonCode),
+                    "personCode");
             }
 
             var dto = _mapper.Map<PersonCreateRequest, PersonCreateDto>(request);

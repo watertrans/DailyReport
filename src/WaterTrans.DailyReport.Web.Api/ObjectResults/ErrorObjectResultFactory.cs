@@ -66,6 +66,22 @@ namespace WaterTrans.DailyReport.Web.Api.ObjectResults
         }
 
         /// <summary>
+        /// 単一のValidationErrorエラー応答を生成します。
+        /// </summary>
+        /// <param name="message">エラーメッセージ。</param>
+        /// <param name="target">エラーターゲット。</param>
+        /// <returns>エラー応答</returns>
+        public static ErrorObjectResult ValidationErrorDetail(string message, string target)
+        {
+            return ValidationError(new Error
+            {
+                Code = ErrorCodes.ValidationErrorDetail,
+                Message = message,
+                Target = target,
+            });
+        }
+
+        /// <summary>
         /// BadRequestエラー応答を生成します。
         /// </summary>
         /// <returns>エラー応答</returns>

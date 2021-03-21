@@ -11,7 +11,6 @@ BEGIN
       , SortNo INT NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL
-      , DeleteTime DATETIMEOFFSET
     );
 
     CREATE UNIQUE INDEX ix_WorkType_WorkTypeCode ON WorkType (WorkTypeCode);

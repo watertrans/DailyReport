@@ -27,7 +27,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Status = ApplicationStatus.NORMAL.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = null,
             };
             var applicationRepository = new ApplicationRepository(TestEnvironment.DBSettings);
             applicationRepository.Create(application);
@@ -73,10 +72,9 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Roles = new string('X', 8000),
                 Scopes = new string('X', 8000),
                 GrantTypes = new string('X', 8000),
-                Status = ApplicationStatus.DELETED.ToString(),
+                Status = ApplicationStatus.SUSPENDED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = DateTimeOffset.MaxValue,
             };
             var applicationRepository = new ApplicationRepository(TestEnvironment.DBSettings);
             applicationRepository.Create(application);

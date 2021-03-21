@@ -28,6 +28,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         public IList<Person> Query(string query, SortOrder sort, PagingQuery paging)
         {
             var sqlWhere = new StringBuilder();
+
             if (!string.IsNullOrEmpty(query))
             {
                 sqlWhere.AppendLine(" AND ( ");

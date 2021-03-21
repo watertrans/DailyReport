@@ -25,7 +25,6 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Status = GroupStatus.NORMAL.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = null,
             };
             var groupRepository = new GroupRepository(TestEnvironment.DBSettings);
             groupRepository.Create(group);
@@ -69,10 +68,9 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
                 Name = new string('X', 100),
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,
-                Status = GroupStatus.DELETED.ToString(),
+                Status = GroupStatus.SUSPENDED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
                 UpdateTime = DateTimeOffset.MaxValue,
-                DeleteTime = DateTimeOffset.MaxValue,
             };
             var groupRepository = new GroupRepository(TestEnvironment.DBSettings);
             groupRepository.Create(group);
