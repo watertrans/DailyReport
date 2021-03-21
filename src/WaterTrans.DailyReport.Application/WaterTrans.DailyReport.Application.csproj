@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
+		<ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

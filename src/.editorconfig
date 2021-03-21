@@ -1,4 +1,8 @@
-﻿[*.cs]
+﻿[*.csproj]
+indent_style = tag
+indent_size = 2
+
+[*.cs]
 
 # IDE0017: Simplify object initialization
 dotnet_diagnostic.IDE0017.severity = none

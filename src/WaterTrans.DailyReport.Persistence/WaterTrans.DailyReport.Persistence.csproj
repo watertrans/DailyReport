@@ -20,8 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\WaterTrans.DailyReport.Application\WaterTrans.DailyReport.Application.csproj" />
-	  <ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
+		<ProjectReference Include="..\WaterTrans.DailyReport.Application\WaterTrans.DailyReport.Application.csproj" />
+		<ProjectReference Include="..\WaterTrans.DailyReport.Domain\WaterTrans.DailyReport.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="TypeHandlers\" />
+		<Folder Include="TypeHandlers\" />
 	</ItemGroup>
 
 </Project>
