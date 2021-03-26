@@ -104,6 +104,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         public ActionResult Delete(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
             string personId)
         {
             var personGuid = Guid.Parse(personId);
@@ -130,6 +131,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         public ActionResult<Person> Patch(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
             string personId,
             [FromBody] PersonUpdateRequest request)
         {

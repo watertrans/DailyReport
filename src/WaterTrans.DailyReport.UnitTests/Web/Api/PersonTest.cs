@@ -492,7 +492,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
                 Description = new String('Z', 401),
                 Status = "ERROR",
                 SortNo = -1,
-                Tags = new List<string> { null, string.Empty },
+                Tags = new List<string> { new String('Z', 101) },
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
@@ -503,11 +503,230 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var error = JsonUtil.Deserialize<Error>(responseBody);
 
             Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
-            Assert.AreEqual(7, error.Details.Count);
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("PersonCode", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Name", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Title", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Description", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Status", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("SortNo", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Tags", StringComparison.OrdinalIgnoreCase)));
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-        // TODO Patch
+        [TestMethod]
+        public void Post_正常_Tagsの要素が10個を超える()
+        {
+            var requestObject = new PersonCreateRequest
+            {
+                PersonCode = new String('Z', 20),
+                Name = new String('Z', 100),
+                Title = new String('Z', 100),
+                Description = new String('Z', 400),
+                Status = "NORMAL",
+                SortNo = 0,
+                Tags = new List<string> {
+                    "1","2","3","4","5","6","7","8","9","10","11",
+                },
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var error = JsonUtil.Deserialize<Error>(responseBody);
+
+            Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Tags", StringComparison.OrdinalIgnoreCase)));
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Post_正常_Tagsの要素が空欄()
+        {
+            var requestObject = new PersonCreateRequest
+            {
+                PersonCode = new String('Z', 20),
+                Name = new String('Z', 100),
+                Title = new String('Z', 100),
+                Description = new String('Z', 400),
+                Status = "NORMAL",
+                SortNo = 0,
+                Tags = new List<string> {
+                    string.Empty,
+                },
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var error = JsonUtil.Deserialize<Error>(responseBody);
+
+            Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Tags", StringComparison.OrdinalIgnoreCase)));
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Post_正常_Tagsの要素がnull()
+        {
+            var requestObject = new PersonCreateRequest
+            {
+                PersonCode = new String('Z', 20),
+                Name = new String('Z', 100),
+                Title = new String('Z', 100),
+                Description = new String('Z', 400),
+                Status = "NORMAL",
+                SortNo = 0,
+                Tags = new List<string> {
+                    null,
+                },
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var error = JsonUtil.Deserialize<Error>(responseBody);
+
+            Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Tags", StringComparison.OrdinalIgnoreCase)));
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Post_正常_Tagsの要素が重複()
+        {
+            var requestObject = new PersonCreateRequest
+            {
+                PersonCode = new String('Z', 20),
+                Name = new String('Z', 100),
+                Title = new String('Z', 100),
+                Description = new String('Z', 400),
+                Status = "NORMAL",
+                SortNo = 0,
+                Tags = new List<string> {
+                    "1", "1",
+                },
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var error = JsonUtil.Deserialize<Error>(responseBody);
+
+            Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
+            Assert.IsTrue(error.Details.Exists(e => e.Target.Equals("Tags", StringComparison.OrdinalIgnoreCase)));
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Patch_正常_PersonIDの指定がGuidではない()
+        {
+            var personId = "ERROR";
+            var requestObject = new PersonUpdateRequest
+            {
+                PersonCode = new String('Z', 20),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"/api/v1/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Patch_正常_書き込みアクセス権のないアクセストークン()
+        {
+            var personId = "00000000-0000-0000-0000-000000000000";
+            var requestObject = new PersonUpdateRequest
+            {
+                PersonCode = new String('Z', 20),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"/api/v1/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Patch_正常_PersonIDの指定が存在しない()
+        {
+            var personId = "00000000-0000-0000-0000-000000000000";
+            var requestObject = new PersonUpdateRequest
+            {
+                PersonCode = new String('Z', 20),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"/api/v1/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Patch_正常_すべての値を正常値で更新()
+        {
+            var requestObject = new PersonCreateRequest
+            {
+                PersonCode = new String('U', 20),
+                Name = new String('U', 100),
+                Title = new String('U', 100),
+                Description = new String('U', 400),
+                Status = PersonStatus.NORMAL.ToString(),
+                SortNo = int.MaxValue,
+                Tags = new List<string> { new String('U', 100) },
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/persons");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var person = JsonUtil.Deserialize<Person>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+            var updateRequestObject = new PersonUpdateRequest
+            {
+                PersonCode = new String('V', 20),
+                Name = new String('V', 100),
+                Title = new String('V', 100),
+                Description = new String('V', 400),
+                Status = PersonStatus.SUSPENDED.ToString(),
+                SortNo = 0,
+                Tags = new List<string> { new String('V', 100) },
+            };
+
+            request = new HttpRequestMessage(HttpMethod.Patch, $"/api/v1/persons/{person.PersonId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(updateRequestObject), Encoding.UTF8, "application/json");
+            response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            person = JsonUtil.Deserialize<Person>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(person.PersonCode, new String('V', 20));
+            Assert.AreEqual(person.Name, new String('V', 100));
+            Assert.AreEqual(person.Title, new String('V', 100));
+            Assert.AreEqual(person.Description, new String('V', 400));
+            Assert.AreEqual(person.Status, PersonStatus.SUSPENDED.ToString());
+            Assert.AreEqual(person.SortNo, 0);
+            Assert.AreEqual(person.Tags[0], new String('V', 100));
+        }
+
         // TODO Delete
     }
 }

@@ -124,7 +124,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos;を入力してください。.
+        ///   Looks up a localized string similar to &apos;{0}&apos;は空の要素を登録できません。.
         /// </summary>
         public static string DataAnnotationRequiredStringArray {
             get {
@@ -151,7 +151,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos;は{1}文字以内で入力してください。.
+        ///   Looks up a localized string similar to &apos;{0}&apos;の要素は{1}文字以内で入力してください。.
         /// </summary>
         public static string DataAnnotationStringLengthArray {
             get {

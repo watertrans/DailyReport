@@ -14,7 +14,6 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 従業員コード
         /// </summary>
         [Display(Name = "DisplayPersonPersonCode")]
-        [Required(ErrorMessage = "DataAnnotationRequired")]
         [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string PersonCode { get; set; }
 
@@ -50,9 +49,8 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 並び順
         /// </summary>
         [Display(Name = "DisplayPersonSortNo")]
-        [Required(ErrorMessage = "DataAnnotationRequired")]
         [Range(0, int.MaxValue, ErrorMessage = "DataAnnotationRange")]
-        public string SortNo { get; set; }
+        public int? SortNo { get; set; }
 
         /// <summary>
         /// タグ
