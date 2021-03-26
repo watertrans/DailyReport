@@ -14,7 +14,7 @@ BEGIN
     );
 
     CREATE UNIQUE INDEX ix_Group_GroupCode ON [Group] (GroupCode);
-    CREATE INDEX ix_Group_GroupTree ON [Group] (GroupTree);
+    CREATE UNIQUE INDEX ix_Group_GroupTree ON [Group] (GroupTree);
     CREATE INDEX ix_Group_Name ON [Group] (Name);
 
 END;

@@ -14,7 +14,7 @@ BEGIN
     );
 
     CREATE UNIQUE INDEX ix_WorkType_WorkTypeCode ON WorkType (WorkTypeCode);
-    CREATE INDEX ix_WorkType_WorkTypeTree ON WorkType (WorkTypeTree);
+    CREATE UNIQUE INDEX ix_WorkType_WorkTypeTree ON WorkType (WorkTypeTree);
     CREATE INDEX ix_WorkTypep_Name ON WorkType (Name);
 
 END;

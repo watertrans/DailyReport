@@ -64,7 +64,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             {
                 WorkTypeId = Guid.NewGuid(),
                 WorkTypeCode = new string('Y', 20),
-                WorkTypeTree = new string('0', 8),
+                WorkTypeTree = new string('1', 8),
                 Name = new string('X', 100),
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,

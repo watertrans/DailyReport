@@ -64,7 +64,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             {
                 GroupId = Guid.NewGuid(),
                 GroupCode = new string('Y', 20),
-                GroupTree = new string('0', 8),
+                GroupTree = new string('1', 8),
                 Name = new string('X', 100),
                 Description = new string('X', 400),
                 SortNo = int.MaxValue,
