@@ -768,17 +768,24 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
+        public void Delete_正常_PersonIDの指定がGuidではない()
+        {
+            var personId = "ERROR";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
         public void Delete_正常_書き込みアクセス権のないアクセストークン()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
-            var requestObject = new PersonUpdateRequest
-            {
-                PersonCode = new String('Z', 20),
-            };
 
             var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/persons/{personId}");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
-            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
             var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
 
             Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
@@ -788,14 +795,9 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         public void Delete_正常_PersonIDの指定が存在しない()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
-            var requestObject = new PersonUpdateRequest
-            {
-                PersonCode = new String('Z', 20),
-            };
 
             var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/persons/{personId}");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
-            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
             var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
