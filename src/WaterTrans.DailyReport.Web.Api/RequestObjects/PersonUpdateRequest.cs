@@ -25,7 +25,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         public string Name { get; set; }
 
         /// <summary>
-        /// 肩書き
+        /// 役職
         /// </summary>
         [Display(Name = "DisplayPersonTitle")]
         [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]

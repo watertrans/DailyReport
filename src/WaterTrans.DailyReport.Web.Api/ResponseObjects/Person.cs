@@ -23,7 +23,7 @@ namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
         public string Name { get; set; }
 
         /// <summary>
-        /// 肩書き
+        /// 役職
         /// </summary>
         public string Title { get; set; }
 

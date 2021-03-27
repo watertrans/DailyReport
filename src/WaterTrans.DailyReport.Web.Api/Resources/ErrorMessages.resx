@@ -190,7 +190,7 @@
     <value>タグ</value>
   </data>
   <data name="DisplayPersonTitle" xml:space="preserve">
-    <value>肩書き</value>
+    <value>役職</value>
   </data>
   <data name="ErrorResultAuthorizationTokenExpired" xml:space="preserve">
     <value>認証トークンの有効期限が切れています。</value>

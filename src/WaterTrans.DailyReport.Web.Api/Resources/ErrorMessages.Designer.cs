@@ -277,7 +277,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 肩書き.
+        ///   Looks up a localized string similar to 役職.
         /// </summary>
         public static string DisplayPersonTitle {
             get {

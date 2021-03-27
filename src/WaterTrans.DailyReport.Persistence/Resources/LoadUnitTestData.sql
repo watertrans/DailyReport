@@ -14,9 +14,9 @@ INSERT INTO AccessToken (TokenId, Name, Description, PrincipalType, PrincipalId,
 INSERT INTO AccessToken (TokenId, Name, Description, PrincipalType, PrincipalId, Scopes, Status, ExpiryTime, CreateTime, UpdateTime) VALUES (N'exception', N'full_control', N'', N'EXCEPTION', N'00000000-A001-0000-0000-000000000000', N'["full_control"]', N'NORMAL', N'2000-01-01T00:00:00', SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
 
 -- 従業員
-INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1001-0000-0000-000000000000', N'00001', N'従業員1', N'従業員1肩書き', N'従業員1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
-INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1002-0000-0000-000000000000', N'00002', N'従業員2', N'従業員2肩書き', N'従業員2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
-INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1003-0000-0000-000000000000', N'00003', N'従業員3', N'従業員3肩書き', N'従業員3説明', N'NORMAL',   2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
+INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1001-0000-0000-000000000000', N'00001', N'従業員1', N'従業員1役職', N'従業員1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
+INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1002-0000-0000-000000000000', N'00002', N'従業員2', N'従業員2役職', N'従業員2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
+INSERT INTO Person (PersonId, PersonCode, Name, Title, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-1003-0000-0000-000000000000', N'00003', N'従業員3', N'従業員3役職', N'従業員3説明', N'NORMAL',   2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
 
 -- プロジェクト
 INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-2001-0000-0000-000000000000', N'00001', N'プロジェクト1', N'プロジェクト1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
