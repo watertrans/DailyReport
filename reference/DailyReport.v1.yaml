@@ -24,10 +24,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
+              examples:
+                Bearer:
+                  value:
+                    access_token: HP89YjM-tUqS8In7Av2L2gqQlIWtLxb06fNrp3WU58Kw
+                    expires_in: 3600
+                    token_type: Bearer
+                    scope: full_control read write
         '400':
           $ref: '#/components/responses/400BadRequest'
         '401':
           $ref: '#/components/responses/401Unauthorized'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
       description: アクセストークンを発行します。
       security: []
       parameters: []
@@ -80,6 +89,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Person'
+              examples:
+                Example:
+                  value:
+                    personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                    personCode: '000001'
+                    name: John Doe
+                    title: Human Resources Manager
+                    description: 'Hire date: 2010.04.01'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                      - Manager
+                      - '2010'
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '401':
@@ -140,7 +165,22 @@ paths:
                 - status
                 - sortNo
                 - tags
+            examples:
+              Example:
+                value:
+                  personCode: '000001'
+                  name: John Doe
+                  title: Human Resources Manager
+                  description: 'Hire date: 2010.04.01'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Human Resources
+                    - Manager
+                    - '2010'
         description: ''
+      tags:
+        - Persons
     get:
       summary: 従業員検索
       operationId: get-persons
@@ -171,7 +211,26 @@ paths:
                   - pageSize
                   - total
                   - items
-              examples: {}
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                        personCode: '000001'
+                        name: John Doe
+                        title: Human Resources Manager
+                        description: 'Hire date: 2010.04.01'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Human Resources
+                          - Manager
+                          - '2010'
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
         '400':
           $ref: '#/components/responses/400BadRequest'
         '401':
@@ -193,6 +252,168 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/sort'
+  '/persons/{personId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: personId
+        in: path
+        required: true
+        description: 従業員ID
+    get:
+      summary: 従業員取得
+      tags:
+        - Persons
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+              examples:
+                Example:
+                  value:
+                    personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                    personCode: '000001'
+                    name: John Doe
+                    title: Human Resources Manager
+                    description: 'Hire date: 2010.04.01'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                      - Manager
+                      - '2010'
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-persons-personId
+      description: 従業員を取得します。
+    patch:
+      summary: 従業員更新
+      operationId: patch-persons-personId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+              examples:
+                Example:
+                  value:
+                    personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                    personCode: '000001'
+                    name: John Doe
+                    title: Human Resources Manager
+                    description: 'Hire date: 2010.04.01'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                      - Manager
+                      - '2010'
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 従業員を更新します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                personCode:
+                  type: string
+                  description: 従業員コード
+                  maxLength: 20
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                title:
+                  type: string
+                  maxLength: 100
+                  description: 役職
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+            examples:
+              Example:
+                value:
+                  personCode: '000001'
+                  name: John Doe
+                  title: Human Resources Manager
+                  description: 'Hire date: 2010.04.01'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Human Resources
+                    - Manager
+                    - '2010'
+        description: ''
+      tags:
+        - Persons
+    delete:
+      summary: 従業員削除
+      operationId: delete-persons-personId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 従業員を削除します。
+      tags:
+        - Persons
 components:
   schemas:
     Error:
@@ -347,46 +568,56 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
+          examples:
+            Example:
+              value:
+                code: BadRequest
+                message: 要求が正しくありません。
     401Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
+          examples:
+            Example:
+              value:
+                code: Unauthorized
+                message: 認証情報が正しくありません。
     403Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
+          examples:
+            Example:
+              value:
+                code: Forbidden
+                message: 指定した操作を実行するアクセス権がありません。
     404NotFound:
       description: Not Found
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
+          examples:
+            Example:
+              value:
+                code: NotFound
+                message: 指定したリソースは存在しません。
     500InternalServerError:
       description: Internal Server Error
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              error:
-                $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
+          examples:
+            Example:
+              value:
+                code: InternalServerError
+                message: サーバーで予期しないエラーが発生しました。
   parameters:
     page:
       name: page

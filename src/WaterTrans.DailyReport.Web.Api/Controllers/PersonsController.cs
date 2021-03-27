@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,7 +53,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.ReadScopePolicy)]
-        public ActionResult<ResponseObjects.Person> Get(
+        public ActionResult<Person> Get(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -68,7 +67,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 return ErrorObjectResultFactory.NotFound();
             }
 
-            return _mapper.Map<Domain.Entities.Person, ResponseObjects.Person>(entity);
+            return _mapper.Map<Domain.Entities.Person, Person>(entity);
         }
 
         /// <summary>
