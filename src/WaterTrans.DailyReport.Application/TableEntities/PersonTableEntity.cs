@@ -42,7 +42,7 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         public string Status { get; set; }
 
         /// <summary>
-        /// ソート番号
+        /// 並び順
         /// </summary>
         public int SortNo { get; set; }
 

@@ -38,7 +38,7 @@ namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
         public string Status { get; set; }
 
         /// <summary>
-        /// ステータス
+        /// 並び順
         /// </summary>
         public int SortNo { get; set; }
 
