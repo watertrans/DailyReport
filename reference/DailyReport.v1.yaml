@@ -9,10 +9,66 @@ info:
   license:
     name: MIT
     url: 'https://github.com/watertrans/DailyReport/blob/main/LICENSE'
-  description: ''
+  description: The daily report Web API specfications.
 servers:
   - url: 'https://localhost:44350/api/v1'
-paths: {}
+paths:
+  /token:
+    post:
+      summary: アクセストークン発行
+      operationId: post-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+      description: アクセストークンを発行します。
+      security: []
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                    - client_credentials
+                  example: client_credentials
+                  description: 権限種別
+                scope:
+                  type: string
+                  description: スコープ
+                  enum:
+                    - fullcontrol
+                    - read
+                    - write
+                client_id:
+                  type: string
+                  description: クライアントID
+                  example: owner
+                client_secret:
+                  type: string
+                  description: クライアントシークレット
+                  example: owner-secret
+              required:
+                - grant_type
+            examples:
+              client_credentials:
+                value:
+                  grant_type: client_credentials
+                  client_id: owner
+                  client_secret: owner-secret
+        description: ''
+      tags:
+        - Token
 components:
   schemas:
     Error:
@@ -119,9 +175,88 @@ components:
         - sortNo
         - tags
         - name
+    Token:
+      title: Token
+      type: object
+      description: アクセストークン
+      properties:
+        access_token:
+          type: string
+          description: アクセストークン
+          maxLength: 100
+        expires_in:
+          type: integer
+          description: アクセストークンの存続時間（秒単位）
+        token_type:
+          type: string
+          description: トークンタイプ
+        scope:
+          type: string
+          description: スコープ
+      required:
+        - access_token
+        - expires_in
+        - token_type
+        - scope
+      x-examples:
+        Bearer:
+          access_token: HP89YjM-tUqS8In7Av2L2gqQlIWtLxb06fNrp3WU58Kw
+          expires_in: 3600
+          token_type: Bearer
+          scope: full_control read write
   securitySchemes:
     Bearer:
       type: http
       scheme: bearer
+  responses:
+    400BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    401Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    403Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    404NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+    500InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
 security:
   - Bearer: []
+tags:
+  - name: Debug
+  - name: Person
+  - name: Token
