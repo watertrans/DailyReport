@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: DailyReport
+  version: '1.0'
+  contact:
+    email: watertrans@gmail.com
+    name: Masahisa Kobayashi
+    url: 'https://github.com/watertrans'
+  license:
+    name: MIT
+    url: 'https://github.com/watertrans/DailyReport/blob/main/LICENSE'
+  description: ''
+servers:
+  - url: 'https://localhost:44350/api/v1'
+paths: {}
+components:
+  schemas:
+    Error:
+      title: Error
+      type: object
+      x-examples:
+        NotFound:
+          message: 指定したリソースは存在しません。
+          code: NotFound
+        ValidationError:
+          code: ValidationError
+          message: 入力エラーが発生しました。エラーメッセージを確認してください。
+          details:
+            - message: '''ステータス''の値が正しくありません。'
+              target: status
+              code: ValidationErrorDetail
+      description: エラー
+      properties:
+        code:
+          type: string
+          description: エラーコード
+        message:
+          type: string
+          description: エラーメッセージ
+        details:
+          type: array
+          description: エラー詳細
+          items:
+            $ref: '#/components/schemas/Error'
+        target:
+          type: string
+          description: エラーターゲット
+        innerError:
+          $ref: '#/components/schemas/Error'
+      required:
+        - code
+        - message
+    Person:
+      title: Person
+      type: object
+      description: 従業員
+      x-examples:
+        John Doe:
+          personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+          personCode: '000001'
+          name: John Doe
+          title: Human Resources Manager
+          description: 'Hire date: 2010.04.01'
+          status: NORMAL
+          sortNo: 0
+          tags:
+            - Human Resources
+            - Manager
+            - '2010'
+      properties:
+        personId:
+          type: string
+          description: 従業員ID
+          format: uuid
+        personCode:
+          type: string
+          description: 従業員コード
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 100
+          description: 名前
+        title:
+          type: string
+          description: 役職
+          maxLength: 100
+        description:
+          type: string
+          description: 説明
+          maxLength: 400
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - SUSPENDED
+          description: ステータス
+        sortNo:
+          type: integer
+          description: 並び順
+          minimum: 0
+          exclusiveMaximum: false
+          maximum: 2147483647
+        tags:
+          type: array
+          format: date
+          description: The date that the user was created.
+          minItems: 0
+          maxItems: 10
+          uniqueItems: true
+          items:
+            type: string
+            maxLength: 100
+      required:
+        - personId
+        - personCode
+        - title
+        - description
+        - status
+        - sortNo
+        - tags
+        - name
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+security:
+  - Bearer: []
