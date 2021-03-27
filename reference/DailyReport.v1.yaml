@@ -69,6 +69,130 @@ paths:
         description: ''
       tags:
         - Token
+  /persons:
+    post:
+      summary: 従業員登録
+      operationId: post-persons
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 従業員を登録します。
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                personCode:
+                  type: string
+                  description: 従業員コード
+                  maxLength: 20
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                title:
+                  type: string
+                  maxLength: 100
+                  description: 役職
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+              required:
+                - personCode
+                - name
+                - title
+                - description
+                - status
+                - sortNo
+                - tags
+        description: ''
+    get:
+      summary: 従業員検索
+      operationId: get-persons
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/Person'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples: {}
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      tags:
+        - Persons
+      description: |-
+        従業員を検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "PersonCode", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
 components:
   schemas:
     Error:
@@ -123,6 +247,8 @@ components:
             - Human Resources
             - Manager
             - '2010'
+          createTime: '2021-03-27T14:18:51+09:00'
+          updateTime: '2021-03-27T14:18:51+09:00'
       properties:
         personId:
           type: string
@@ -159,22 +285,29 @@ components:
         tags:
           type: array
           format: date
-          description: The date that the user was created.
+          description: タグ
           minItems: 0
           maxItems: 10
           uniqueItems: true
           items:
             type: string
-            maxLength: 100
+        createTime:
+          type: string
+          description: 作成日時
+        updateTime:
+          type: string
+          description: 更新日時
       required:
         - personId
         - personCode
+        - name
         - title
         - description
         - status
         - sortNo
         - tags
-        - name
+        - createTime
+        - updateTime
     Token:
       title: Token
       type: object
@@ -254,9 +387,47 @@ components:
             properties:
               error:
                 $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 999
+        default: 1
+      description: ページ番号
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: ページサイズ
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 'sortNo,-createTime'
+        maxLength: 100
+      description: 並び順（カンマ区切りで複数指定可、各項目に-プレフィクス付与で降順）
+    query:
+      name: query
+      in: query
+      required: false
+      schema:
+        type: string
+        maxLength: 100
+      description: 検索キーワード
+  examples: {}
 security:
   - Bearer: []
 tags:
   - name: Debug
-  - name: Person
+  - name: Persons
   - name: Token
