@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using WaterTrans.DailyReport.Domain.Constants;
+﻿using System.Collections.Generic;
 
-namespace WaterTrans.DailyReport.Domain.Entities
+namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
 {
     /// <summary>
     /// 部門
@@ -12,7 +10,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// 部門ID
         /// </summary>
-        public Guid GroupId { get; set; }
+        public string GroupId { get; set; }
 
         /// <summary>
         /// 部門コード
@@ -37,7 +35,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// ステータス
         /// </summary>
-        public GroupStatus Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// 並び順
@@ -45,23 +43,18 @@ namespace WaterTrans.DailyReport.Domain.Entities
         public int SortNo { get; set; }
 
         /// <summary>
-        /// 所属従業員
-        /// </summary>
-        public List<Person> Persons { get; set; } = new List<Person>();
-
-        /// <summary>
         /// タグ
         /// </summary>
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<string> Tags { get; set; }
 
         /// <summary>
         /// 作成日時
         /// </summary>
-        public DateTimeOffset CreateTime { get; set; }
+        public string CreateTime { get; set; }
 
         /// <summary>
         /// 更新日時
         /// </summary>
-        public DateTimeOffset UpdateTime { get; set; }
+        public string UpdateTime { get; set; }
     }
 }

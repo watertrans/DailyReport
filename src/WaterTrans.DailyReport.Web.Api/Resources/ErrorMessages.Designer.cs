@@ -216,6 +216,78 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         /// <summary>
         ///   Looks up a localized string similar to 説明.
         /// </summary>
+        public static string DisplayGroupDescription {
+            get {
+                return ResourceManager.GetString("DisplayGroupDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部門コード.
+        /// </summary>
+        public static string DisplayGroupGroupCode {
+            get {
+                return ResourceManager.GetString("DisplayGroupGroupCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部門ID.
+        /// </summary>
+        public static string DisplayGroupGroupId {
+            get {
+                return ResourceManager.GetString("DisplayGroupGroupId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部門階層.
+        /// </summary>
+        public static string DisplayGroupGroupTree {
+            get {
+                return ResourceManager.GetString("DisplayGroupGroupTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部門名.
+        /// </summary>
+        public static string DisplayGroupName {
+            get {
+                return ResourceManager.GetString("DisplayGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 並び順.
+        /// </summary>
+        public static string DisplayGroupSortNo {
+            get {
+                return ResourceManager.GetString("DisplayGroupSortNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ステータス.
+        /// </summary>
+        public static string DisplayGroupStatus {
+            get {
+                return ResourceManager.GetString("DisplayGroupStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to タグ.
+        /// </summary>
+        public static string DisplayGroupTags {
+            get {
+                return ResourceManager.GetString("DisplayGroupTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 説明.
+        /// </summary>
         public static string DisplayPersonDescription {
             get {
                 return ResourceManager.GetString("DisplayPersonDescription", resourceCulture);
