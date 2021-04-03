@@ -15,17 +15,14 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [DebugOnlyFilter]
     public class DebugController : ControllerBase
     {
-        private readonly ILogger<DebugController> _logger;
         private readonly IDBSettings _dbSettings;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="logger"><see cref="ILogger"/></param>
         /// <param name="dbSettings"><see cref="IDBSettings"/></param>
-        public DebugController(ILogger<DebugController> logger, IDBSettings dbSettings)
+        public DebugController(IDBSettings dbSettings)
         {
-            _logger = logger;
             _dbSettings = dbSettings;
         }
 
