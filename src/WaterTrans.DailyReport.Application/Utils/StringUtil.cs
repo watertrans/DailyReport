@@ -14,6 +14,10 @@ namespace WaterTrans.DailyReport.Application.Utils
         /// <returns>変換した結果を返します。</returns>
         public static string ToCamelCase(this string value)
         {
+            if (value == null || value.Length == 0)
+            {
+                return value;
+            }
             return char.ToLowerInvariant(value[0]) + value.Substring(1);
         }
 

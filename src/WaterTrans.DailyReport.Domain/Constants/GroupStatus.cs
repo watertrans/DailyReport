@@ -1,7 +1,7 @@
 ﻿namespace WaterTrans.DailyReport.Domain.Constants
 {
     /// <summary>
-    /// 部門ステータス
+    /// 部署ステータス
     /// </summary>
     public enum GroupStatus
     {

@@ -4,7 +4,7 @@ using WaterTrans.DailyReport.Web.Api.DataAnnotations;
 namespace WaterTrans.DailyReport.Web.Api.RequestObjects
 {
     /// <summary>
-    /// 部門検索リクエスト
+    /// 部署検索リクエスト
     /// </summary>
     public class GroupQueryRequest
     {

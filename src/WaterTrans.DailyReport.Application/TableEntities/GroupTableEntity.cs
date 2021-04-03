@@ -5,29 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WaterTrans.DailyReport.Application.TableEntities
 {
     /// <summary>
-    /// 部門テーブルエンティティ
+    /// 部署テーブルエンティティ
     /// </summary>
     [Table("Group")]
     public class GroupTableEntity : SqlTableEntity
     {
         /// <summary>
-        /// 部門ID
+        /// 部署ID
         /// </summary>
         [Key]
         public Guid GroupId { get; set; }
 
         /// <summary>
-        /// 部門コード
+        /// 部署コード
         /// </summary>
         public string GroupCode { get; set; }
 
         /// <summary>
-        /// 部門階層
+        /// 部署階層
         /// </summary>
         public string GroupTree { get; set; }
 
         /// <summary>
-        /// 部門名
+        /// 部署名
         /// </summary>
         public string Name { get; set; }
 

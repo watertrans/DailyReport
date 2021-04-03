@@ -15,7 +15,7 @@ using WaterTrans.DailyReport.Web.Api.ResponseObjects;
 namespace WaterTrans.DailyReport.UnitTests.Web.Api
 {
     /// <summary>
-    /// 部門エンドポイントテスト
+    /// 部署エンドポイントテスト
     /// </summary>
     [TestClass]
     public class GroupTest
@@ -47,7 +47,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var parameters = new Dictionary<string, string>()
             {
                 { "sort", "GroupCode" },
-                { "query", "部門" },
+                { "query", "部署" },
             };
 
             var requestUri = QueryHelpers.AddQueryString("/api/v1/groups", parameters);
@@ -67,7 +67,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var parameters = new Dictionary<string, string>()
             {
                 { "sort", "-GroupCode" },
-                { "query", "部門" },
+                { "query", "部署" },
             };
 
             var requestUri = QueryHelpers.AddQueryString("/api/v1/groups", parameters);
@@ -87,7 +87,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var parameters = new Dictionary<string, string>()
             {
                 { "sort", "SortNo,GroupTree,GroupCode,Name,CreateTime" },
-                { "query", "部門" },
+                { "query", "部署" },
             };
 
             var requestUri = QueryHelpers.AddQueryString("/api/v1/groups", parameters);

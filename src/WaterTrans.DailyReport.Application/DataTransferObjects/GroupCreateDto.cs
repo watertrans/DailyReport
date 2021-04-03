@@ -3,22 +3,22 @@
 namespace WaterTrans.DailyReport.Application.DataTransferObjects
 {
     /// <summary>
-    /// 部門作成DTO
+    /// 部署作成DTO
     /// </summary>
     public class GroupCreateDto
     {
         /// <summary>
-        /// 部門コード
+        /// 部署コード
         /// </summary>
         public string GroupCode { get; set; }
 
         /// <summary>
-        /// 部門階層
+        /// 部署階層
         /// </summary>
         public string GroupTree { get; set; }
 
         /// <summary>
-        /// 部門名
+        /// 部署名
         /// </summary>
         public string Name { get; set; }
 

@@ -11,7 +11,7 @@ using WaterTrans.DailyReport.Domain.Entities;
 namespace WaterTrans.DailyReport.Persistence.QueryServices
 {
     /// <summary>
-    /// 部門クエリーサービス
+    /// 部署クエリーサービス
     /// </summary>
     public class GroupQueryService : SqlQueryService, IGroupQueryService
     {

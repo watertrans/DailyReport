@@ -223,7 +223,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 部門コード.
+        ///   Looks up a localized string similar to 部署コード.
         /// </summary>
         public static string DisplayGroupGroupCode {
             get {
@@ -232,7 +232,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 部門ID.
+        ///   Looks up a localized string similar to 部署ID.
         /// </summary>
         public static string DisplayGroupGroupId {
             get {
@@ -241,7 +241,7 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 部門階層.
+        ///   Looks up a localized string similar to 部署階層.
         /// </summary>
         public static string DisplayGroupGroupTree {
             get {
@@ -250,11 +250,20 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 部門名.
+        ///   Looks up a localized string similar to 部署名.
         /// </summary>
         public static string DisplayGroupName {
             get {
                 return ResourceManager.GetString("DisplayGroupName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to マネージャーフラグ.
+        /// </summary>
+        public static string DisplayGroupPersonIsManager {
+            get {
+                return ResourceManager.GetString("DisplayGroupPersonIsManager", resourceCulture);
             }
         }
         

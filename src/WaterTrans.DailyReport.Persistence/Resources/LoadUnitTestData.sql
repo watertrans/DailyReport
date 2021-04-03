@@ -23,10 +23,10 @@ INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, 
 INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-2002-0000-0000-000000000000', N'00002', N'プロジェクト2', N'プロジェクト2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
 INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-2003-0000-0000-000000000000', N'00003', N'プロジェクト3', N'プロジェクト3説明', N'NORMAL' ,   2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
 
--- 部門
-INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3001-0000-0000-000000000000', N'00001', N'00', N'部門1', N'部門1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
-INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3002-0000-0000-000000000000', N'00002', N'01', N'部門2', N'部門2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
-INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3003-0000-0000-000000000000', N'00003', N'02', N'部門3', N'部門3説明', N'NORMAL',    2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
+-- 部署
+INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3001-0000-0000-000000000000', N'00001', N'00', N'部署1', N'部署1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
+INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3002-0000-0000-000000000000', N'00002', N'01', N'部署2', N'部署2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
+INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3003-0000-0000-000000000000', N'00003', N'02', N'部署3', N'部署3説明', N'NORMAL',    2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
 
 -- 作業分類
 INSERT INTO WorkType (WorkTypeId, WorkTypeCode, WorkTypeTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-4001-0000-0000-000000000000', N'00001', N'00', N'作業分類1', N'作業分類1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
@@ -40,9 +40,9 @@ INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'0000
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5004-0000-0000-000000000000', N'00000000-2001-0000-0000-000000000000', N'Project', N'プロジェクト1タグ1', N'2020-04-01T00:00:00+09:00');
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5005-0000-0000-000000000000', N'00000000-2001-0000-0000-000000000000', N'Project', N'プロジェクト1タグ2', N'2020-04-01T00:00:00+09:00');
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5006-0000-0000-000000000000', N'00000000-2001-0000-0000-000000000000', N'Project', N'プロジェクト1タグ3', N'2020-04-01T00:00:00+09:00');
-INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5007-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部門1タグ1', N'2020-04-01T00:00:00+09:00');
-INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5008-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部門1タグ2', N'2020-04-01T00:00:00+09:00');
-INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5009-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部門1タグ3', N'2020-04-01T00:00:00+09:00');
+INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5007-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部署1タグ1', N'2020-04-01T00:00:00+09:00');
+INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5008-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部署1タグ2', N'2020-04-01T00:00:00+09:00');
+INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-5009-0000-0000-000000000000', N'00000000-3001-0000-0000-000000000000', N'Group', N'部署1タグ3', N'2020-04-01T00:00:00+09:00');
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-500A-0000-0000-000000000000', N'00000000-4001-0000-0000-000000000000', N'WorkType', N'作業分類1タグ1', N'2020-04-01T00:00:00+09:00');
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-500B-0000-0000-000000000000', N'00000000-4001-0000-0000-000000000000', N'WorkType', N'作業分類1タグ2', N'2020-04-01T00:00:00+09:00');
 INSERT INTO Tag (TagId, TargetId, TargetTable, Value, CreateTime) VALUES (N'00000000-500C-0000-0000-000000000000', N'00000000-4001-0000-0000-000000000000', N'WorkType', N'作業分類1タグ3', N'2020-04-01T00:00:00+09:00');

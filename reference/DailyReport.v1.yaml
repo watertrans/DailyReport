@@ -416,7 +416,7 @@ paths:
         - Persons
   /groups:
     post:
-      summary: 部門登録
+      summary: 部署登録
       operationId: post-groups
       responses:
         '200':
@@ -447,7 +447,7 @@ paths:
           $ref: '#/components/responses/403Forbidden'
         '500':
           $ref: '#/components/responses/500InternalServerError'
-      description: 部門を登録します。
+      description: 部署を登録します。
       parameters: []
       requestBody:
         content:
@@ -457,11 +457,11 @@ paths:
               properties:
                 groupCode:
                   type: string
-                  description: 部門コード
+                  description: 部署コード
                   maxLength: 20
                 groupTree:
                   type: string
-                  description: 部門階層
+                  description: 部署階層
                   maxLength: 8
                 name:
                   type: string
@@ -514,7 +514,7 @@ paths:
       tags:
         - Groups
     get:
-      summary: 部門検索
+      summary: 部署検索
       operationId: get-groups
       responses:
         '200':
@@ -574,7 +574,7 @@ paths:
       tags:
         - Groups
       description: |-
-        部門を検索します。
+        部署を検索します。
         並び順には次の値を指定できます。
         "SortNo", "GroupCode", "GroupTree", "Name", "CreateTime"
       parameters:
@@ -590,9 +590,9 @@ paths:
         name: groupId
         in: path
         required: true
-        description: 部門ID
+        description: 部署ID
     get:
-      summary: 部門取得
+      summary: 部署取得
       tags:
         - Groups
       responses:
@@ -627,9 +627,9 @@ paths:
         '500':
           $ref: '#/components/responses/500InternalServerError'
       operationId: get-groups-groupId
-      description: 部門を取得します。
+      description: 部署を取得します。
     patch:
-      summary: 部門更新
+      summary: 部署更新
       operationId: patch-groups-groupId
       responses:
         '200':
@@ -662,7 +662,7 @@ paths:
           $ref: '#/components/responses/404NotFound'
         '500':
           $ref: '#/components/responses/500InternalServerError'
-      description: 部門を更新します。
+      description: 部署を更新します。
       requestBody:
         content:
           application/json:
@@ -671,11 +671,11 @@ paths:
               properties:
                 groupCode:
                   type: string
-                  description: 部門コード
+                  description: 部署コード
                   maxLength: 20
                 groupTree:
                   type: string
-                  description: 部門階層
+                  description: 部署階層
                   maxLength: 8
                 name:
                   type: string
@@ -720,7 +720,7 @@ paths:
       tags:
         - Groups
     delete:
-      summary: 部門削除
+      summary: 部署削除
       operationId: delete-groups-groupId
       responses:
         '200':
@@ -735,9 +735,153 @@ paths:
           $ref: '#/components/responses/404NotFound'
         '500':
           $ref: '#/components/responses/500InternalServerError'
-      description: 部門を削除します。
+      description: 部署を削除します。
       tags:
         - Groups
+  '/groups/{groupId}/persons/{personId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: groupId
+        in: path
+        required: true
+        description: 部署ID
+      - schema:
+          type: string
+          format: uuid
+        name: personId
+        in: path
+        required: true
+        description: 従業員ID
+    put:
+      summary: 部署従業員配属
+      operationId: put-groups-groupId-persons-personId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 部署に従業員を配属します。
+      tags:
+        - Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isManager:
+                  type: boolean
+                  description: マネージャーフラグ
+    delete:
+      summary: 部署従業員解除
+      operationId: delete-groups-groupId-persons-personId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 部署の従業員を解除します。
+      tags:
+        - Groups
+  '/groups/{groupId}/persons':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: groupId
+        in: path
+        required: true
+        description: 部署ID
+    get:
+      summary: 部署従業員検索
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/GroupPerson'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                        personCode: '000001'
+                        name: John Doe
+                        title: Human Resources Manager
+                        description: 'Hire date: 2010.04.01'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Human Resources
+                          - Manager
+                          - '2010'
+                        isManager: true
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-groups-groudId-persons
+      description: |-
+        部署の従業員を検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "PersonCode", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
 components:
   schemas:
     Error:
@@ -778,7 +922,7 @@ components:
     Group:
       title: Group
       type: object
-      description: 部門
+      description: 部署
       x-examples:
         Human Resources:
           groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
@@ -795,15 +939,15 @@ components:
       properties:
         groupId:
           type: string
-          description: 部門ID
+          description: 部署ID
           format: uuid
         groupCode:
           type: string
-          description: 部門コード
+          description: 部署コード
           maxLength: 20
         groupTree:
           type: string
-          description: 部門階層
+          description: 部署階層
           maxLength: 8
         name:
           type: string
@@ -912,6 +1056,88 @@ components:
           uniqueItems: true
           items:
             type: string
+        createTime:
+          type: string
+          description: 作成日時
+        updateTime:
+          type: string
+          description: 更新日時
+      required:
+        - personId
+        - personCode
+        - name
+        - title
+        - description
+        - status
+        - sortNo
+        - tags
+        - createTime
+        - updateTime
+    GroupPerson:
+      title: GroupPerson
+      type: object
+      description: 部署所属従業員
+      x-examples:
+        John Doe:
+          personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+          personCode: '000001'
+          name: John Doe
+          title: Human Resources Manager
+          description: 'Hire date: 2010.04.01'
+          status: NORMAL
+          sortNo: 0
+          tags:
+            - Human Resources
+            - Manager
+            - '2010'
+          isManager: true
+          createTime: '2021-03-27T14:18:51+09:00'
+          updateTime: '2021-03-27T14:18:51+09:00'
+      properties:
+        personId:
+          type: string
+          description: 従業員ID
+          format: uuid
+        personCode:
+          type: string
+          description: 従業員コード
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 100
+          description: 名前
+        title:
+          type: string
+          description: 役職
+          maxLength: 100
+        description:
+          type: string
+          description: 説明
+          maxLength: 400
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - SUSPENDED
+          description: ステータス
+        sortNo:
+          type: integer
+          description: 並び順
+          minimum: 0
+          exclusiveMaximum: false
+          maximum: 2147483647
+        tags:
+          type: array
+          format: date
+          description: タグ
+          minItems: 0
+          maxItems: 10
+          uniqueItems: true
+          items:
+            type: string
+        isManager:
+          type: boolean
+          description: マネージャーフラグ
         createTime:
           type: string
           description: 作成日時

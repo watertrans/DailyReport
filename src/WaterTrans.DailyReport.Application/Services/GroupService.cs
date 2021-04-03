@@ -11,7 +11,7 @@ using WaterTrans.DailyReport.Domain.Entities;
 namespace WaterTrans.DailyReport.Application.Services
 {
     /// <summary>
-    /// 部門サービス
+    /// 部署サービス
     /// </summary>
     public class GroupService : IGroupService
     {

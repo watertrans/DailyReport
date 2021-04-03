@@ -3,7 +3,7 @@
 namespace WaterTrans.DailyReport.Application.Abstractions
 {
     /// <summary>
-    /// 部門リポジトリインターフェース
+    /// 部署リポジトリインターフェース
     /// </summary>
     public interface IGroupRepository : ISqlRepository<GroupTableEntity>
     {

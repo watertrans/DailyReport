@@ -172,16 +172,19 @@
     <value>説明</value>
   </data>
   <data name="DisplayGroupGroupCode" xml:space="preserve">
-    <value>部門コード</value>
+    <value>部署コード</value>
   </data>
   <data name="DisplayGroupGroupId" xml:space="preserve">
-    <value>部門ID</value>
+    <value>部署ID</value>
   </data>
   <data name="DisplayGroupGroupTree" xml:space="preserve">
-    <value>部門階層</value>
+    <value>部署階層</value>
   </data>
   <data name="DisplayGroupName" xml:space="preserve">
-    <value>部門名</value>
+    <value>部署名</value>
+  </data>
+  <data name="DisplayGroupPersonIsManager" xml:space="preserve">
+    <value>マネージャーフラグ</value>
   </data>
   <data name="DisplayGroupSortNo" xml:space="preserve">
     <value>並び順</value>

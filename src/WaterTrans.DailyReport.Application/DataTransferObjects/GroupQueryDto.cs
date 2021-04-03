@@ -1,7 +1,7 @@
 ﻿namespace WaterTrans.DailyReport.Application.DataTransferObjects
 {
     /// <summary>
-    /// 部門検索DTO
+    /// 部署検索DTO
     /// </summary>
     public class GroupQueryDto : PagingQuery
     {

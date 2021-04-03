@@ -17,7 +17,7 @@ using WaterTrans.DailyReport.Web.Api.Security;
 namespace WaterTrans.DailyReport.Web.Api.Controllers
 {
     /// <summary>
-    /// 部門コントローラー
+    /// 部署コントローラー
     /// </summary>
     [ApiController]
     [ApiVersion("1")]
@@ -28,6 +28,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IGroupService _groupService;
         private readonly IGroupQueryService _groupQueryService;
+        private readonly IPersonService _personService;
 
         /// <summary>
         /// コンストラクタ
@@ -35,20 +36,23 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         /// <param name="mapper"><see cref="IMapper"/></param>
         /// <param name="groupService"><see cref="IGroupService"/></param>
         /// <param name="groupQueryService"><see cref="IGroupQueryService"/></param>
+        /// <param name="personService"><see cref="IPersonService"/></param>
         public GroupsController(
             IMapper mapper,
             IGroupService groupService,
-            IGroupQueryService groupQueryService)
+            IGroupQueryService groupQueryService,
+            IPersonService personService)
         {
             _mapper = mapper;
             _groupService = groupService;
             _groupQueryService = groupQueryService;
+            _personService = personService;
         }
 
         /// <summary>
-        /// 部門を取得する
+        /// 部署を取得する
         /// </summary>
-        /// <param name="groupId">部門ID</param>
+        /// <param name="groupId">部署ID</param>
         /// <returns><see cref="ActionResult"/></returns>
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
@@ -71,7 +75,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         }
 
         /// <summary>
-        /// 部門を検索する
+        /// 部署を検索する
         /// </summary>
         /// <param name="request"><see cref="GroupQueryRequest"/></param>
         /// <returns><see cref="ActionResult"/></returns>
@@ -93,9 +97,9 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         }
 
         /// <summary>
-        /// 部門を削除する
+        /// 部署を削除する
         /// </summary>
-        /// <param name="groupId">部門ID</param>
+        /// <param name="groupId">部署ID</param>
         /// <returns><see cref="ActionResult"/></returns>
         [HttpDelete]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
@@ -119,9 +123,9 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         }
 
         /// <summary>
-        /// 部門を更新する
+        /// 部署を更新する
         /// </summary>
-        /// <param name="groupId">部門ID</param>
+        /// <param name="groupId">部署ID</param>
         /// <param name="request"><see cref="GroupUpdateRequest"/></param>
         /// <returns><see cref="ActionResult"/></returns>
         [HttpPatch]
@@ -166,7 +170,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         }
 
         /// <summary>
-        /// 部門を登録する
+        /// 部署を登録する
         /// </summary>
         /// <param name="request"><see cref="GroupCreateRequest"/></param>
         /// <returns><see cref="ActionResult"/></returns>
@@ -192,6 +196,45 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
             var dto = _mapper.Map<GroupCreateRequest, GroupCreateDto>(request);
             var entity = _groupService.CreateGroup(dto);
             return _mapper.Map<Domain.Entities.Group, Group>(entity);
+        }
+
+        /// <summary>
+        /// 部署に従業員を配属する
+        /// </summary>
+        /// <param name="groupId">部署ID</param>
+        /// <param name="personId">従業員ID</param>
+        /// <param name="request"><see cref="GroupPersonAddRequest"/></param>
+        /// <returns><see cref="ActionResult"/></returns>
+        [HttpPut]
+        [Route("api/v{version:apiVersion}/groups/{groupId}/persons/{personId}")]
+        [Authorize(Policies.WriteScopePolicy)]
+        public ActionResult<PagedObject<Group>> Put(
+            [FromRoute]
+            [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
+            string groupId,
+            [FromRoute]
+            [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
+            string personId,
+            [FromBody]
+            GroupPersonAddRequest request)
+        {
+            var groupGuid = Guid.Parse(groupId);
+            var group = _groupService.GetGroup(groupGuid);
+            if (group == null)
+            {
+                return ErrorObjectResultFactory.NotFound();
+            }
+
+            var personGuid = Guid.Parse(personId);
+            var person = _personService.GetPerson(personGuid);
+            if (person == null)
+            {
+                return ErrorObjectResultFactory.NotFound();
+            }
+
+            return new OkResult();
         }
     }
 }

@@ -6,26 +6,26 @@ using WaterTrans.DailyReport.Web.Api.DataAnnotations;
 namespace WaterTrans.DailyReport.Web.Api.RequestObjects
 {
     /// <summary>
-    /// 部門更新リクエスト
+    /// 部署更新リクエスト
     /// </summary>
     public class GroupUpdateRequest
     {
         /// <summary>
-        /// 部門コード
+        /// 部署コード
         /// </summary>
         [Display(Name = "DisplayGroupGroupCode")]
         [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string GroupCode { get; set; }
 
         /// <summary>
-        /// 部門階層
+        /// 部署階層
         /// </summary>
         [Display(Name = "DisplayGroupGroupTree")]
         [StringLength(8, ErrorMessage = "DataAnnotationStringLength")]
         public string GroupTree { get; set; }
 
         /// <summary>
-        /// 部門名
+        /// 部署名
         /// </summary>
         [Display(Name = "DisplayGroupName")]
         [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]

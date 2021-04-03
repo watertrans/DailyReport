@@ -3,27 +3,27 @@
 namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
 {
     /// <summary>
-    /// 部門
+    /// 部署
     /// </summary>
     public class Group
     {
         /// <summary>
-        /// 部門ID
+        /// 部署ID
         /// </summary>
         public string GroupId { get; set; }
 
         /// <summary>
-        /// 部門コード
+        /// 部署コード
         /// </summary>
         public string GroupCode { get; set; }
 
         /// <summary>
-        /// 部門階層
+        /// 部署階層
         /// </summary>
         public string GroupTree { get; set; }
 
         /// <summary>
-        /// 部門名
+        /// 部署名
         /// </summary>
         public string Name { get; set; }
 

@@ -6,12 +6,12 @@ using WaterTrans.DailyReport.Web.Api.DataAnnotations;
 namespace WaterTrans.DailyReport.Web.Api.RequestObjects
 {
     /// <summary>
-    /// 部門登録リクエスト
+    /// 部署登録リクエスト
     /// </summary>
     public class GroupCreateRequest
     {
         /// <summary>
-        /// 部門コード
+        /// 部署コード
         /// </summary>
         [Display(Name = "DisplayGroupGroupCode")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -19,7 +19,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         public string GroupCode { get; set; }
 
         /// <summary>
-        /// 部門階層
+        /// 部署階層
         /// </summary>
         [Display(Name = "DisplayGroupGroupTree")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -27,7 +27,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         public string GroupTree { get; set; }
 
         /// <summary>
-        /// 部門名
+        /// 部署名
         /// </summary>
         [Display(Name = "DisplayGroupName")]
         [Required(ErrorMessage = "DataAnnotationRequired")]

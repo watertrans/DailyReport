@@ -33,7 +33,7 @@ namespace WaterTrans.DailyReport.Web.Api
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
                 .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
 
-            // 部門関連
+            // 部署関連
             CreateMap<GroupCreateRequest, GroupCreateDto>();
             CreateMap<Domain.Entities.Group, Group>()
                 .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.GroupId.ToString()))

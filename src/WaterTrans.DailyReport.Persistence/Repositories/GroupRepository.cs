@@ -4,7 +4,7 @@ using WaterTrans.DailyReport.Application.TableEntities;
 namespace WaterTrans.DailyReport.Persistence.Repositories
 {
     /// <summary>
-    /// 部門リポジトリ
+    /// 部署リポジトリ
     /// </summary>
     public class GroupRepository : SqlRepository<GroupTableEntity>, IGroupRepository
     {
