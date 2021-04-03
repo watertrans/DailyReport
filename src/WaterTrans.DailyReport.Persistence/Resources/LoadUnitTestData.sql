@@ -23,7 +23,7 @@ INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, 
 INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-2002-0000-0000-000000000000', N'00002', N'プロジェクト2', N'プロジェクト2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
 INSERT INTO Project (ProjectId, ProjectCode, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-2003-0000-0000-000000000000', N'00003', N'プロジェクト3', N'プロジェクト3説明', N'NORMAL' ,   2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
 
--- プロジェクト
+-- 部門
 INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3001-0000-0000-000000000000', N'00001', N'00', N'部門1', N'部門1説明', N'NORMAL',    0, N'2020-04-01T00:00:00+09:00', N'2020-04-01T00:00:00+09:00');
 INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3002-0000-0000-000000000000', N'00002', N'01', N'部門2', N'部門2説明', N'SUSPENDED', 1, N'2020-04-02T00:00:00+09:00', N'2020-04-02T00:00:00+09:00');
 INSERT INTO [Group] (GroupId, GroupCode, GroupTree, Name, Description, Status, SortNo, CreateTime, UpdateTime) VALUES (N'00000000-3003-0000-0000-000000000000', N'00003', N'02', N'部門3', N'部門3説明', N'NORMAL',    2, N'2020-04-03T00:00:00+09:00', N'2020-04-03T00:00:00+09:00');
