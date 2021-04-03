@@ -414,6 +414,330 @@ paths:
       description: 従業員を削除します。
       tags:
         - Persons
+  /groups:
+    post:
+      summary: 部門登録
+      operationId: post-groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Example:
+                  value:
+                    groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
+                    groupCode: '000001'
+                    groupTree: '00'
+                    name: Human Resources
+                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 部門を登録します。
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupCode:
+                  type: string
+                  description: 部門コード
+                  maxLength: 20
+                groupTree:
+                  type: string
+                  description: 部門階層
+                  maxLength: 8
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+              required:
+                - groupCode
+                - groupTree
+                - name
+                - description
+                - status
+                - sortNo
+                - tags
+            examples:
+              Example:
+                value:
+                  groupCode: '000001'
+                  groupTree: '00'
+                  name: Human Resources
+                  description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Human Resources
+        description: ''
+      tags:
+        - Groups
+    get:
+      summary: 部門検索
+      operationId: get-groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/Group'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
+                        groupCode: '000001'
+                        groupTree: '00'
+                        name: Human Resources
+                        description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Human Resources
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      tags:
+        - Groups
+      description: |-
+        部門を検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "GroupCode", "GroupTree", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
+  '/groups/{groupId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: groupId
+        in: path
+        required: true
+        description: 部門ID
+    get:
+      summary: 部門取得
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Example:
+                  value:
+                    groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
+                    groupCode: '000001'
+                    groupTree: '00'
+                    name: Human Resources
+                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-groups-groupId
+      description: 部門を取得します。
+    patch:
+      summary: 部門更新
+      operationId: patch-groups-groupId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                Example:
+                  value:
+                    groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
+                    groupCode: '000001'
+                    groupTree: '00'
+                    name: Human Resources
+                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Human Resources
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 部門を更新します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                groupCode:
+                  type: string
+                  description: 部門コード
+                  maxLength: 20
+                groupTree:
+                  type: string
+                  description: 部門階層
+                  maxLength: 8
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+            examples:
+              Example:
+                value:
+                  groupCode: '000001'
+                  groupTree: '00'
+                  name: Human Resources
+                  description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Human Resources
+        description: ''
+      tags:
+        - Groups
+    delete:
+      summary: 部門削除
+      operationId: delete-groups-groupId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 部門を削除します。
+      tags:
+        - Groups
 components:
   schemas:
     Error:
@@ -451,6 +775,82 @@ components:
       required:
         - code
         - message
+    Group:
+      title: Group
+      type: object
+      description: 部門
+      x-examples:
+        Human Resources:
+          groupId: f3e5ff26-28fc-4cd6-9b1b-e303a185a13a
+          groupCode: '000001'
+          groupTree: '00'
+          name: Human Resources
+          description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+          status: NORMAL
+          sortNo: 0
+          tags:
+            - Human Resources
+          createTime: '2021-03-27T14:18:51+09:00'
+          updateTime: '2021-03-27T14:18:51+09:00'
+      properties:
+        groupId:
+          type: string
+          description: 部門ID
+          format: uuid
+        groupCode:
+          type: string
+          description: 部門コード
+          maxLength: 20
+        groupTree:
+          type: string
+          description: 部門階層
+          maxLength: 8
+        name:
+          type: string
+          maxLength: 100
+          description: 名前
+        description:
+          type: string
+          description: 説明
+          maxLength: 400
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - SUSPENDED
+          description: ステータス
+        sortNo:
+          type: integer
+          description: 並び順
+          minimum: 0
+          exclusiveMaximum: false
+          maximum: 2147483647
+        tags:
+          type: array
+          format: date
+          description: タグ
+          minItems: 0
+          maxItems: 10
+          uniqueItems: true
+          items:
+            type: string
+        createTime:
+          type: string
+          description: 作成日時
+        updateTime:
+          type: string
+          description: 更新日時
+      required:
+        - groupId
+        - groupCode
+        - groupTree
+        - name
+        - description
+        - status
+        - sortNo
+        - tags
+        - createTime
+        - updateTime
     Person:
       title: Person
       type: object
@@ -660,5 +1060,6 @@ security:
   - Bearer: []
 tags:
   - name: Debug
+  - name: Groups
   - name: Persons
   - name: Token
