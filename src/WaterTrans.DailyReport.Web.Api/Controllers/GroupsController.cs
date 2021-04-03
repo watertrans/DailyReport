@@ -57,7 +57,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.ReadScopePolicy)]
-        public ActionResult<Group> Get(
+        public ActionResult<Group> GetGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -82,7 +82,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups")]
         [Authorize(Policies.ReadScopePolicy)]
-        public ActionResult<PagedObject<Group>> Get([FromQuery] GroupQueryRequest request)
+        public ActionResult<PagedObject<Group>> QueryGroup([FromQuery] GroupQueryRequest request)
         {
             var dto = _mapper.Map<GroupQueryRequest, GroupQueryDto>(request);
             var entities = _groupService.QueryGroup(dto);
@@ -104,7 +104,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult Delete(
+        public ActionResult DeleteGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -131,7 +131,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPatch]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult<Group> Patch(
+        public ActionResult<Group> UpdateGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -177,7 +177,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPost]
         [Route("api/v{version:apiVersion}/groups")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult<Group> Post([FromBody] GroupCreateRequest request)
+        public ActionResult<Group> CreateGroup([FromBody] GroupCreateRequest request)
         {
             if (_groupQueryService.ExistsGroupCode(request.GroupCode))
             {
@@ -208,7 +208,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPut]
         [Route("api/v{version:apiVersion}/groups/{groupId}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult<PagedObject<Group>> Put(
+        public ActionResult<PagedObject<Group>> AddGroupPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]

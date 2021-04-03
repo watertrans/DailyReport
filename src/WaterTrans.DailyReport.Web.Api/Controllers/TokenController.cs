@@ -44,7 +44,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [Route("api/v{version:apiVersion}/token")]
         [Consumes("application/x-www-form-urlencoded")]
         [SwaggerOperationFilter(typeof(AnonymousOperationFilter))]
-        public ActionResult<Token> Post([FromForm] TokenCreateRequest request)
+        public ActionResult<Token> CreateToken([FromForm] TokenCreateRequest request)
         {
             if (request.GrantType == GrantTypes.ClientCredentials)
             {

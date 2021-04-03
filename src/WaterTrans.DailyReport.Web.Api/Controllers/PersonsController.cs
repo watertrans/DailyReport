@@ -53,7 +53,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.ReadScopePolicy)]
-        public ActionResult<Person> Get(
+        public ActionResult<Person> GetPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -78,7 +78,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/persons")]
         [Authorize(Policies.ReadScopePolicy)]
-        public ActionResult<PagedObject<Person>> Get([FromQuery] PersonQueryRequest request)
+        public ActionResult<PagedObject<Person>> QueryPerson([FromQuery] PersonQueryRequest request)
         {
             var dto = _mapper.Map<PersonQueryRequest, PersonQueryDto>(request);
             var entities = _personService.QueryPerson(dto);
@@ -100,7 +100,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult Delete(
+        public ActionResult DeletePerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -127,7 +127,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPatch]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult<Person> Patch(
+        public ActionResult<Person> UpdatePerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
             [Guid(ErrorMessage = "DataAnnotationGuid")]
@@ -164,7 +164,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPost]
         [Route("api/v{version:apiVersion}/persons")]
         [Authorize(Policies.WriteScopePolicy)]
-        public ActionResult<Person> Post([FromBody] PersonCreateRequest request)
+        public ActionResult<Person> CreatePerson([FromBody] PersonCreateRequest request)
         {
             if (_personQueryService.ExistsPersonCode(request.PersonCode))
             {
