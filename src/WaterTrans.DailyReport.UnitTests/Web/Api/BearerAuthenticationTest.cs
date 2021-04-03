@@ -27,7 +27,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_Authorizationを省略するとNoAuthorizationHeader()
+        public void Get_NoAuthorizationHeader_Authorizationを省略するとNoAuthorizationHeader()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -39,7 +39,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_AuthorizationがBearerでないとInvalidAuthorizationScheme()
+        public void Get_InvalidAuthorizationScheme_AuthorizationがBearerでないとInvalidAuthorizationScheme()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Basic", "YWxhZGRpbjpvcGVuc2VzYW1l");
@@ -52,7 +52,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_AuthorizationがBearerでもパラメータが指定されていないとInvalidAuthorizationToken()
+        public void Get_InvalidAuthorizationToken_AuthorizationがBearerでもパラメータが指定されていないとInvalidAuthorizationToken()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer");
@@ -65,7 +65,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_存在しないアクセストークンを指定するとInvalidAuthorizationToken()
+        public void Get_InvalidAuthorizationToken_存在しないアクセストークンを指定するとInvalidAuthorizationToken()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
@@ -78,7 +78,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_停止されているアクセストークンを指定するとInvalidAuthorizationToken()
+        public void Get_InvalidAuthorizationToken_停止されているアクセストークンを指定するとInvalidAuthorizationToken()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "suspended");
@@ -91,7 +91,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_有効期限切れのアクセストークンを指定するとInvalidAuthorizationToken()
+        public void Get_AuthorizationTokenExpired_有効期限切れのアクセストークンを指定するとInvalidAuthorizationToken()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "expired");
@@ -104,7 +104,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_異常_例外が発生するアクセストークンを指定するとInternalServerError()
+        public void Get_InternalServerError_例外が発生するアクセストークンを指定するとInternalServerError()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "exception");
@@ -117,7 +117,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_正常_有効なアクセストークンを指定すると正常な応答が返る()
+        public void Get_OK_有効なアクセストークンを指定すると正常な応答が返る()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal");

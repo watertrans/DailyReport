@@ -8,7 +8,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
     public class JsonUtilTest
     {
         [TestMethod]
-        public void Serialize_正常_nullはnullに変換されること()
+        public void Serialize_True_nullはnullに変換されること()
         {
             string expected = null;
             dynamic value = null;
@@ -17,7 +17,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Serialize_正常_日本語が文字参照にならないこと()
+        public void Serialize_True_日本語が文字参照にならないこと()
         {
             string expected = "{\"value\":\"日本語\"}";
             dynamic value = new { Value = "日本語" };
@@ -26,7 +26,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Serialize_正常_プロパティ名がキャメルケースになること()
+        public void Serialize_True_プロパティ名がキャメルケースになること()
         {
             dynamic value = new { MyProperty = "Value" };
             string expected = "{\"myProperty\":\"Value\"}";
@@ -35,7 +35,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Serialize_正常_ディクショナリのキー名がキャメルケースになること()
+        public void Serialize_True_ディクショナリのキー名がキャメルケースになること()
         {
             var dic = new Dictionary<string, object>();
             dic["KeyName1"] = "Value";
@@ -54,7 +54,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Serialize_正常_Enumの値が文字列になること()
+        public void Serialize_True_Enumの値が文字列になること()
         {
             string expected = "{\"value1\":\"YES\",\"value2\":\"UNKNOWN\"}";
             dynamic value = new { Value1 = TestEnum.YES, Value2 = TestEnum.UNKNOWN };
@@ -63,7 +63,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Deserialize_正常_nullはnullに変換されること()
+        public void Deserialize_True_nullはnullに変換されること()
         {
             string value = null;
             DeserializeTestClass1 actual = JsonUtil.Deserialize<DeserializeTestClass1>(value);
@@ -71,7 +71,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Deserialize_正常_空文字はnullに変換されること()
+        public void Deserialize_True_空文字はnullに変換されること()
         {
             string value = string.Empty;
             DeserializeTestClass1 actual = JsonUtil.Deserialize<DeserializeTestClass1>(value);
@@ -79,7 +79,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Deserialize_正常_日本語が読み取りできることかつキャメルケースでマッピングできること()
+        public void Deserialize_True_日本語が読み取りできることかつキャメルケースでマッピングできること()
         {
             DeserializeTestClass1 expected = new DeserializeTestClass1 { Value = "日本語" };
             string value = "{\"value\":\"日本語\"}";
@@ -93,7 +93,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Deserialize_正常_ディクショナリのキー名を読み取り可能であること()
+        public void Deserialize_True_ディクショナリのキー名を読み取り可能であること()
         {
             string value = "{\"myDictionary\":{\"keyName1\":\"Value1\",\"keyName2\":\"Value2\"}}";
             DeserializeTestClass2 actual = JsonUtil.Deserialize<DeserializeTestClass2>(value);
@@ -107,7 +107,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
         }
 
         [TestMethod]
-        public void Deserialize_正常_Enumの文字列値が読み込めること()
+        public void Deserialize_True_Enumの文字列値が読み込めること()
         {
             string value = "{\"enumValue\":\"Yes\", \"enumValue2\":\"NO\"}";
             DeserializeTestClass3 actual = JsonUtil.Deserialize<DeserializeTestClass3>(value);

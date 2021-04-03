@@ -11,7 +11,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
     public class WorkTypeRepositoryTest
     {
         [TestMethod]
-        public void Create_正常_例外が発生しないこと()
+        public void Create_NotThrowsException_StateIsValid()
         {
             var now = DateUtil.Now;
             var workType = new WorkTypeTableEntity
@@ -31,7 +31,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
         }
 
         [TestMethod]
-        public void Read_正常_例外が発生しないこと()
+        public void Read_NotThrowsException_StateIsValid()
         {
             var workTypeKey = new WorkTypeTableEntity
             {
@@ -44,7 +44,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
         }
 
         [TestMethod]
-        public void Update_正常_例外が発生しないこと()
+        public void Update_NotThrowsException_StateIsValid()
         {
             var workTypeKey = new WorkTypeTableEntity
             {
@@ -57,7 +57,7 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
         }
 
         [TestMethod]
-        public void Delete_正常_例外が発生しないこと()
+        public void Delete_NotThrowsException_StateIsValid()
         {
             var now = DateUtil.Now;
             var workType = new WorkTypeTableEntity

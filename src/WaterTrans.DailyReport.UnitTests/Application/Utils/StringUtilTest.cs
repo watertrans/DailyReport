@@ -8,7 +8,7 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
     public class StringUtilTest
     {
         [TestMethod]
-        public void Base64UrlEncode_正常_変換結果が一致すること()
+        public void Base64UrlEncode_True_変換結果が一致すること()
         {
             byte[] original = Guid.NewGuid().ToByteArray();
             string encoded = StringUtil.Base64UrlEncode(original);

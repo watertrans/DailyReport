@@ -28,7 +28,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_GrantTypeを省略すると400BadRequest()
+        public void Post_BadRequest_GrantTypeを省略すると400BadRequest()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -42,7 +42,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_GrantTypeが未実装のものを指定すると例外が発生する()
+        public void Post_InternalServerError_GrantTypeが未実装のものを指定すると例外が発生する()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -57,7 +57,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_ClientIDを指定しない場合は401InvalidClient()
+        public void Post_InvalidClient_ClientCredentials_ClientIDを指定しない場合は401InvalidClient()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -77,7 +77,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_アプリケーションが削除済みの場合は401InvalidClient()
+        public void Post_InvalidClient_ClientCredentials_アプリケーションが削除済みの場合は401InvalidClient()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -99,7 +99,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_ClientIDが存在しない場合は401InvalidClient()
+        public void Post_InvalidClient_ClientCredentials_ClientIDが存在しない場合は401InvalidClient()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -120,7 +120,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_ClientSecretが一致しない場合は401InvalidClient()
+        public void Post_InvalidClient_ClientCredentials_ClientSecretが一致しない場合は401InvalidClient()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -142,7 +142,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_GrantTypeがClientCredentialsでない場合は400InvalidGrantType()
+        public void Post_InvalidGrantType_ClientCredentials_GrantTypeがClientCredentialsでない場合は400InvalidGrantType()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -164,7 +164,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_ClientCredentials_Scopeが存在しない場合は400InvalidScope()
+        public void Post_InvalidScope_ClientCredentials_Scopeが存在しない場合は400InvalidScope()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -187,7 +187,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_正常_アクセストークンが発行される()
+        public void Post_OK_アクセストークンが発行される()
         {
             var parameters = new Dictionary<string, string>()
             {
