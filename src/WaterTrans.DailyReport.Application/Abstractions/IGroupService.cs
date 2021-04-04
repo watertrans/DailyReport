@@ -19,6 +19,13 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         IList<Group> QueryGroup(GroupQueryDto dto);
 
         /// <summary>
+        /// 部署従業員検索
+        /// </summary>
+        /// <param name="dto"><see cref="GroupPersonQueryDto"/></param>
+        /// <returns><see cref="List&lt;GroupPerson&gt;"/></returns>
+        IList<GroupPerson> QueryPerson(GroupPersonQueryDto dto);
+
+        /// <summary>
         /// 部署登録
         /// </summary>
         /// <param name="dto"><see cref="GroupCreateDto"/></param>

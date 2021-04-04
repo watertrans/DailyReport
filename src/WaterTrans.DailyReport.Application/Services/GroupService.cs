@@ -45,6 +45,12 @@ namespace WaterTrans.DailyReport.Application.Services
         }
 
         /// <inheritdoc/>
+        public IList<GroupPerson> QueryPerson(GroupPersonQueryDto dto)
+        {
+            return _groupQueryService.QueryPerson(dto.GroupId, dto.Query, dto.Sort, dto);
+        }
+
+        /// <inheritdoc/>
         public Group CreateGroup(GroupCreateDto dto)
         {
             var now = DateUtil.Now;

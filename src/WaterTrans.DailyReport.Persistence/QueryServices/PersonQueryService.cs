@@ -95,41 +95,30 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             var sql = new StringBuilder();
 
-            sql.AppendLine(" SELECT PS2.* ");
+            sql.AppendLine(" SELECT PS1.* ");
             sql.AppendLine("      , (SELECT TG1.Value ");
             sql.AppendLine("           FROM Tag AS TG1 ");
-            sql.AppendLine("          WHERE TG1.TargetId = PS2.PersonId ");
+            sql.AppendLine("          WHERE TG1.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG1.Value ");
             sql.AppendLine("            FOR JSON PATH ");
             sql.AppendLine("        ) AS PersonTags ");
-            sql.AppendLine(" FROM   ( ");
-            sql.AppendLine("         SELECT * ");
-            sql.AppendLine("           FROM Person AS PS1 ");
-            sql.AppendLine("          WHERE 1 = 1 ");
+            sql.AppendLine("   FROM Person AS PS1 ");
+            sql.AppendLine("  WHERE 1 = 1 ");
             sql.AppendLine(sqlWhere.ToString());
             sql.AppendLine(string.Format(sqlSort.ToString(), "PS1"));
-            sql.AppendLine("         OFFSET (@Page - 1) * @PageSize ROWS ");
-            sql.AppendLine("          FETCH FIRST @PageSize ROWS ONLY ");
-            sql.AppendLine("        )   AS PS2 ");
-            sql.AppendLine(string.Format(sqlSort.ToString(), "PS2"));
+            sql.AppendLine(" OFFSET (@Page - 1) * @PageSize ROWS ");
+            sql.AppendLine("  FETCH FIRST @PageSize ROWS ONLY ");
 
-            var personDic = new Dictionary<Guid, Person>();
             return Connection.Query<Person, string, Person>(
                 sql.ToString(),
                 (person, personTags) =>
                 {
-                    if (!personDic.TryGetValue(person.PersonId, out Person personEntry))
-                    {
-                        personEntry = person;
-                        personEntry.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
-                        personDic.Add(personEntry.PersonId, personEntry);
-                    }
-
-                    return personEntry;
+                    person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                    return person;
                 },
                 param,
                 splitOn: "PersonTags",
-                commandTimeout: DBSettings.CommandTimeout).Distinct().ToList();
+                commandTimeout: DBSettings.CommandTimeout).ToList();
         }
 
         /// <inheritdoc/>
@@ -152,23 +141,16 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
                 PersonId = personId,
             };
 
-            var personDic = new Dictionary<Guid, Person>();
             return Connection.Query<Person, string, Person>(
                 sql.ToString(),
                 (person, personTags) =>
                 {
-                    if (!personDic.TryGetValue(person.PersonId, out Person personEntry))
-                    {
-                        personEntry = person;
-                        personEntry.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
-                        personDic.Add(personEntry.PersonId, personEntry);
-                    }
-
-                    return personEntry;
+                    person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                    return person;
                 },
                 param,
                 splitOn: "PersonTags",
-                commandTimeout: DBSettings.CommandTimeout).Distinct().SingleOrDefault();
+                commandTimeout: DBSettings.CommandTimeout).SingleOrDefault();
         }
 
         /// <inheritdoc/>

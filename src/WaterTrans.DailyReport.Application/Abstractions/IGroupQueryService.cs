@@ -19,6 +19,16 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         IList<Group> Query(string query, SortOrder sort, PagingQuery paging);
 
         /// <summary>
+        /// 部署従業員を検索します。
+        /// </summary>
+        /// <param name="groupId">プライマリキーを指定します。</param>
+        /// <param name="query">キーワードを指定します。</param>
+        /// <param name="sort"><see cref="SortOrder"/></param>
+        /// <param name="paging">ページ情報を指定します。</param>
+        /// <returns>部署従業員の一覧を返します。</returns>
+        IList<GroupPerson> QueryPerson(Guid groupId, string query, SortOrder sort, PagingQuery paging);
+
+        /// <summary>
         /// 部署エンティティを取得します。
         /// </summary>
         /// <param name="groupId">プライマリキーを指定します。</param>

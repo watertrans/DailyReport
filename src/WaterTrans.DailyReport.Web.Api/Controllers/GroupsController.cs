@@ -269,5 +269,34 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
 
             return new OkResult();
         }
+
+        /// <summary>
+        /// 部署の従業員を検索する
+        /// </summary>
+        /// <param name="groupId">部署ID</param>
+        /// <param name="request"><see cref="GroupPersonQueryRequest"/></param>
+        /// <returns><see cref="ActionResult"/></returns>
+        [HttpGet]
+        [Route("api/v{version:apiVersion}/groups/{groupId}/persons")]
+        [Authorize(Policies.ReadScopePolicy)]
+        public ActionResult<PagedObject<GroupPerson>> QueryPerson(
+            [FromRoute]
+            [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
+            string groupId,
+            [FromQuery] GroupPersonQueryRequest request)
+        {
+            var dto = _mapper.Map<GroupPersonQueryRequest, GroupPersonQueryDto>(request);
+            dto.GroupId = Guid.Parse(groupId);
+            var entities = _groupService.QueryPerson(dto);
+            var result = new PagedObject<GroupPerson>
+            {
+                Page = dto.Page,
+                PageSize = dto.PageSize,
+                Total = dto.TotalCount,
+                Items = _mapper.Map<IList<Domain.Entities.GroupPerson>, List<GroupPerson>>(entities),
+            };
+            return result;
+        }
     }
 }

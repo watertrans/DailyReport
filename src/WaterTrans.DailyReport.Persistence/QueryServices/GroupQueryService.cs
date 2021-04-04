@@ -153,6 +153,108 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         }
 
         /// <inheritdoc/>
+        public IList<GroupPerson> QueryPerson(Guid groupId, string query, SortOrder sort, PagingQuery paging)
+        {
+            var sqlWhere = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                sqlWhere.AppendLine(" AND ( ");
+                sqlWhere.AppendLine("     PS1.PersonCode LIKE @Query OR ");
+                sqlWhere.AppendLine("     PS1.Name LIKE @Query OR ");
+                sqlWhere.AppendLine("     PS1.Title LIKE @Query OR ");
+                sqlWhere.AppendLine("     PS1.PersonId IN ( ");
+                sqlWhere.AppendLine("         SELECT TargetId ");
+                sqlWhere.AppendLine("         FROM   Tag AS TG1 ");
+                sqlWhere.AppendLine("         WHERE  TG1.TargetTable = 'Person' ");
+                sqlWhere.AppendLine("         AND    TG1.Value = @TagQuery ");
+                sqlWhere.AppendLine("     ) ");
+                sqlWhere.AppendLine(" ) ");
+            }
+
+            var sqlSort = new StringBuilder();
+            if (sort.Count == 0)
+            {
+                sqlSort.AppendLine(" ORDER BY {0}.SortNo ASC, {0}.PersonCode ASC ");
+            }
+            else
+            {
+                sqlSort.AppendLine(" ORDER BY ");
+                foreach (var item in sort)
+                {
+                    if (item.Field.Equals("PersonCode", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sqlSort.Append(" {0}.PersonCode " + item.SortType.ToString() + ",");
+                    }
+                    else if (item.Field.Equals("SortNo", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sqlSort.Append(" {0}.SortNo " + item.SortType.ToString() + ",");
+                    }
+                    else if (item.Field.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sqlSort.Append(" {0}.Name " + item.SortType.ToString() + ",");
+                    }
+                    else if (item.Field.Equals("CreateTime", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sqlSort.Append(" {0}.CreateTime " + item.SortType.ToString() + ",");
+                    }
+                }
+                sqlSort.Length -= 1;
+                sqlSort.AppendLine();
+            }
+
+            var param = new
+            {
+                GroupId = groupId,
+                Query = DataUtil.EscapeLike(query, LikeMatchType.PartialMatch),
+                TagQuery = query,
+                Page = paging.Page,
+                PageSize = paging.PageSize,
+            };
+
+            var sqlCount = new StringBuilder();
+            sqlCount.AppendLine(" SELECT COUNT(*) ");
+            sqlCount.AppendLine("   FROM GroupPerson AS GP1 INNER JOIN ");
+            sqlCount.AppendLine("        Person      AS PS1 ON GP1.PersonId = PS1.PersonId ");
+            sqlCount.AppendLine("  WHERE GP1.GroupId = @GroupId ");
+            sqlCount.AppendLine(sqlWhere.ToString());
+
+            paging.TotalCount = (int)Connection.ExecuteScalar(
+                sqlCount.ToString(),
+                param,
+                commandTimeout: DBSettings.CommandTimeout);
+
+            var sql = new StringBuilder();
+
+            sql.AppendLine(" SELECT PS1.* ");
+            sql.AppendLine("      , GP1.PositionType ");
+            sql.AppendLine("      , (SELECT TG3.Value ");
+            sql.AppendLine("           FROM Tag AS TG3 ");
+            sql.AppendLine("          WHERE TG3.TargetId = PS1.PersonId ");
+            sql.AppendLine("          ORDER BY TG3.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS PersonTags ");
+            sql.AppendLine("   FROM GroupPerson AS GP1 INNER JOIN ");
+            sql.AppendLine("        Person      AS PS1 ON GP1.PersonId = PS1.PersonId ");
+            sql.AppendLine("  WHERE GP1.GroupId = @GroupId ");
+            sql.AppendLine(sqlWhere.ToString());
+            sql.AppendLine(string.Format(sqlSort.ToString(), "PS1"));
+            sql.AppendLine(" OFFSET (@Page - 1) * @PageSize ROWS ");
+            sql.AppendLine("  FETCH FIRST @PageSize ROWS ONLY ");
+
+            return Connection.Query<GroupPerson, string, GroupPerson>(
+                sql.ToString(),
+                (person, personTags) =>
+                {
+                    person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                    return person;
+                },
+                param,
+                splitOn: "PersonTags",
+                commandTimeout: DBSettings.CommandTimeout).ToList();
+        }
+
+        /// <inheritdoc/>
         public Group GetGroup(Guid groupId)
         {
             var sql = new StringBuilder();
