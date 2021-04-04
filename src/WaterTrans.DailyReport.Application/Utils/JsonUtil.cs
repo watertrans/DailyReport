@@ -1,4 +1,6 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Collections.Generic;
+using System.Dynamic;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
@@ -63,6 +65,33 @@ namespace WaterTrans.DailyReport.Application.Utils
             }
 
             return JsonSerializer.Deserialize<T>(value, JsonSerializerOptions);
+        }
+
+        /// <summary>
+        /// Json文字列のオブジェクト配列を指定したキーの値の配列に変換します。
+        /// </summary>
+        /// <param name="json">Json文字列を指定します。</param>
+        /// <param name="key">キーを指定します。</param>
+        /// <returns>変換された結果のJson文字列を返します。</returns>
+        public static string ToRawJsonArray(string json, string key)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return "[]";
+            }
+
+            var result = new List<object>();
+            var objects = Deserialize<List<ExpandoObject>>(json);
+
+            foreach (IDictionary<string, object> obj in objects)
+            {
+                if (obj.ContainsKey(key))
+                {
+                    result.Add(obj[key]);
+                }
+            }
+
+            return Serialize(result);
         }
     }
 }

@@ -183,8 +183,8 @@
   <data name="DisplayGroupName" xml:space="preserve">
     <value>部署名</value>
   </data>
-  <data name="DisplayGroupPersonIsManager" xml:space="preserve">
-    <value>マネージャーフラグ</value>
+  <data name="DisplayGroupPersonPositionType" xml:space="preserve">
+    <value>配属タイプ</value>
   </data>
   <data name="DisplayGroupSortNo" xml:space="preserve">
     <value>並び順</value>

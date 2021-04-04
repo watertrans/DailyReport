@@ -234,6 +234,39 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 return ErrorObjectResultFactory.NotFound();
             }
 
+            _groupService.AddGroupPerson(groupGuid, personGuid, request.PositionType);
+
+            return new OkResult();
+        }
+
+        /// <summary>
+        /// 部署の従業員を解除する
+        /// </summary>
+        /// <param name="groupId">部署ID</param>
+        /// <param name="personId">従業員ID</param>
+        /// <returns><see cref="ActionResult"/></returns>
+        [HttpDelete]
+        [Route("api/v{version:apiVersion}/groups/{groupId}/persons/{personId}")]
+        [Authorize(Policies.WriteScopePolicy)]
+        public ActionResult<PagedObject<Group>> RemoveGroupPerson(
+            [FromRoute]
+            [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
+            string groupId,
+            [FromRoute]
+            [Required(ErrorMessage = "DataAnnotationRequired")]
+            [Guid(ErrorMessage = "DataAnnotationGuid")]
+            string personId)
+        {
+            var groupGuid = Guid.Parse(groupId);
+            var personGuid = Guid.Parse(personId);
+            if (!_groupService.ContainsGroupPerson(groupGuid, personGuid))
+            {
+                return ErrorObjectResultFactory.NotFound();
+            }
+
+            _groupService.RemoveGroupPerson(groupGuid, personGuid);
+
             return new OkResult();
         }
     }

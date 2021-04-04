@@ -779,9 +779,17 @@ paths:
             schema:
               type: object
               properties:
-                isManager:
-                  type: boolean
-                  description: マネージャーフラグ
+                positionType:
+                  type: string
+                  description: 配属タイプ
+                  enum:
+                    - GENERAL_MANAGER
+                    - MANAGER
+                    - STAFF
+                  example: STAFF
+              required:
+                - positionType
+            examples: {}
     delete:
       summary: 部署従業員解除
       operationId: delete-groups-groupId-persons-personId
@@ -1135,9 +1143,14 @@ components:
           uniqueItems: true
           items:
             type: string
-        isManager:
-          type: boolean
-          description: マネージャーフラグ
+        positionType:
+          type: string
+          description: 配属タイプ
+          example: STAFF
+          enum:
+            - GENERAL_MANAGER
+            - MANAGER
+            - STAFF
         createTime:
           type: string
           description: 作成日時
@@ -1153,6 +1166,7 @@ components:
         - status
         - sortNo
         - tags
+        - positionType
         - createTime
         - updateTime
     Token:

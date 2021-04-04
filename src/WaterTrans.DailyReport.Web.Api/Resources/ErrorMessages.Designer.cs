@@ -259,11 +259,11 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to マネージャーフラグ.
+        ///   Looks up a localized string similar to 配属タイプ.
         /// </summary>
-        public static string DisplayGroupPersonIsManager {
+        public static string DisplayGroupPersonPositionType {
             get {
-                return ResourceManager.GetString("DisplayGroupPersonIsManager", resourceCulture);
+                return ResourceManager.GetString("DisplayGroupPersonPositionType", resourceCulture);
             }
         }
         

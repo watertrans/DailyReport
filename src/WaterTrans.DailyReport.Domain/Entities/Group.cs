@@ -47,12 +47,12 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// 所属従業員
         /// </summary>
-        public List<Person> Persons { get; set; } = new List<Person>();
+        public List<GroupPerson> Persons { get; set; } = new List<GroupPerson>();
 
         /// <summary>
         /// タグ
         /// </summary>
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<string> Tags { get; set; } = new List<string>();
 
         /// <summary>
         /// 作成日時

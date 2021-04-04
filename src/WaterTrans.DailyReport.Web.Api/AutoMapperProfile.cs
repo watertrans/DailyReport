@@ -24,7 +24,6 @@ namespace WaterTrans.DailyReport.Web.Api
             CreateMap<PersonCreateRequest, PersonCreateDto>();
             CreateMap<Domain.Entities.Person, Person>()
                 .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId.ToString()))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(e => e.Value).ToList()))
                 .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime.ToISO8601()))
                 .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
             CreateMap<PersonUpdateRequest, PersonUpdateDto>();
@@ -37,7 +36,10 @@ namespace WaterTrans.DailyReport.Web.Api
             CreateMap<GroupCreateRequest, GroupCreateDto>();
             CreateMap<Domain.Entities.Group, Group>()
                 .ForMember(dest => dest.GroupId, opt => opt.MapFrom(src => src.GroupId.ToString()))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(e => e.Value).ToList()))
+                .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime.ToISO8601()))
+                .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
+            CreateMap<Domain.Entities.GroupPerson, GroupPerson>()
+                .ForMember(dest => dest.PersonId, opt => opt.MapFrom(src => src.PersonId.ToString()))
                 .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime.ToISO8601()))
                 .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
             CreateMap<GroupUpdateRequest, GroupUpdateDto>();

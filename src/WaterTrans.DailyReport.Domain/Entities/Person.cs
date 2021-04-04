@@ -47,7 +47,7 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// タグ
         /// </summary>
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<string> Tags { get; set; } = new List<string>();
 
         /// <summary>
         /// 作成日時

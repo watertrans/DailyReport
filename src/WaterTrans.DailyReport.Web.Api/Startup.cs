@@ -79,6 +79,7 @@ namespace WaterTrans.DailyReport.Web.Api
             services.AddTransient<IAccessTokenRepository, AccessTokenRepository>();
             services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddTransient<IAuthorizeService, AuthorizeService>();
+            services.AddTransient<IGroupPersonRepository, GroupPersonRepository>();
             services.AddTransient<IGroupQueryService, GroupQueryService>();
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IGroupService, GroupService>();

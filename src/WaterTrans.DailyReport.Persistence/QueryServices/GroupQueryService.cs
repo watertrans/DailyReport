@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using WaterTrans.DailyReport.Application;
 using WaterTrans.DailyReport.Application.Abstractions;
+using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Domain.Constants;
 using WaterTrans.DailyReport.Domain.Entities;
 
@@ -98,39 +99,56 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             var sql = new StringBuilder();
 
-            sql.AppendLine(" SELECT * ");
+            sql.AppendLine(" SELECT GS2.* ");
+            sql.AppendLine("      , (SELECT TG2.Value ");
+            sql.AppendLine("           FROM Tag AS TG2 ");
+            sql.AppendLine("          WHERE TG2.TargetId = GS2.GroupId ");
+            sql.AppendLine("          ORDER BY TG2.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS GroupTags ");
+            sql.AppendLine("      , PS1.* ");
+            sql.AppendLine("      , GP1.PositionType ");
+            sql.AppendLine("      , (SELECT TG3.Value ");
+            sql.AppendLine("           FROM Tag AS TG3 ");
+            sql.AppendLine("          WHERE TG3.TargetId = PS1.PersonId ");
+            sql.AppendLine("          ORDER BY TG3.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS PersonTags ");
             sql.AppendLine(" FROM   ( ");
-            sql.AppendLine("     SELECT * ");
-            sql.AppendLine("     FROM   [Group] AS GS1 ");
-            sql.AppendLine("     WHERE  1 = 1 ");
+            sql.AppendLine("         SELECT * ");
+            sql.AppendLine("           FROM [Group] AS GS1 ");
+            sql.AppendLine("          WHERE 1 = 1 ");
             sql.AppendLine(sqlWhere.ToString());
             sql.AppendLine(string.Format(sqlSort.ToString(), "GS1"));
-            sql.AppendLine("     OFFSET (@Page - 1) * @PageSize ROWS ");
-            sql.AppendLine("     FETCH FIRST @PageSize ROWS ONLY ");
-            sql.AppendLine(" )   AS GS2 LEFT OUTER JOIN ");
-            sql.AppendLine(" Tag AS TG2 ON GS2.GroupId = TG2.TargetId ");
-            sql.AppendLine(string.Format(sqlSort.ToString(), "GS2") + " , TG2.Value ASC ");
+            sql.AppendLine("         OFFSET (@Page - 1) * @PageSize ROWS ");
+            sql.AppendLine("          FETCH FIRST @PageSize ROWS ONLY ");
+            sql.AppendLine("        )           AS GS2 LEFT OUTER JOIN ");
+            sql.AppendLine("        GroupPerson AS GP1 ON GS2.GroupId  = GP1.GroupId LEFT OUTER JOIN ");
+            sql.AppendLine("        Person      AS PS1 ON GP1.PersonId = PS1.PersonId ");
+            sql.AppendLine(string.Format(sqlSort.ToString(), "GS2") + ", PS1.SortNo, PS1.PersonCode ");
 
             var groupDic = new Dictionary<Guid, Group>();
-            return Connection.Query<Group, Tag, Group>(
+            return Connection.Query<Group, string, GroupPerson, string, Group>(
                 sql.ToString(),
-                (group, tag) =>
+                (group, groupTags, person, personTags) =>
                 {
                     if (!groupDic.TryGetValue(group.GroupId, out Group groupEntry))
                     {
                         groupEntry = group;
+                        groupEntry.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(groupTags, "Value"));
                         groupDic.Add(groupEntry.GroupId, groupEntry);
                     }
 
-                    if (tag != null)
+                    if (person != null && !groupEntry.Persons.Exists(e => e.PersonId == person.PersonId))
                     {
-                        groupEntry.Tags.Add(tag);
+                        person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                        groupEntry.Persons.Add(person);
                     }
 
                     return groupEntry;
                 },
                 param,
-                splitOn: "TagId",
+                splitOn: "GroupTags,PersonId,PersonTags",
                 commandTimeout: DBSettings.CommandTimeout).Distinct().ToList();
         }
 
@@ -139,11 +157,26 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         {
             var sql = new StringBuilder();
 
-            sql.AppendLine(" SELECT * ");
-            sql.AppendLine(" FROM   [Group] AS GS1 LEFT OUTER JOIN ");
-            sql.AppendLine("        Tag    AS TG1 ON GS1.GroupId = TG1.TargetId ");
+            sql.AppendLine(" SELECT GS1.* ");
+            sql.AppendLine("      , (SELECT TG1.Value ");
+            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("          WHERE TG1.TargetId = GS1.GroupId ");
+            sql.AppendLine("          ORDER BY TG1.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS GroupTags ");
+            sql.AppendLine("      , PS1.* ");
+            sql.AppendLine("      , GP1.PositionType ");
+            sql.AppendLine("      , (SELECT TG2.Value ");
+            sql.AppendLine("           FROM Tag AS TG2 ");
+            sql.AppendLine("          WHERE TG2.TargetId = PS1.PersonId ");
+            sql.AppendLine("          ORDER BY TG2.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS PersonTags ");
+            sql.AppendLine(" FROM   [Group]     AS GS1 LEFT OUTER JOIN ");
+            sql.AppendLine("        GroupPerson AS GP1 ON GS1.GroupId  = GP1.GroupId LEFT OUTER JOIN ");
+            sql.AppendLine("        Person      AS PS1 ON GP1.PersonId = PS1.PersonId ");
             sql.AppendLine(" WHERE  GS1.GroupId = @GroupId ");
-            sql.AppendLine(" ORDER BY TG1.Value ");
+            sql.AppendLine(" ORDER BY PS1.SortNo, PS1.PersonCode ");
 
             var param = new
             {
@@ -151,25 +184,27 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
             };
 
             var groupDic = new Dictionary<Guid, Group>();
-            return Connection.Query<Group, Tag, Group>(
+            return Connection.Query<Group, string, GroupPerson, string, Group>(
                 sql.ToString(),
-                (group, tag) =>
+                (group, groupTags, person, personTags) =>
                 {
                     if (!groupDic.TryGetValue(group.GroupId, out Group groupEntry))
                     {
                         groupEntry = group;
+                        groupEntry.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(groupTags, "Value"));
                         groupDic.Add(groupEntry.GroupId, groupEntry);
                     }
 
-                    if (tag != null)
+                    if (person != null && !groupEntry.Persons.Exists(e => e.PersonId == person.PersonId))
                     {
-                        groupEntry.Tags.Add(tag);
+                        person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                        groupEntry.Persons.Add(person);
                     }
 
                     return groupEntry;
                 },
                 param,
-                splitOn: "TagId",
+                splitOn: "GroupTags,PersonId,PersonTags",
                 commandTimeout: DBSettings.CommandTimeout).Distinct().SingleOrDefault();
         }
 

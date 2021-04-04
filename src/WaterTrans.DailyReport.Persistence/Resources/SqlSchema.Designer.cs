@@ -129,6 +129,28 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;GroupPerson&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE GroupPerson (
+        ///        GroupId UNIQUEIDENTIFIER NOT NULL
+        ///      , PersonId UNIQUEIDENTIFIER NOT NULL
+        ///      , PositionType NVARCHAR(20) NOT NULL
+        ///      , PRIMARY KEY(GroupId, PersonId)
+        ///    );
+        ///
+        ///    CREATE INDEX ix_GroupPerson_PersonId ON GroupPerson (PersonId);
+        ///
+        ///END;
+        ///.
+        /// </summary>
+        internal static string CreateGroupPerson {
+            get {
+                return ResourceManager.GetString("CreateGroupPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Person&apos; and xtype=&apos;U&apos;)
         ///BEGIN
         ///

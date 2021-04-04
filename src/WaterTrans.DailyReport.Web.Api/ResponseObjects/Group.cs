@@ -43,6 +43,11 @@ namespace WaterTrans.DailyReport.Web.Api.ResponseObjects
         public int SortNo { get; set; }
 
         /// <summary>
+        /// 所属従業員
+        /// </summary>
+        public List<GroupPerson> Persons { get; set; }
+
+        /// <summary>
         /// タグ
         /// </summary>
         public List<string> Tags { get; set; }

@@ -8,6 +8,86 @@ namespace WaterTrans.DailyReport.UnitTests.Application.Utils
     public class JsonUtilTest
     {
         [TestMethod]
+        public void ToRawJsonArray_True_単一の文字列の配列が返ること()
+        {
+            string expected = "[\"String\"]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":\"String\"}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_複数の文字列の配列が返ること()
+        {
+            string expected = "[\"String1\",\"String2\"]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":\"String1\"},{\"Value\":\"String2\"}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_単一の数値の配列が返ること()
+        {
+            string expected = "[1]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":1}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_複数の数値の配列が返ること()
+        {
+            string expected = "[1,2]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":1},{\"Value\":2}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_空文字は空配列()
+        {
+            string expected = "[]";
+            string actual = JsonUtil.ToRawJsonArray("", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_nullは空配列()
+        {
+            string expected = "[]";
+            string actual = JsonUtil.ToRawJsonArray(null, "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_空配列は空配列()
+        {
+            string expected = "[]";
+            string actual = JsonUtil.ToRawJsonArray("[]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_存在しないキーは空配列()
+        {
+            string expected = "[]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":true}]", "Error");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_単一のブール値の配列が返ること()
+        {
+            string expected = "[true]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":true}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ToRawJsonArray_True_複数のブール値の配列が返ること()
+        {
+            string expected = "[true,false]";
+            string actual = JsonUtil.ToRawJsonArray("[{\"Value\":true},{\"Value\":false}]", "Value");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void Serialize_True_nullはnullに変換されること()
         {
             string expected = null;

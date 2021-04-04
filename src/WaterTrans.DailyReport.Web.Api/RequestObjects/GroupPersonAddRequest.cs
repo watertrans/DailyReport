@@ -11,9 +11,16 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
     public class GroupPersonAddRequest
     {
         /// <summary>
-        /// マネージャーフラグ
+        /// 配属タイプ
         /// </summary>
-        [Display(Name = "DisplayGroupPersonIsManager")]
-        public bool IsManager { get; set; }
+        [Display(Name = "DisplayGroupPersonPositionType")]
+        [Required(ErrorMessage = "DataAnnotationRequired")]
+        [EnumContains(
+            typeof(PositionType),
+            Domain.Constants.PositionType.GENERAL_MANAGER,
+            Domain.Constants.PositionType.MANAGER,
+            Domain.Constants.PositionType.STAFF,
+            ErrorMessage = "DataAnnotationEnumContains")]
+        public string PositionType { get; set; }
     }
 }

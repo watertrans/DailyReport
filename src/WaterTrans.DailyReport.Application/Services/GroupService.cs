@@ -5,7 +5,6 @@ using WaterTrans.DailyReport.Application.Abstractions;
 using WaterTrans.DailyReport.Application.DataTransferObjects;
 using WaterTrans.DailyReport.Application.TableEntities;
 using WaterTrans.DailyReport.Application.Utils;
-using WaterTrans.DailyReport.Domain.Constants;
 using WaterTrans.DailyReport.Domain.Entities;
 
 namespace WaterTrans.DailyReport.Application.Services
@@ -17,6 +16,7 @@ namespace WaterTrans.DailyReport.Application.Services
     {
         private readonly IGroupQueryService _groupQueryService;
         private readonly IGroupRepository _groupRepository;
+        private readonly IGroupPersonRepository _groupPersonRepository;
         private readonly ITagRepository _tagRepository;
 
         /// <summary>
@@ -24,14 +24,17 @@ namespace WaterTrans.DailyReport.Application.Services
         /// </summary>
         /// <param name="groupQueryService"><see cref="IGroupQueryService"/></param>
         /// <param name="groupRepository"><see cref="IGroupRepository"/></param>
+        /// <param name="groupPersonRepository"><see cref="IGroupPersonRepository"/></param>
         /// <param name="tagRepository"><see cref="ITagRepository"/></param>
         public GroupService(
             IGroupQueryService groupQueryService,
             IGroupRepository groupRepository,
+            IGroupPersonRepository groupPersonRepository,
             ITagRepository tagRepository)
         {
             _groupQueryService = groupQueryService;
             _groupRepository = groupRepository;
+            _groupPersonRepository = groupPersonRepository;
             _tagRepository = tagRepository;
         }
 
@@ -157,6 +160,46 @@ namespace WaterTrans.DailyReport.Application.Services
         public Group GetGroup(Guid groupId)
         {
             return _groupQueryService.GetGroup(groupId);
+        }
+
+        /// <inheritdoc/>
+        public bool ContainsGroupPerson(Guid groupId, Guid personId)
+        {
+            return _groupPersonRepository.Read(new GroupPersonTableEntity
+            {
+                GroupId = groupId,
+                PersonId = personId,
+            }) != null;
+        }
+
+        /// <inheritdoc/>
+        public void AddGroupPerson(Guid groupId, Guid personId, string positionType)
+        {
+            using (var tran = new TransactionScope())
+            {
+                _groupPersonRepository.Delete(new GroupPersonTableEntity
+                {
+                    GroupId = groupId,
+                    PersonId = personId,
+                });
+                _groupPersonRepository.Create(new GroupPersonTableEntity
+                {
+                    GroupId = groupId,
+                    PersonId = personId,
+                    PositionType = positionType,
+                });
+                tran.Complete();
+            }
+        }
+
+        /// <inheritdoc/>
+        public void RemoveGroupPerson(Guid groupId, Guid personId)
+        {
+            _groupPersonRepository.Delete(new GroupPersonTableEntity
+            {
+                GroupId = groupId,
+                PersonId = personId,
+            });
         }
     }
 }
