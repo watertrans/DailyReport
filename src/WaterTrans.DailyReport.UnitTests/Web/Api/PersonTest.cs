@@ -32,7 +32,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_読み取りアクセストークンを指定すると正常な応答が返る()
+        public void QueryPerson_OK_読み取りアクセストークンを指定すると正常な応答が返る()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/persons");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
@@ -42,7 +42,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_Pageの指定が数字でない場合はエラー()
+        public void QueryPerson_ValidationError_Pageの指定が数字でない場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -61,7 +61,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_Pageの指定が1未満の場合はエラー()
+        public void QueryPerson_ValidationError_Pageの指定が1未満の場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -80,7 +80,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_Pageの指定が1000以上の場合はエラー()
+        public void QueryPerson_ValidationError_Pageの指定が1000以上の場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -99,7 +99,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Pageの指定が1から999の範囲内の場合は正常()
+        public void QueryPerson_OK_Pageの指定が1から999の範囲内の場合は正常()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -115,7 +115,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Pageの指定が空欄の場合は正常()
+        public void QueryPerson_OK_Pageの指定が空欄の場合は正常()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -131,7 +131,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_PageSizeの指定が数字でない場合はエラー()
+        public void QueryPerson_ValidationError_PageSizeの指定が数字でない場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -150,7 +150,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_PageSizeの指定が1未満の場合はエラー()
+        public void QueryPerson_ValidationError_PageSizeの指定が1未満の場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -169,7 +169,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_PageSizeの指定が101以上の場合はエラー()
+        public void QueryPerson_ValidationError_PageSizeの指定が101以上の場合はエラー()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -188,7 +188,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_PageSizeの指定が1から100の範囲内の場合は正常()
+        public void QueryPerson_OK_PageSizeの指定が1から100の範囲内の場合は正常()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -204,7 +204,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_PageSizeの指定が空欄の場合は正常()
+        public void QueryPerson_OK_PageSizeの指定が空欄の場合は正常()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -220,7 +220,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_ValidationError_Sortの指定が想定外()
+        public void QueryPerson_ValidationError_Sortの指定が想定外()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -239,7 +239,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がSortNoの昇順()
+        public void QueryPerson_OK_Sortの指定がSortNoの昇順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -259,7 +259,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がSortNoの降順()
+        public void QueryPerson_OK_Sortの指定がSortNoの降順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -279,7 +279,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がPersonCodeの昇順()
+        public void QueryPerson_OK_Sortの指定がPersonCodeの昇順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -299,7 +299,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がPersonCodeの降順()
+        public void QueryPerson_OK_Sortの指定がPersonCodeの降順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -319,7 +319,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がNameの昇順()
+        public void QueryPerson_OK_Sortの指定がNameの昇順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -339,7 +339,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がNameの降順()
+        public void QueryPerson_OK_Sortの指定がNameの降順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -359,7 +359,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がCreateTimeの昇順()
+        public void QueryPerson_OK_Sortの指定がCreateTimeの昇順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -379,7 +379,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がCreateTimeの降順()
+        public void QueryPerson_OK_Sortの指定がCreateTimeの降順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -399,7 +399,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定が複合()
+        public void QueryPerson_OK_Sortの指定が複合()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -419,7 +419,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_BadRequest_PersonIDの指定がGuidではない()
+        public void GetPerson_BadRequest_PersonIDの指定がGuidではない()
         {
             var personId = "ERROR";
 
@@ -431,7 +431,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_NotFound_PersonIDの指定が存在しない()
+        public void GetPerson_NotFound_PersonIDの指定が存在しない()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
 
@@ -443,7 +443,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_PersonIDの指定が存在する()
+        public void GetPerson_OK_PersonIDの指定が存在する()
         {
             var personId = "00000000-1001-0000-0000-000000000000";
 
@@ -458,7 +458,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_OK_すべての値が正常値()
+        public void CreatePerson_OK_すべての値が正常値()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -482,7 +482,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_すべての値が異常値()
+        public void CreatePerson_ValidationError_すべての値が異常値()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -514,7 +514,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_Tagsの要素が10個を超える()
+        public void CreatePerson_ValidationError_Tagsの要素が10個を超える()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -542,7 +542,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_Tagsの要素が空欄()
+        public void CreatePerson_ValidationError_Tagsの要素が空欄()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -570,7 +570,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_Tagsの要素がnull()
+        public void CreatePerson_ValidationError_Tagsの要素がnull()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -598,7 +598,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_Tagsの要素が重複()
+        public void CreatePerson_ValidationError_Tagsの要素が重複()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -626,7 +626,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_BadRequest_PersonIDの指定がGuidではない()
+        public void UpdatePerson_BadRequest_PersonIDの指定がGuidではない()
         {
             var personId = "ERROR";
             var requestObject = new PersonUpdateRequest
@@ -643,7 +643,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_Forbidden_書き込みアクセス権のないアクセストークン()
+        public void UpdatePerson_Forbidden_書き込みアクセス権のないアクセストークン()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
             var requestObject = new PersonUpdateRequest
@@ -660,7 +660,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_NotFound_PersonIDの指定が存在しない()
+        public void UpdatePerson_NotFound_PersonIDの指定が存在しない()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
             var requestObject = new PersonUpdateRequest
@@ -677,7 +677,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_OK_すべての値を正常値で更新()
+        public void UpdatePerson_OK_すべての値を正常値で更新()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -728,7 +728,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_ValidationError_重複する値で更新()
+        public void UpdatePerson_ValidationError_重複する値で更新()
         {
             var requestObject = new PersonCreateRequest
             {
@@ -768,7 +768,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_BadRequest_PersonIDの指定がGuidではない()
+        public void DeletePerson_BadRequest_PersonIDの指定がGuidではない()
         {
             var personId = "ERROR";
 
@@ -780,7 +780,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_Forbidden_書き込みアクセス権のないアクセストークン()
+        public void DeletePerson_Forbidden_書き込みアクセス権のないアクセストークン()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
 
@@ -792,7 +792,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_NotFound_PersonIDの指定が存在しない()
+        public void DeletePerson_NotFound_PersonIDの指定が存在しない()
         {
             var personId = "00000000-0000-0000-0000-000000000000";
 
@@ -804,7 +804,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_OK_正常値で削除()
+        public void DeletePerson_OK_正常値で削除()
         {
             var requestObject = new PersonCreateRequest
             {

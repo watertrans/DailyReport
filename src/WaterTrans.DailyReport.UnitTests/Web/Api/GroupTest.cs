@@ -32,7 +32,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_読み取りアクセストークンを指定すると正常な応答が返る()
+        public void QueryGroup_OK_読み取りアクセストークンを指定すると正常な応答が返る()
         {
             var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/groups");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
@@ -42,7 +42,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がGroupCodeの昇順()
+        public void QueryGroup_OK_Sortの指定がGroupCodeの昇順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -62,7 +62,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定がGroupCodeの降順()
+        public void QueryGroup_OK_Sortの指定がGroupCodeの降順()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -82,7 +82,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_Sortの指定が複合()
+        public void QueryGroup_OK_Sortの指定が複合()
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -102,7 +102,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_BadRequest_GroupIDの指定がGuidではない()
+        public void GetGroup_BadRequest_GroupIDの指定がGuidではない()
         {
             var groupId = "ERROR";
 
@@ -114,7 +114,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_NotFound_GroupIDの指定が存在しない()
+        public void GetGroup_NotFound_GroupIDの指定が存在しない()
         {
             var groupId = "00000000-0000-0000-0000-000000000000";
 
@@ -126,7 +126,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Get_OK_GroupIDの指定が存在する()
+        public void GetGroup_OK_GroupIDの指定が存在する()
         {
             var groupId = "00000000-3001-0000-0000-000000000000";
 
@@ -141,7 +141,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_OK_すべての値が正常値()
+        public void CreateGroup_OK_すべての値が正常値()
         {
             var requestObject = new GroupCreateRequest
             {
@@ -165,7 +165,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Post_ValidationError_すべての値が異常値()
+        public void CreateGroup_ValidationError_すべての値が異常値()
         {
             var requestObject = new GroupCreateRequest
             {
@@ -197,7 +197,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_BadRequest_GroupIDの指定がGuidではない()
+        public void UpdateGroup_BadRequest_GroupIDの指定がGuidではない()
         {
             var groupId = "ERROR";
             var requestObject = new GroupUpdateRequest
@@ -214,7 +214,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_Forbidden_書き込みアクセス権のないアクセストークン()
+        public void UpdateGroup_Forbidden_書き込みアクセス権のないアクセストークン()
         {
             var groupId = "00000000-0000-0000-0000-000000000000";
             var requestObject = new GroupUpdateRequest
@@ -231,7 +231,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_NotFound_GroupIDの指定が存在しない()
+        public void UpdateGroup_NotFound_GroupIDの指定が存在しない()
         {
             var groupId = "00000000-0000-0000-0000-000000000000";
             var requestObject = new GroupUpdateRequest
@@ -248,7 +248,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_OK_すべての値を正常値で更新()
+        public void UpdateGroup_OK_すべての値を正常値で更新()
         {
             var requestObject = new GroupCreateRequest
             {
@@ -299,7 +299,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_ValidationError_GroupCodeを重複する値で更新()
+        public void UpdateGroup_ValidationError_GroupCodeを重複する値で更新()
         {
             var requestObject = new GroupCreateRequest
             {
@@ -339,7 +339,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Patch_ValidationError_GroupTreeを重複する値で更新()
+        public void UpdateGroup_ValidationError_GroupTreeを重複する値で更新()
         {
             var requestObject = new GroupCreateRequest
             {
@@ -379,7 +379,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_BadRequest_GroupIDの指定がGuidではない()
+        public void DeleteGroup_BadRequest_GroupIDの指定がGuidではない()
         {
             var groupId = "ERROR";
 
@@ -391,7 +391,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_Forbidden_書き込みアクセス権のないアクセストークン()
+        public void DeleteGroup_Forbidden_書き込みアクセス権のないアクセストークン()
         {
             var groupId = "00000000-0000-0000-0000-000000000000";
 
@@ -403,7 +403,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_NotFound_GroupIDの指定が存在しない()
+        public void DeleteGroup_NotFound_GroupIDの指定が存在しない()
         {
             var groupId = "00000000-0000-0000-0000-000000000000";
 
@@ -415,7 +415,22 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
         }
 
         [TestMethod]
-        public void Delete_OK_正常値で削除()
+        public void DeleteGroup_ValidationError_所属従業員の存在する部署は削除できない()
+        {
+            var groupId = "00000000-3001-0000-0000-000000000000";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/groups/{groupId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var error = JsonUtil.Deserialize<Error>(responseBody);
+
+            Assert.AreEqual(ErrorCodes.ValidationError, error.Code);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+        
+        [TestMethod]
+        public void DeleteGroup_OK_正常値で削除()
         {
             var requestObject = new GroupCreateRequest
             {
