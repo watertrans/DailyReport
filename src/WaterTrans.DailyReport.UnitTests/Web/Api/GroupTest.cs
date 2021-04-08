@@ -458,5 +458,140 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [TestMethod]
+        public void AddGroupPerson_NotFound_GroupIDの指定が存在しない()
+        {
+            var groupId = "00000000-0000-0000-0000-000000000000";
+            var personId = "00000000-1001-0000-0000-000000000000";
+            var requestObject = new GroupPersonAddRequest
+            {
+                PositionType = PositionType.STAFF.ToString(),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void AddGroupPerson_NotFound_PersonIDの指定が存在しない()
+        {
+            var groupId = "00000000-3001-0000-0000-000000000000";
+            var personId = "00000000-0000-0000-0000-000000000000";
+            var requestObject = new GroupPersonAddRequest
+            {
+                PositionType = PositionType.STAFF.ToString(),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void AddGroupPerson_Forbidden_書き込みアクセス権のないアクセストークン()
+        {
+            var groupId = "00000000-0000-0000-0000-000000000000";
+            var personId = "00000000-0000-0000-0000-000000000000";
+            var requestObject = new GroupPersonAddRequest
+            {
+                PositionType = PositionType.STAFF.ToString(),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void AddGroupPerson_OK_すべての値を正常値で登録()
+        {
+            var groupId = "00000000-3002-0000-0000-000000000000";
+            var personId = "00000000-1001-0000-0000-000000000000";
+            var requestObject = new GroupPersonAddRequest
+            {
+                PositionType = PositionType.GENERAL_MANAGER.ToString(),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void RemoveGroupPerson_NotFound_GroupIDの指定が存在しない()
+        {
+            var groupId = "00000000-0000-0000-0000-000000000000";
+            var personId = "00000000-1001-0000-0000-000000000000";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void RemoveGroupPerson_NotFound_PersonIDの指定が存在しない()
+        {
+            var groupId = "00000000-3001-0000-0000-000000000000";
+            var personId = "00000000-0000-0000-0000-000000000000";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void RemoveGroupPerson_Forbidden_書き込みアクセス権のないアクセストークン()
+        {
+            var groupId = "00000000-0000-0000-0000-000000000000";
+            var personId = "00000000-0000-0000-0000-000000000000";
+
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void RemoveGroupPerson_OK_すべての値を正常値で削除()
+        {
+            var groupId = "00000000-3003-0000-0000-000000000000";
+            var personId = "00000000-1001-0000-0000-000000000000";
+            var requestObject = new GroupPersonAddRequest
+            {
+                PositionType = PositionType.STAFF.ToString(),
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Put, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            request.Content = new StringContent(JsonUtil.Serialize(requestObject), Encoding.UTF8, "application/json");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+            request = new HttpRequestMessage(HttpMethod.Delete, $"/api/v1/groups/{groupId}/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-write");
+            response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
