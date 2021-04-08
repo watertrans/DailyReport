@@ -118,6 +118,13 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 return ErrorObjectResultFactory.NotFound();
             }
 
+            if (entity.Persons.Count > 0)
+            {
+                return ErrorObjectResultFactory.ValidationErrorDetail(
+                    string.Format(ErrorMessages.ValidationHasChildren, ErrorMessages.DisplayPerson),
+                    "groupId");
+            }
+
             _groupService.DeleteGroup(groupGuid);
             return new OkResult();
         }

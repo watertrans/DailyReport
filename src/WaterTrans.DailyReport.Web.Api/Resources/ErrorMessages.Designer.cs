@@ -214,6 +214,15 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 部署.
+        /// </summary>
+        public static string DisplayGroup {
+            get {
+                return ResourceManager.GetString("DisplayGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 説明.
         /// </summary>
         public static string DisplayGroupDescription {
@@ -291,6 +300,15 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         public static string DisplayGroupTags {
             get {
                 return ResourceManager.GetString("DisplayGroupTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 従業員.
+        /// </summary>
+        public static string DisplayPerson {
+            get {
+                return ResourceManager.GetString("DisplayPerson", resourceCulture);
             }
         }
         
@@ -597,6 +615,15 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         public static string ValidationDuplicated {
             get {
                 return ResourceManager.GetString("ValidationDuplicated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;が登録されているため削除することはできません。.
+        /// </summary>
+        public static string ValidationHasChildren {
+            get {
+                return ResourceManager.GetString("ValidationHasChildren", resourceCulture);
             }
         }
     }

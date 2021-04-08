@@ -168,6 +168,9 @@
   <data name="DisplayCommonSort" xml:space="preserve">
     <value>並び順</value>
   </data>
+  <data name="DisplayGroup" xml:space="preserve">
+    <value>部署</value>
+  </data>
   <data name="DisplayGroupDescription" xml:space="preserve">
     <value>説明</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="DisplayGroupTags" xml:space="preserve">
     <value>タグ</value>
+  </data>
+  <data name="DisplayPerson" xml:space="preserve">
+    <value>従業員</value>
   </data>
   <data name="DisplayPersonDescription" xml:space="preserve">
     <value>説明</value>
@@ -317,8 +323,14 @@
   </data>
   <data name="ValidationDataNotFound" xml:space="preserve">
     <value>'{0}'に指定した'{1}'に対応するデータが存在しません。</value>
+    <comment>対象データは見つからない場合のエラーメッセージ。</comment>
   </data>
   <data name="ValidationDuplicated" xml:space="preserve">
     <value>'{0}'の値はすでに登録されています。</value>
+    <comment>同じ値が重複している場合のエラーメッセージ。</comment>
+  </data>
+  <data name="ValidationHasChildren" xml:space="preserve">
+    <value>'{0}'が登録されているため削除することはできません。</value>
+    <comment>子要素が存在して削除できない場合のエラーメッセージ。</comment>
   </data>
 </root>
