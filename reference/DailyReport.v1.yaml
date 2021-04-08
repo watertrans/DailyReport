@@ -867,7 +867,7 @@ paths:
                           - Human Resources
                           - Manager
                           - '2010'
-                        isManager: true
+                        positionType: STAFF
                         createTime: '2021-03-27T14:18:51+09:00'
                         updateTime: '2021-03-27T14:18:51+09:00'
         '400':
@@ -883,6 +883,449 @@ paths:
       operationId: get-groups-groudId-persons
       description: |-
         部署の従業員を検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "PersonCode", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
+  /projects:
+    post:
+      summary: プロジェクト登録
+      operationId: post-projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              examples:
+                Example:
+                  value:
+                    projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
+                    projectCode: '000001'
+                    name: Software Development
+                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Software Development
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: プロジェクトを登録します。
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectCode:
+                  type: string
+                  description: プロジェクトコード
+                  maxLength: 20
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+              required:
+                - projectCode
+                - name
+                - description
+                - status
+                - sortNo
+                - tags
+            examples:
+              Example:
+                value:
+                  projectCode: '000001'
+                  name: Software Development
+                  description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Software Development
+        description: ''
+      tags:
+        - Projects
+    get:
+      summary: プロジェクト検索
+      operationId: get-projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/Project'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
+                        projectCode: '000001'
+                        name: Software Development
+                        description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Software Development
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      tags:
+        - Projects
+      description: |-
+        プロジェクトを検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "ProjectCode", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
+  '/projects/{projectId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: projectId
+        in: path
+        required: true
+        description: プロジェクトID
+    get:
+      summary: プロジェクト取得
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              examples:
+                Example:
+                  value:
+                    projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
+                    projectCode: '000001'
+                    name: Software Development
+                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Software Development
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-projects-projectId
+      description: プロジェクトを取得します。
+    patch:
+      summary: プロジェクト更新
+      operationId: patch-projects-projectId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              examples:
+                Example:
+                  value:
+                    projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
+                    projectCode: '000001'
+                    name: Software Development
+                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Software Development
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: プロジェクトを更新します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projectCode:
+                  type: string
+                  description: プロジェクトコード
+                  maxLength: 20
+                name:
+                  type: string
+                  maxLength: 100
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 400
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+            examples:
+              Example:
+                value:
+                  projectCode: '000001'
+                  name: Software Development
+                  description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Software Development
+        description: ''
+      tags:
+        - Projects
+    delete:
+      summary: プロジェクト削除
+      operationId: delete-projects-projectId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: プロジェクトを削除します。
+      tags:
+        - Projects
+  '/projects/{projectId}/persons/{personId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: projectId
+        in: path
+        required: true
+        description: プロジェクトID
+      - schema:
+          type: string
+          format: uuid
+        name: personId
+        in: path
+        required: true
+        description: 従業員ID
+    put:
+      summary: プロジェクト従業員配属
+      operationId: put-projects-projectId-persons-personId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: プロジェクトに従業員を配属します。
+      tags:
+        - Projects
+    delete:
+      summary: プロジェクト従業員解除
+      operationId: delete-projects-projectId-persons-personId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: プロジェクトの従業員を解除します。
+      tags:
+        - Projects
+  '/projects/{projectId}/persons':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: projectId
+        in: path
+        required: true
+        description: プロジェクトID
+    get:
+      summary: プロジェクト従業員検索
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/Person'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
+                        personCode: '000001'
+                        name: John Doe
+                        title: Software Development Manager
+                        description: 'Hire date: 2010.04.01'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Software Development
+                          - Manager
+                          - '2010'
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-projects-groudId-persons
+      description: |-
+        プロジェクトの従業員を検索します。
         並び順には次の値を指定できます。
         "SortNo", "PersonCode", "Name", "CreateTime"
       parameters:
@@ -1098,7 +1541,7 @@ components:
             - Human Resources
             - Manager
             - '2010'
-          isManager: true
+          positionType: STAFF
           createTime: '2021-03-27T14:18:51+09:00'
           updateTime: '2021-03-27T14:18:51+09:00'
       properties:
@@ -1167,6 +1610,76 @@ components:
         - sortNo
         - tags
         - positionType
+        - createTime
+        - updateTime
+    Project:
+      title: Project
+      type: object
+      description: プロジェクト
+      x-examples:
+        Human Resources:
+          projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
+          projectCode: '000001'
+          name: Software Development
+          description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+          status: NORMAL
+          sortNo: 0
+          tags:
+            - Software Development
+          createTime: '2021-03-27T14:18:51+09:00'
+          updateTime: '2021-03-27T14:18:51+09:00'
+      properties:
+        projectId:
+          type: string
+          description: プロジェクトID
+          format: uuid
+        projectCode:
+          type: string
+          description: プロジェクトコード
+          maxLength: 20
+        name:
+          type: string
+          maxLength: 100
+          description: 名前
+        description:
+          type: string
+          description: 説明
+          maxLength: 400
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - SUSPENDED
+          description: ステータス
+        sortNo:
+          type: integer
+          description: 並び順
+          minimum: 0
+          exclusiveMaximum: false
+          maximum: 2147483647
+        tags:
+          type: array
+          format: date
+          description: タグ
+          minItems: 0
+          maxItems: 10
+          uniqueItems: true
+          items:
+            type: string
+        createTime:
+          type: string
+          description: 作成日時
+        updateTime:
+          type: string
+          description: 更新日時
+      required:
+        - projectId
+        - projectCode
+        - name
+        - description
+        - status
+        - sortNo
+        - tags
         - createTime
         - updateTime
     Token:
@@ -1302,4 +1815,5 @@ tags:
   - name: Debug
   - name: Groups
   - name: Persons
+  - name: Projects
   - name: Token
