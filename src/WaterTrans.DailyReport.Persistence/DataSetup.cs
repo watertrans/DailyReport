@@ -65,6 +65,7 @@ namespace WaterTrans.DailyReport.Persistence
             Connection.Execute(SqlSchema.CreateGroupPerson);
             Connection.Execute(SqlSchema.CreatePerson);
             Connection.Execute(SqlSchema.CreateProject);
+            Connection.Execute(SqlSchema.CreateProjectPerson);
             Connection.Execute(SqlSchema.CreateTag);
             Connection.Execute(SqlSchema.CreateWorkType);
         }
@@ -96,6 +97,7 @@ namespace WaterTrans.DailyReport.Persistence
             Connection.Execute("DROP TABLE IF EXISTS GroupPerson");
             Connection.Execute("DROP TABLE IF EXISTS Person");
             Connection.Execute("DROP TABLE IF EXISTS Project");
+            Connection.Execute("DROP TABLE IF EXISTS ProjectPerson");
             Connection.Execute("DROP TABLE IF EXISTS Tag");
             Connection.Execute("DROP TABLE IF EXISTS WorkType");
         }

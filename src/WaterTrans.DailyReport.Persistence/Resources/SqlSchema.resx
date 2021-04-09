@@ -136,6 +136,9 @@
   <data name="CreateProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>createproject.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="CreateProjectPerson" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>createprojectperson.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="CreateTag" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>createtag.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

@@ -385,6 +385,78 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to プロジェクト.
+        /// </summary>
+        public static string DisplayProject {
+            get {
+                return ResourceManager.GetString("DisplayProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 説明.
+        /// </summary>
+        public static string DisplayProjectDescription {
+            get {
+                return ResourceManager.GetString("DisplayProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to プロジェクト名.
+        /// </summary>
+        public static string DisplayProjectName {
+            get {
+                return ResourceManager.GetString("DisplayProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to プロジェクトコード.
+        /// </summary>
+        public static string DisplayProjectProjectCode {
+            get {
+                return ResourceManager.GetString("DisplayProjectProjectCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to プロジェクトID.
+        /// </summary>
+        public static string DisplayProjectProjectId {
+            get {
+                return ResourceManager.GetString("DisplayProjectProjectId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 並び順.
+        /// </summary>
+        public static string DisplayProjectSortNo {
+            get {
+                return ResourceManager.GetString("DisplayProjectSortNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ステータス.
+        /// </summary>
+        public static string DisplayProjectStatus {
+            get {
+                return ResourceManager.GetString("DisplayProjectStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to タグ.
+        /// </summary>
+        public static string DisplayProjectTags {
+            get {
+                return ResourceManager.GetString("DisplayProjectTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 認証トークンの有効期限が切れています。.
         /// </summary>
         public static string ErrorResultAuthorizationTokenExpired {

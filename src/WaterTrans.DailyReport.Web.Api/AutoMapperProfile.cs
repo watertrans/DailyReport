@@ -44,10 +44,26 @@ namespace WaterTrans.DailyReport.Web.Api
                 .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
             CreateMap<GroupUpdateRequest, GroupUpdateDto>();
             CreateMap<GroupPersonQueryRequest, GroupPersonQueryDto>()
-                 .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
+                .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
                 .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
             CreateMap<GroupQueryRequest, GroupQueryDto>()
+                .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
+                .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
+
+            // プロジェクト関連
+            CreateMap<ProjectCreateRequest, ProjectCreateDto>();
+            CreateMap<Domain.Entities.Project, Project>()
+                .ForMember(dest => dest.ProjectId, opt => opt.MapFrom(src => src.ProjectId.ToString()))
+                .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime.ToISO8601()))
+                .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
+            CreateMap<ProjectUpdateRequest, ProjectUpdateDto>();
+            CreateMap<ProjectPersonQueryRequest, ProjectPersonQueryDto>()
+                .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
+                .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
+            CreateMap<ProjectQueryRequest, ProjectQueryDto>()
                 .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
                 .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));

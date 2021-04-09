@@ -225,6 +225,30 @@
   <data name="DisplayPersonTitle" xml:space="preserve">
     <value>役職</value>
   </data>
+  <data name="DisplayProject" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="DisplayProjectDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DisplayProjectName" xml:space="preserve">
+    <value>プロジェクト名</value>
+  </data>
+  <data name="DisplayProjectProjectCode" xml:space="preserve">
+    <value>プロジェクトコード</value>
+  </data>
+  <data name="DisplayProjectProjectId" xml:space="preserve">
+    <value>プロジェクトID</value>
+  </data>
+  <data name="DisplayProjectSortNo" xml:space="preserve">
+    <value>並び順</value>
+  </data>
+  <data name="DisplayProjectStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="DisplayProjectTags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
   <data name="ErrorResultAuthorizationTokenExpired" xml:space="preserve">
     <value>認証トークンの有効期限が切れています。</value>
     <comment>認証トークンの有効期限が切れている場合のメッセージ。</comment>
