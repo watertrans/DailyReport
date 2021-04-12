@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmPopup from 'primevue/confirmpopup';
 import ConfirmationService from 'primevue/confirmationservice';
+import InputText from 'primevue/inputtext';
 import Ripple from 'primevue/ripple';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
@@ -28,6 +29,7 @@ app.directive('ripple', Ripple);
 
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('ConfirmPopup', ConfirmPopup);
+app.component('InputText', InputText);
 app.component('Toast', Toast);
 
 app.mount('#app');
