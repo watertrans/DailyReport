@@ -45,15 +45,15 @@ export default {
       if (item.disabled) {
         event.preventDefault();
         return;
-            }
+      }
 
-            if (!item.to && !item.url) {
-                event.preventDefault();
-            }
+      if (!item.to && !item.url) {
+        event.preventDefault();
+      }
 
       //execute command
       if (item.command) {
-                item.command({originalEvent: event, item: item});
+        item.command({originalEvent: event, item: item});
       }
 
       this.activeIndex = index === this.activeIndex ? null : index;

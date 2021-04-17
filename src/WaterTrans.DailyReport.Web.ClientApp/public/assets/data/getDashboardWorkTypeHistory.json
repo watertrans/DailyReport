@@ -1,0 +1,43 @@
+{
+  "data": {
+    "labels": ["2021/01","2021/02","2021/03","2021/04","2021/05","2021/06"],
+    "datasets": [
+        {
+            "label": "エンジニアリング",
+            "data": [44, 45, 48, 52, 55, 58, 60],
+            "fill": false,
+            "borderColor": "#001950"
+        },
+        {
+            "label": "情報共有",
+            "data": [5, 4, 8, 5, 4, 5, 5],
+            "fill": false,
+            "borderColor": "#1168ad"
+        },
+        {
+            "label": "教育業務",
+            "data": [10, 9, 8, 10, 15, 11, 10],
+            "fill": false,
+            "borderColor": "#509458"
+        },
+        {
+            "label": "研修業務",
+            "data": [5, 8, 5, 5, 8, 4, 5],
+            "fill": false,
+            "borderColor": "#80c686"
+        },
+        {
+            "label": "間接業務",
+            "data": [4, 6, 5, 2, 4, 3, 8],
+            "fill": false,
+            "borderColor": "#ffff51"
+        },
+        {
+            "label": "管理業務",
+            "data": [24, 22, 20, 18, 15, 14, 12],
+            "fill": false,
+            "borderColor": "#f4d002"
+        }
+    ]
+  }
+}

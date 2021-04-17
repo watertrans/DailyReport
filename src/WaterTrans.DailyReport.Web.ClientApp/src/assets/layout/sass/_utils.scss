@@ -1,0 +1,9 @@
+.card {
+    background-color: #ffffff;
+    padding: 1em;
+    border-radius: $borderRadius;
+
+    &.card-w-title {
+        padding-bottom: 2em;
+    }
+}

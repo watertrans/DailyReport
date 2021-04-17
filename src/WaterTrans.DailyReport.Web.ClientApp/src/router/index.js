@@ -1,16 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
+import Dashboard from '../views/Dashboard.vue';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/dashboard',
+    alias: '/',
+    name: 'Dashboard',
+    component: Dashboard,
+    children: [
+      {
+          path: '/dashboard',
+          alias: '/',
+          component: () => import('../components/tabs/RankingReceivedLikeIt.vue'),
+      },
+      {
+          path: '/dashboard/tabs/ranking/sentlikeit',
+          component: () => import('../components/tabs/RankingSentLikeIt.vue'),
+      }
+    ],
   }
 ];
 

@@ -1,0 +1,44 @@
+/* Dashboard */
+.dashboard {
+  .summary {
+    position: relative;
+    .title {
+      font-size: 20px;
+    }
+    .detail {
+      color: $textSecondaryColor;
+      display: block;
+      margin-top: 10px;
+    }
+    .count {
+      color: #ffffff;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      padding: 7px 14px;
+      border-radius: $borderRadius;
+
+      &.unread {
+        background-color: #20d077;
+      }
+
+      &.unreported {
+        background-color: #f9c851;
+      }
+    }
+  }
+  .ranking {
+    position: relative;
+    .title {
+      font-size: 20px;
+    }
+  }
+
+  .chart {
+    position: relative;
+    .title {
+      font-size: 20px;
+    }
+  }
+}
