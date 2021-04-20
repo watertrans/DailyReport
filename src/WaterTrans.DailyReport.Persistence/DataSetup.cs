@@ -60,6 +60,7 @@ namespace WaterTrans.DailyReport.Persistence
         public void CreateTables()
         {
             Connection.Execute(SqlSchema.CreateAccessToken);
+            Connection.Execute(SqlSchema.CreateAccount);
             Connection.Execute(SqlSchema.CreateApplication);
             Connection.Execute(SqlSchema.CreateGroup);
             Connection.Execute(SqlSchema.CreateGroupPerson);
@@ -92,6 +93,7 @@ namespace WaterTrans.DailyReport.Persistence
         public void DropTables()
         {
             Connection.Execute("DROP TABLE IF EXISTS AccessToken");
+            Connection.Execute("DROP TABLE IF EXISTS Account");
             Connection.Execute("DROP TABLE IF EXISTS Application");
             Connection.Execute("DROP TABLE IF EXISTS [Group]");
             Connection.Execute("DROP TABLE IF EXISTS GroupPerson");

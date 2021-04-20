@@ -26,6 +26,13 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         Person GetPerson(Guid personId);
 
         /// <summary>
+        /// 従業員エンティティを取得します。
+        /// </summary>
+        /// <param name="loginId">ログインIDを指定します。</param>
+        /// <returns>エンティティを返します。存在しない場合はnullを返します。</returns>
+        Person GetPersonByLoginId(string loginId);
+
+        /// <summary>
         /// 従業員コードが存在するかどうかを取得します。
         /// </summary>
         /// <param name="personCode">従業員コードを指定します。</param>

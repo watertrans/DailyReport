@@ -81,6 +81,9 @@ namespace WaterTrans.DailyReport.Web.Api
             services.AddTransient<IEnvSettings>(x => x.GetService<IOptionsMonitor<EnvSettings>>().CurrentValue);
             services.AddTransient<IDBSettings>(x => x.GetService<IOptionsMonitor<DBSettings>>().CurrentValue);
             services.AddTransient<IAccessTokenRepository, AccessTokenRepository>();
+            services.AddTransient<IAccountQueryService, AccountQueryService>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddTransient<IAuthorizeService, AuthorizeService>();
             services.AddTransient<IGroupPersonRepository, GroupPersonRepository>();

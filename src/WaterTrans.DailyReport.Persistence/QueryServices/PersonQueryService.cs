@@ -154,6 +154,38 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         }
 
         /// <inheritdoc/>
+        public Person GetPersonByLoginId(string loginId)
+        {
+            var sql = new StringBuilder();
+
+            sql.AppendLine(" SELECT PS1.* ");
+            sql.AppendLine("      , (SELECT TG1.Value ");
+            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("          WHERE TG1.TargetId = PS1.PersonId ");
+            sql.AppendLine("          ORDER BY TG1.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS PersonTags ");
+            sql.AppendLine(" FROM   Person AS PS1 ");
+            sql.AppendLine(" WHERE  PS1.LoginId = @LoginId ");
+
+            var param = new
+            {
+                LoginId = loginId,
+            };
+
+            return Connection.Query<Person, string, Person>(
+                sql.ToString(),
+                (person, personTags) =>
+                {
+                    person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                    return person;
+                },
+                param,
+                splitOn: "PersonTags",
+                commandTimeout: DBSettings.CommandTimeout).SingleOrDefault();
+        }
+
+        /// <inheritdoc/>
         public bool ExistsPersonCode(string personCode)
         {
             var sql = new StringBuilder();
