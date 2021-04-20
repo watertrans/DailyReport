@@ -112,15 +112,15 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///        GroupId UNIQUEIDENTIFIER PRIMARY KEY
         ///      , GroupCode NVARCHAR(20) NOT NULL
         ///      , GroupTree NVARCHAR(8) NOT NULL
-        ///      , Name NVARCHAR(100) NOT NULL
-        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Name NVARCHAR(256) NOT NULL
+        ///      , Description NVARCHAR(1024) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///    );
         ///
-        ///    CREATE UNIQUE INDEX ix_ [rest of string was truncated]&quot;;.
+        ///    CREATE UNIQUE INDEX ix [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateGroup {
             get {
@@ -157,16 +157,14 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///    CREATE TABLE Person (
         ///        PersonId UNIQUEIDENTIFIER PRIMARY KEY
         ///      , PersonCode NVARCHAR(20) NOT NULL
-        ///      , Name NVARCHAR(100) NOT NULL
+        ///      , LoginId NVARCHAR(256) NOT NULL
+        ///      , Name NVARCHAR(256) NOT NULL
         ///      , Title NVARCHAR(100) NOT NULL
-        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Description NVARCHAR(1024) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
-        ///      , UpdateTime DATETIMEOFFSET NOT NULL
-        ///    );
-        ///
-        ///    CREATE UNIQUE INDEX ix_ [rest of string was truncated]&quot;;.
+        ///      , UpdateTime DATETIMEOFFSET NOT NU [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreatePerson {
             get {
@@ -181,15 +179,15 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///    CREATE TABLE Project (
         ///        ProjectId UNIQUEIDENTIFIER PRIMARY KEY
         ///      , ProjectCode NVARCHAR(20) NOT NULL
-        ///      , Name NVARCHAR(100) NOT NULL
-        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Name NVARCHAR(256) NOT NULL
+        ///      , Description NVARCHAR(1024) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///    );
         ///
-        ///    CREATE UNIQUE INDEX ix_Project_ProjectCode ON Project (Pr [rest of string was truncated]&quot;;.
+        ///    CREATE UNIQUE INDEX ix_Project_ProjectCode ON Project (P [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateProject {
             get {
@@ -250,15 +248,15 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///        WorkTypeId UNIQUEIDENTIFIER PRIMARY KEY
         ///      , WorkTypeCode NVARCHAR(20) NOT NULL
         ///      , WorkTypeTree NVARCHAR(8) NOT NULL
-        ///      , Name NVARCHAR(100) NOT NULL
-        ///      , Description NVARCHAR(400) NOT NULL
+        ///      , Name NVARCHAR(256) NOT NULL
+        ///      , Description NVARCHAR(1024) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , SortNo INT NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
         ///      , UpdateTime DATETIMEOFFSET NOT NULL
         ///    );
         ///
-        ///    CREATE UNI [rest of string was truncated]&quot;;.
+        ///    CREATE UN [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateWorkType {
             get {

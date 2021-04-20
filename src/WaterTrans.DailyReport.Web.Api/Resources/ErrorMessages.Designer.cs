@@ -322,6 +322,15 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ログインID.
+        /// </summary>
+        public static string DisplayPersonLoginId {
+            get {
+                return ResourceManager.GetString("DisplayPersonLoginId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 名前.
         /// </summary>
         public static string DisplayPersonName {

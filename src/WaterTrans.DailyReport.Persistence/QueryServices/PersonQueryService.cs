@@ -169,5 +169,22 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             return Connection.ExecuteScalar<int>(sql.ToString(), param, commandTimeout: DBSettings.CommandTimeout) > 0;
         }
+
+        /// <inheritdoc/>
+        public bool ExistsLoginId(string loginId)
+        {
+            var sql = new StringBuilder();
+
+            sql.AppendLine(" SELECT COUNT(*) ");
+            sql.AppendLine(" FROM   Person ");
+            sql.AppendLine(" WHERE  LoginId = @LoginId ");
+
+            var param = new
+            {
+                LoginId = loginId,
+            };
+
+            return Connection.ExecuteScalar<int>(sql.ToString(), param, commandTimeout: DBSettings.CommandTimeout) > 0;
+        }
     }
 }

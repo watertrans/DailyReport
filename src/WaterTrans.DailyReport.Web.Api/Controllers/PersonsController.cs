@@ -150,6 +150,15 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                     "personCode");
             }
 
+            if (request.LoginId != null &&
+                request.LoginId != person.LoginId &&
+                _personQueryService.ExistsLoginId(request.LoginId))
+            {
+                return ErrorObjectResultFactory.ValidationErrorDetail(
+                    string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonLoginId),
+                    "loginId");
+            }
+
             var dto = _mapper.Map<PersonUpdateRequest, PersonUpdateDto>(request);
             dto.PersonId = personGuid;
             var entity = _personService.UpdatePerson(dto);
@@ -171,6 +180,13 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 return ErrorObjectResultFactory.ValidationErrorDetail(
                     string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonPersonCode),
                     "personCode");
+            }
+
+            if (_personQueryService.ExistsLoginId(request.LoginId))
+            {
+                return ErrorObjectResultFactory.ValidationErrorDetail(
+                    string.Format(ErrorMessages.ValidationDuplicated, ErrorMessages.DisplayPersonLoginId),
+                    "loginId");
             }
 
             var dto = _mapper.Map<PersonCreateRequest, PersonCreateDto>(request);

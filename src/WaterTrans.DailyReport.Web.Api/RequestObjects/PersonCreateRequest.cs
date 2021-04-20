@@ -23,8 +23,16 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayPersonName")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
-        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// ログインID
+        /// </summary>
+        [Display(Name = "DisplayPersonLoginId")]
+        [Required(ErrorMessage = "DataAnnotationRequired")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
+        public string LoginId { get; set; }
 
         /// <summary>
         /// 役職
@@ -39,7 +47,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayPersonDescription")]
         [Required(AllowEmptyStrings = true, ErrorMessage = "DataAnnotationRequired")]
-        [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(1024, ErrorMessage = "DataAnnotationStringLength")]
         public string Description { get; set; }
 
         /// <summary>

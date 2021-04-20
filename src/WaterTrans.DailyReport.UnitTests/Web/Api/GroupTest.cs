@@ -147,8 +147,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('Z', 20),
                 GroupTree = new String('Z', 8),
-                Name = new String('Z', 100),
-                Description = new String('Z', 400),
+                Name = new String('Z', 256),
+                Description = new String('Z', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('X', 100), new String('Y', 100) },
@@ -171,8 +171,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('Z', 21),
                 GroupTree = new String('Z', 9),
-                Name = new String('Z', 101),
-                Description = new String('Z', 401),
+                Name = new String('Z', 257),
+                Description = new String('Z', 1025),
                 Status = "ERROR",
                 SortNo = -1,
                 Tags = new List<string> { new String('Z', 101) },
@@ -254,8 +254,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('U', 20),
                 GroupTree = new String('U', 8),
-                Name = new String('U', 100),
-                Description = new String('U', 400),
+                Name = new String('U', 256),
+                Description = new String('U', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('U', 100) },
@@ -274,8 +274,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('V', 20),
                 GroupTree = new String('V', 8),
-                Name = new String('V', 100),
-                Description = new String('V', 400),
+                Name = new String('V', 256),
+                Description = new String('V', 1024),
                 Status = GroupStatus.SUSPENDED.ToString(),
                 SortNo = 0,
                 Tags = new List<string> { new String('V', 100) },
@@ -291,8 +291,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(group.GroupCode, new String('V', 20));
             Assert.AreEqual(group.GroupTree, new String('V', 8));
-            Assert.AreEqual(group.Name, new String('V', 100));
-            Assert.AreEqual(group.Description, new String('V', 400));
+            Assert.AreEqual(group.Name, new String('V', 256));
+            Assert.AreEqual(group.Description, new String('V', 1024));
             Assert.AreEqual(group.Status, GroupStatus.SUSPENDED.ToString());
             Assert.AreEqual(group.SortNo, 0);
             Assert.AreEqual(group.Tags[0], new String('V', 100));
@@ -305,8 +305,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('W', 20),
                 GroupTree = new String('W', 8),
-                Name = new String('W', 100),
-                Description = new String('W', 400),
+                Name = new String('W', 256),
+                Description = new String('W', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('W', 100) },
@@ -345,8 +345,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('S', 20),
                 GroupTree = new String('S', 8),
-                Name = new String('S', 100),
-                Description = new String('S', 400),
+                Name = new String('S', 256),
+                Description = new String('S', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('S', 100) },
@@ -436,8 +436,8 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             {
                 GroupCode = new String('T', 20),
                 GroupTree = new String('T', 8),
-                Name = new String('X', 100),
-                Description = new String('X', 400),
+                Name = new String('X', 256),
+                Description = new String('X', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('X', 100) },

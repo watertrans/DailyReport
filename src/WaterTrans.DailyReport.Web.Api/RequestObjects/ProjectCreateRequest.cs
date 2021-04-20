@@ -23,7 +23,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayProjectName")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
-        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
         public string Name { get; set; }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayProjectDescription")]
         [Required(AllowEmptyStrings = true, ErrorMessage = "DataAnnotationRequired")]
-        [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(1024, ErrorMessage = "DataAnnotationStringLength")]
         public string Description { get; set; }
 
         /// <summary>

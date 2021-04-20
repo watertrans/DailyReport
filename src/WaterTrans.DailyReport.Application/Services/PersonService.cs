@@ -49,6 +49,7 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 PersonId = Guid.NewGuid(),
                 PersonCode = dto.PersonCode,
+                LoginId = dto.LoginId,
                 Name = dto.Name,
                 Title = dto.Title,
                 Description = dto.Description,
@@ -88,6 +89,11 @@ namespace WaterTrans.DailyReport.Application.Services
             if (dto.PersonCode != null)
             {
                 entity.PersonCode = dto.PersonCode;
+            }
+
+            if (dto.LoginId != null)
+            {
+                entity.LoginId = dto.LoginId;
             }
 
             if (dto.Name != null)

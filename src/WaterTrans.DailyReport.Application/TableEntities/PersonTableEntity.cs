@@ -22,6 +22,11 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         public string PersonCode { get; set; }
 
         /// <summary>
+        /// ログインID
+        /// </summary>
+        public string LoginId { get; set; }
+
+        /// <summary>
         /// 名前
         /// </summary>
         public string Name { get; set; }

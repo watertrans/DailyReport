@@ -204,6 +204,9 @@
   <data name="DisplayPersonDescription" xml:space="preserve">
     <value>説明</value>
   </data>
+  <data name="DisplayPersonLoginId" xml:space="preserve">
+    <value>ログインID</value>
+  </data>
   <data name="DisplayPersonName" xml:space="preserve">
     <value>名前</value>
   </data>

@@ -17,8 +17,8 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             {
                 ProjectId = Guid.NewGuid(),
                 ProjectCode = new string('X', 20),
-                Name = new string('X', 100),
-                Description = new string('X', 400),
+                Name = new string('X', 256),
+                Description = new string('X', 1024),
                 SortNo = int.MaxValue,
                 Status = ProjectStatus.NORMAL.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,
@@ -61,8 +61,8 @@ namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
             {
                 ProjectId = Guid.NewGuid(),
                 ProjectCode = new string('Y', 20),
-                Name = new string('X', 100),
-                Description = new string('X', 400),
+                Name = new string('X', 256),
+                Description = new string('X', 1024),
                 SortNo = int.MaxValue,
                 Status = ProjectStatus.SUSPENDED.ToString(),
                 CreateTime = DateTimeOffset.MaxValue,

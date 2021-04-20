@@ -463,9 +463,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 20),
-                Name = new String('Z', 100),
+                Name = new String('Z', 256),
+                LoginId = new String('Z', 256),
                 Title = new String('Z', 100),
-                Description = new String('Z', 400),
+                Description = new String('Z', 1024),
                 Status = PersonStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('X', 100), new String('Y', 100) },
@@ -487,9 +488,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 21),
-                Name = new String('Z', 101),
+                Name = new String('Z', 257),
+                LoginId = new String('Z', 257),
                 Title = new String('Z', 101),
-                Description = new String('Z', 401),
+                Description = new String('Z', 1025),
                 Status = "ERROR",
                 SortNo = -1,
                 Tags = new List<string> { new String('Z', 101) },
@@ -519,9 +521,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 20),
-                Name = new String('Z', 100),
+                Name = new String('Z', 256),
+                LoginId = new String('Z', 256),
                 Title = new String('Z', 100),
-                Description = new String('Z', 400),
+                Description = new String('Z', 1024),
                 Status = "NORMAL",
                 SortNo = 0,
                 Tags = new List<string> {
@@ -547,9 +550,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 20),
-                Name = new String('Z', 100),
+                Name = new String('Z', 256),
+                LoginId = new String('Z', 256),
                 Title = new String('Z', 100),
-                Description = new String('Z', 400),
+                Description = new String('Z', 1024),
                 Status = "NORMAL",
                 SortNo = 0,
                 Tags = new List<string> {
@@ -575,9 +579,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 20),
-                Name = new String('Z', 100),
+                Name = new String('Z', 256),
+                LoginId = new String('Z', 256),
                 Title = new String('Z', 100),
-                Description = new String('Z', 400),
+                Description = new String('Z', 1024),
                 Status = "NORMAL",
                 SortNo = 0,
                 Tags = new List<string> {
@@ -603,9 +608,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('Z', 20),
-                Name = new String('Z', 100),
+                Name = new String('Z', 256),
+                LoginId = new String('Z', 256),
                 Title = new String('Z', 100),
-                Description = new String('Z', 400),
+                Description = new String('Z', 1026),
                 Status = "NORMAL",
                 SortNo = 0,
                 Tags = new List<string> {
@@ -682,9 +688,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('U', 20),
-                Name = new String('U', 100),
+                Name = new String('U', 256),
+                LoginId = new String('U', 256),
                 Title = new String('U', 100),
-                Description = new String('U', 400),
+                Description = new String('U', 1024),
                 Status = PersonStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('U', 100) },
@@ -702,9 +709,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var updateRequestObject = new PersonUpdateRequest
             {
                 PersonCode = new String('V', 20),
-                Name = new String('V', 100),
+                Name = new String('V', 256),
+                LoginId = new String('V', 256),
                 Title = new String('V', 100),
-                Description = new String('V', 400),
+                Description = new String('V', 1024),
                 Status = PersonStatus.SUSPENDED.ToString(),
                 SortNo = 0,
                 Tags = new List<string> { new String('V', 100) },
@@ -719,9 +727,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(person.PersonCode, new String('V', 20));
-            Assert.AreEqual(person.Name, new String('V', 100));
+            Assert.AreEqual(person.Name, new String('V', 256));
+            Assert.AreEqual(person.LoginId, new String('V', 256));
             Assert.AreEqual(person.Title, new String('V', 100));
-            Assert.AreEqual(person.Description, new String('V', 400));
+            Assert.AreEqual(person.Description, new String('V', 1024));
             Assert.AreEqual(person.Status, PersonStatus.SUSPENDED.ToString());
             Assert.AreEqual(person.SortNo, 0);
             Assert.AreEqual(person.Tags[0], new String('V', 100));
@@ -733,9 +742,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('W', 20),
-                Name = new String('W', 100),
+                Name = new String('W', 256),
+                LoginId = new String('W', 256),
                 Title = new String('W', 100),
-                Description = new String('W', 400),
+                Description = new String('W', 1024),
                 Status = PersonStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('W', 100) },
@@ -809,9 +819,10 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
             var requestObject = new PersonCreateRequest
             {
                 PersonCode = new String('T', 20),
-                Name = new String('X', 100),
+                Name = new String('X', 256),
+                LoginId = new String('T', 256),
                 Title = new String('X', 100),
-                Description = new String('X', 400),
+                Description = new String('X', 1024),
                 Status = PersonStatus.NORMAL.ToString(),
                 SortNo = int.MaxValue,
                 Tags = new List<string> { new String('X', 100) },

@@ -21,14 +21,14 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// プロジェクト名
         /// </summary>
         [Display(Name = "DisplayProjectName")]
-        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
         public string Name { get; set; }
 
         /// <summary>
         /// 説明
         /// </summary>
         [Display(Name = "DisplayProjectDescription")]
-        [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(1024, ErrorMessage = "DataAnnotationStringLength")]
         public string Description { get; set; }
 
         /// <summary>

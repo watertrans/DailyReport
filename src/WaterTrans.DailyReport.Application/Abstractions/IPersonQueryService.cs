@@ -31,5 +31,12 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// <param name="personCode">従業員コードを指定します。</param>
         /// <returns>存在する場合はtrueを返します。</returns>
         bool ExistsPersonCode(string personCode);
+
+        /// <summary>
+        /// ログインIDが存在するかどうかを取得します。
+        /// </summary>
+        /// <param name="loginId">ログインIDを指定します。</param>
+        /// <returns>存在する場合はtrueを返します。</returns>
+        bool ExistsLoginId(string loginId);
     }
 }

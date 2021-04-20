@@ -18,6 +18,11 @@ namespace WaterTrans.DailyReport.Application.DataTransferObjects
         public string Name { get; set; }
 
         /// <summary>
+        /// ログインID
+        /// </summary>
+        public string LoginId { get; set; }
+
+        /// <summary>
         /// 役職
         /// </summary>
         public string Title { get; set; }

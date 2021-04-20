@@ -21,21 +21,28 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 名前
         /// </summary>
         [Display(Name = "DisplayPersonName")]
-        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// ログインID
+        /// </summary>
+        [Display(Name = "DisplayPersonLoginId")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
+        public string LoginId { get; set; }
 
         /// <summary>
         /// 役職
         /// </summary>
         [Display(Name = "DisplayPersonTitle")]
-        [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
         public string Title { get; set; }
 
         /// <summary>
         /// 説明
         /// </summary>
         [Display(Name = "DisplayPersonDescription")]
-        [StringLength(400, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(1024, ErrorMessage = "DataAnnotationStringLength")]
         public string Description { get; set; }
 
         /// <summary>

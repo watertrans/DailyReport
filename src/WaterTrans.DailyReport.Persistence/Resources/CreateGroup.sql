@@ -5,8 +5,8 @@ BEGIN
         GroupId UNIQUEIDENTIFIER PRIMARY KEY
       , GroupCode NVARCHAR(20) NOT NULL
       , GroupTree NVARCHAR(8) NOT NULL
-      , Name NVARCHAR(100) NOT NULL
-      , Description NVARCHAR(400) NOT NULL
+      , Name NVARCHAR(256) NOT NULL
+      , Description NVARCHAR(1024) NOT NULL
       , Status NVARCHAR(20) NOT NULL
       , SortNo INT NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL

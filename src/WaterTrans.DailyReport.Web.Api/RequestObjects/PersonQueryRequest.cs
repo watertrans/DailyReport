@@ -26,7 +26,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 検索条件
         /// </summary>
         [Display(Name = "DisplayCommonQuery")]
-        [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
+        [StringLength(256, ErrorMessage = "DataAnnotationStringLength")]
         public string Query { get; set; }
 
         /// <summary>

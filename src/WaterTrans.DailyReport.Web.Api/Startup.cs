@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,11 +10,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 using Microsoft.OpenApi.Models;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using System.Threading.Tasks;
 using WaterTrans.DailyReport.Application.Abstractions;
 using WaterTrans.DailyReport.Application.Services;
 using WaterTrans.DailyReport.Application.Settings;
@@ -114,6 +118,24 @@ namespace WaterTrans.DailyReport.Web.Api
 
             services.AddAuthentication(BearerAuthenticationHandler.SchemeName)
                 .AddScheme<AuthenticationSchemeOptions, BearerAuthenticationHandler>(BearerAuthenticationHandler.SchemeName, null);
+
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(options =>
+                {
+                    Configuration.Bind("AzureAD", options);
+                    options.Events.OnSignedOutCallbackRedirect = context =>
+                    {
+                        context.Response.Redirect("/");
+                        context.HandleResponse();
+                        return Task.CompletedTask;
+                    };
+                    options.Events.OnTokenValidated = context =>
+                    {
+                        return Task.CompletedTask;
+                    };
+                });
+
+            services.AddRazorPages().AddMicrosoftIdentityUI();
 
             services.AddAuthorization(options =>
             {
@@ -216,14 +238,15 @@ namespace WaterTrans.DailyReport.Web.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "WaterTrans.Scheduler.WebApi v1");
-                });
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.RoutePrefix = string.Empty;
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "WaterTrans.Scheduler.WebApi v1");
+            });
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
@@ -231,6 +254,8 @@ namespace WaterTrans.DailyReport.Web.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
             });
         }
