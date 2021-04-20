@@ -94,6 +94,7 @@ paths:
                   value:
                     personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                     personCode: '000001'
+                    loginId: '000001'
                     name: John Doe
                     title: Human Resources Manager
                     description: 'Hire date: 2010.04.01'
@@ -125,9 +126,13 @@ paths:
                   type: string
                   description: 従業員コード
                   maxLength: 20
+                loginId:
+                  type: string
+                  description: ログインID
+                  maxLength: 256
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 title:
                   type: string
@@ -135,7 +140,7 @@ paths:
                   description: 役職
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -159,6 +164,7 @@ paths:
                     maxLength: 100
               required:
                 - personCode
+                - loginId
                 - name
                 - title
                 - description
@@ -169,6 +175,7 @@ paths:
               Example:
                 value:
                   personCode: '000001'
+                  loginId: '000001'
                   name: John Doe
                   title: Human Resources Manager
                   description: 'Hire date: 2010.04.01'
@@ -220,6 +227,7 @@ paths:
                     items:
                       - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                         personCode: '000001'
+                        loginId: '000001'
                         name: John Doe
                         title: Human Resources Manager
                         description: 'Hire date: 2010.04.01'
@@ -277,6 +285,7 @@ paths:
                   value:
                     personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                     personCode: '000001'
+                    loginId: '000001'
                     name: John Doe
                     title: Human Resources Manager
                     description: 'Hire date: 2010.04.01'
@@ -315,6 +324,7 @@ paths:
                   value:
                     personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                     personCode: '000001'
+                    loginId: '000001'
                     name: John Doe
                     title: Human Resources Manager
                     description: 'Hire date: 2010.04.01'
@@ -347,9 +357,13 @@ paths:
                   type: string
                   description: 従業員コード
                   maxLength: 20
+                loginId:
+                  type: string
+                  description: ログインID
+                  maxLength: 256
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 title:
                   type: string
@@ -357,7 +371,7 @@ paths:
                   description: 役職
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -383,6 +397,7 @@ paths:
               Example:
                 value:
                   personCode: '000001'
+                  loginId: '000001'
                   name: John Doe
                   title: Human Resources Manager
                   description: 'Hire date: 2010.04.01'
@@ -465,11 +480,11 @@ paths:
                   maxLength: 8
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -679,11 +694,11 @@ paths:
                   maxLength: 8
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -858,6 +873,7 @@ paths:
                     items:
                       - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                         personCode: '000001'
+                        loginId: '000001'
                         name: John Doe
                         title: Human Resources Manager
                         description: 'Hire date: 2010.04.01'
@@ -936,11 +952,11 @@ paths:
                   maxLength: 20
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -1141,11 +1157,11 @@ paths:
                   maxLength: 20
                 name:
                   type: string
-                  maxLength: 100
+                  maxLength: 256
                   description: 名前
                 description:
                   type: string
-                  maxLength: 400
+                  maxLength: 1024
                   description: 説明
                 status:
                   type: string
@@ -1302,6 +1318,7 @@ paths:
                     items:
                       - personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
                         personCode: '000001'
+                        loginId: '000001'
                         name: John Doe
                         title: Software Development Manager
                         description: 'Hire date: 2010.04.01'
@@ -1402,12 +1419,12 @@ components:
           maxLength: 8
         name:
           type: string
-          maxLength: 100
+          maxLength: 256
           description: 名前
         description:
           type: string
           description: 説明
-          maxLength: 400
+          maxLength: 1024
         status:
           type: string
           enum:
@@ -1454,6 +1471,7 @@ components:
         John Doe:
           personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
           personCode: '000001'
+          loginId: '000001'
           name: John Doe
           title: Human Resources Manager
           description: 'Hire date: 2010.04.01'
@@ -1474,9 +1492,13 @@ components:
           type: string
           description: 従業員コード
           maxLength: 20
+        loginId:
+          type: string
+          description: ログインID
+          maxLength: 256
         name:
           type: string
-          maxLength: 100
+          maxLength: 256
           description: 名前
         title:
           type: string
@@ -1485,7 +1507,7 @@ components:
         description:
           type: string
           description: 説明
-          maxLength: 400
+          maxLength: 1024
         status:
           type: string
           enum:
@@ -1516,6 +1538,7 @@ components:
       required:
         - personId
         - personCode
+        - loginId
         - name
         - title
         - description
@@ -1532,6 +1555,7 @@ components:
         John Doe:
           personId: f3e5ff26-28ff-4cd6-9b1b-e303a185a13a
           personCode: '000001'
+          loginId: '000001'
           name: John Doe
           title: Human Resources Manager
           description: 'Hire date: 2010.04.01'
@@ -1553,9 +1577,13 @@ components:
           type: string
           description: 従業員コード
           maxLength: 20
+        loginId:
+          type: string
+          description: ログインID
+          maxLength: 256
         name:
           type: string
-          maxLength: 100
+          maxLength: 256
           description: 名前
         title:
           type: string
@@ -1564,7 +1592,7 @@ components:
         description:
           type: string
           description: 説明
-          maxLength: 400
+          maxLength: 1024
         status:
           type: string
           enum:
@@ -1603,6 +1631,7 @@ components:
       required:
         - personId
         - personCode
+        - loginId
         - name
         - title
         - description
@@ -1639,12 +1668,12 @@ components:
           maxLength: 20
         name:
           type: string
-          maxLength: 100
+          maxLength: 256
           description: 名前
         description:
           type: string
           description: 説明
-          maxLength: 400
+          maxLength: 1024
         status:
           type: string
           enum:
@@ -1806,7 +1835,7 @@ components:
       required: false
       schema:
         type: string
-        maxLength: 100
+        maxLength: 256
       description: 検索キーワード
   examples: {}
 security:
