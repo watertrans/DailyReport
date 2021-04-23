@@ -34,24 +34,29 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         public IActionResult Login()
         {
             var accountId = Guid.Parse(User.GetObjectId());
+            var account = _accountService.GetAccount(accountId);
+            var accountCreateDto = new AccountCreateDto
+            {
+                AccountId = accountId,
+                LoginId = User.Identity.Name,
+                Name = User.Claims.ToList().Find(e => e.Type == "name").Value,
+            };
 
-            if (_accountService.ExistsAccount(accountId))
+            if (account != null && account.Person != null)
             {
                 _accountService.UpdateLastLoginTime(accountId);
             }
+            else if (account != null && account.Person == null)
+            {
+                _accountService.RecreateAccountAndPerson(accountCreateDto);
+                account = _accountService.GetAccount(accountId);
+            }
             else
             {
-                var accountCreateDto = new AccountCreateDto
-                {
-                    AccountId = accountId,
-                    LoginId = User.Identity.Name,
-                    Name = User.Claims.ToList().Find(e => e.Type == "name").Value,
-                };
-
-                _accountService.CreateAccount(accountCreateDto);
+                _accountService.CreateAccountAndPerson(accountCreateDto);
+                account = _accountService.GetAccount(accountId);
             }
 
-            // TODO 従業員のステータスをチェックして通常であれば認可コードを発行してSPAにリダイレクト
             return this.Content("OK");
         }
 

@@ -39,7 +39,53 @@ namespace WaterTrans.DailyReport.Application.Services
         }
 
         /// <inheritdoc/>
-        public Account CreateAccount(AccountCreateDto dto)
+        public Account RecreateAccountAndPerson(AccountCreateDto dto)
+        {
+            var now = DateUtil.Now;
+            var personId = Guid.NewGuid();
+            var personCode = personId.ToString("N").Substring(0, 20);
+
+            while (_personQueryService.ExistsPersonCode(personCode))
+            {
+                personCode = Guid.NewGuid().ToString("N").Substring(0, 20);
+            }
+
+            var account = _accountRepository.Read(new AccountTableEntity { AccountId = dto.AccountId });
+            account.PersonId = personId;
+            account.LastLoginTime = now;
+
+            var person = new PersonTableEntity
+            {
+                PersonId = personId,
+                PersonCode = personCode,
+                LoginId = dto.LoginId,
+                Name = dto.Name,
+                Title = string.Empty,
+                Description = string.Empty,
+                Status = PersonStatus.NORMAL.ToString(),
+                SortNo = int.MaxValue,
+                CreateTime = now,
+                UpdateTime = now,
+            };
+
+            using (var tran = new TransactionScope())
+            {
+                _accountRepository.Update(account);
+                _personRepository.Create(person);
+                tran.Complete();
+            }
+
+            return new Account
+            {
+                AccountId = account.AccountId,
+                Person = _personQueryService.GetPerson(personId),
+                CreateTime = account.CreateTime,
+                LastLoginTime = account.LastLoginTime,
+            };
+        }
+
+        /// <inheritdoc/>
+        public Account CreateAccountAndPerson(AccountCreateDto dto)
         {
             var now = DateUtil.Now;
             var personId = Guid.NewGuid();

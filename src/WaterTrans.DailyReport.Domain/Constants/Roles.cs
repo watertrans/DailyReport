@@ -30,11 +30,11 @@
         public const string Reader = "Reader";
 
         /// <summary>
-        /// UserAdministrator
+        /// User
         /// </summary>
         /// <remarks>
-        /// 管理者の読み取り・追加・削除、アクセス権限の読み取り・付与・剥奪の操作を実行できます。
+        /// すべての読み取り操作を実行できます。
         /// </remarks>
-        public const string UserAdministrator = "UserAdministrator";
+        public const string User = "User";
     }
 }

@@ -127,6 +127,28 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;AuthorizationCode&apos; and xtype=&apos;U&apos;)
+        ///BEGIN
+        ///
+        ///    CREATE TABLE AuthorizationCode (
+        ///        CodeId NVARCHAR(100) PRIMARY KEY
+        ///      , ApplicationId UNIQUEIDENTIFIER NOT NULL
+        ///      , Status NVARCHAR(20) NOT NULL
+        ///      , ExpiryTime DATETIMEOFFSET NOT NULL
+        ///      , CreateTime DATETIMEOFFSET NOT NULL
+        ///      , UpdateTime DATETIMEOFFSET NOT NULL
+        ///    );
+        ///
+        ///END;
+        ///.
+        /// </summary>
+        internal static string CreateAuthorizationCode {
+            get {
+                return ResourceManager.GetString("CreateAuthorizationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IF NOT EXISTS (SELECT * FROM sysobjects WHERE name=&apos;Group&apos; and xtype=&apos;U&apos;)
         ///BEGIN
         ///
@@ -288,8 +310,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;, N&apos;owner-secret&apos;, N&apos;管理者ロールアプリケーション&apos;,   N&apos;管理者ロールを付与したアプリケーションです。&apos;,   N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, G [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;,        N&apos;owner-secret&apos;,        N&apos;(Debug) Owner Application&apos;,       N&apos;Owner Application for Debug&apos;,       N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INSERT INTO Application (ApplicationId, ClientId, Clien [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadInitialData {
             get {

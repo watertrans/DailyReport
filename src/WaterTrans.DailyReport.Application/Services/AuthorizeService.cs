@@ -70,7 +70,7 @@ namespace WaterTrans.DailyReport.Application.Services
                 TokenId =
                     StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()) +
                     StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()),
-                PrincipalType = PrincipalType.APPLICATION.ToString(),
+                PrincipalType = PrincipalType.Application.ToString(),
                 PrincipalId = applicationId,
                 Name = application.Name + " - " + now.ToISO8601(),
                 Description = string.Empty,
@@ -115,7 +115,7 @@ namespace WaterTrans.DailyReport.Application.Services
                 return null;
             }
 
-            if (accessToken.PrincipalType != PrincipalType.APPLICATION.ToString())
+            if (accessToken.PrincipalType != PrincipalType.Application.ToString())
             {
                 throw new NotImplementedException();
             }

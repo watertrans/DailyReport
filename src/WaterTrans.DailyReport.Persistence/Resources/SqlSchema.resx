@@ -127,6 +127,9 @@
   <data name="CreateApplication" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>createapplication.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="CreateAuthorizationCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>createauthorizationcode.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="CreateGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>creategroup.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

@@ -1,18 +1,18 @@
 ﻿namespace WaterTrans.DailyReport.Domain.Constants
 {
     /// <summary>
-    /// プリンシパルタイプ一覧
+    /// 認可コードステータス
     /// </summary>
-    public enum PrincipalType
+    public enum AuthorizationCodeStatus
     {
         /// <summary>
-        /// アプリケーション
+        /// 通常
         /// </summary>
-        Application,
+        NORMAL,
 
         /// <summary>
-        /// ユーザー
+        /// 使用済み
         /// </summary>
-        User,
+        USED,
     }
 }

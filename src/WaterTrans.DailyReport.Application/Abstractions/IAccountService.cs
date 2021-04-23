@@ -14,7 +14,14 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// </summary>
         /// <param name="dto"><see cref="AccountCreateDto"/></param>
         /// <returns><see cref="Account"/></returns>
-        Account CreateAccount(AccountCreateDto dto);
+        Account CreateAccountAndPerson(AccountCreateDto dto);
+
+        /// <summary>
+        /// アカウント従業員再作成
+        /// </summary>
+        /// <param name="dto"><see cref="AccountCreateDto"/></param>
+        /// <returns><see cref="Account"/></returns>
+        Account RecreateAccountAndPerson(AccountCreateDto dto);
 
         /// <summary>
         /// アカウント取得

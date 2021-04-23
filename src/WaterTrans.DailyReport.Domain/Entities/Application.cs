@@ -5,17 +5,17 @@ using WaterTrans.DailyReport.Domain.Constants;
 namespace WaterTrans.DailyReport.Domain.Entities
 {
     /// <summary>
-    /// アクセストークンエンティティ
+    /// アプリケーションエンティティ
     /// </summary>
     public class Application
     {
         /// <summary>
-        /// アクセストークンID
+        /// アプリケーションID
         /// </summary>
         public Guid ApplicationId { get; set; }
 
         /// <summary>
-        /// アクセストークン名
+        /// アプリケーション名
         /// </summary>
         public string Name { get; set; }
 

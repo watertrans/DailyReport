@@ -5,19 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WaterTrans.DailyReport.Application.TableEntities
 {
     /// <summary>
-    /// アクセストークンテーブルエンティティ
+    /// アプリケーションテーブルエンティティ
     /// </summary>
     [Table("Application")]
     public class ApplicationTableEntity : SqlTableEntity
     {
         /// <summary>
-        /// アクセストークンID
+        /// アプリケーションID
         /// </summary>
         [Key]
         public Guid ApplicationId { get; set; }
 
         /// <summary>
-        /// アクセストークン名
+        /// アプリケーション名
         /// </summary>
         public string Name { get; set; }
 
