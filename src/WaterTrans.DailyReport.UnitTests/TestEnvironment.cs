@@ -1,23 +1,24 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading;
 using WaterTrans.DailyReport.Application.Settings;
 using WaterTrans.DailyReport.Persistence;
+using WaterTrans.DailyReport.Web.Api;
 
 namespace WaterTrans.DailyReport.UnitTests
 {
     [TestClass]
     public class TestEnvironment
     {
-        public static string WebApiBaseAddress { get; private set; }
+        public static WebApplicationFactory<Startup> WebApiFactory;
         public static DBSettings DBSettings { get; } = new DBSettings();
-        private static Process _process;
 
         [AssemblyInitialize]
         public static void Initialize(TestContext _)
@@ -28,7 +29,6 @@ namespace WaterTrans.DailyReport.UnitTests
 
             var configuration = builder.Build();
             configuration.GetSection("DBSettings").Bind(DBSettings);
-            WebApiBaseAddress = configuration["WebApiBaseAddress"];
             DBSettings.SqlProviderFactory = SqlClientFactory.Instance;
 
             DataConfiguration.Initialize();
@@ -36,40 +36,33 @@ namespace WaterTrans.DailyReport.UnitTests
             setup.Initialize();
             setup.LoadUnitTestData();
 
-            string webApiProjectName = "WaterTrans.DailyReport.Web.Api";
-            string testProjectName = Assembly.GetExecutingAssembly().GetName().Name;
-            string solutionRootDirectory = Environment.CurrentDirectory.Split(testProjectName)[0];
-            string webApiProjectDirectory = Path.Combine(solutionRootDirectory, webApiProjectName);
-
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                Arguments = $"run --launch-profile \"{webApiProjectName}\"",
-                WorkingDirectory = webApiProjectDirectory,
-            };
-
-            startInfo.EnvironmentVariables["DBSettings__StorageConnectionString"] = DBSettings.StorageConnectionString;
-            startInfo.EnvironmentVariables["DBSettings__SqlConnectionString"] = DBSettings.SqlConnectionString;
-            startInfo.EnvironmentVariables["DBSettings__ReplicaSqlConnectionString"] = DBSettings.ReplicaSqlConnectionString;
-
-            _process = Process.Start(startInfo);
+            WebApiFactory = new WebApplicationFactory<Startup>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureTestServices(services =>
+                    {
+                        services.Configure<DBSettings>(options =>
+                        {
+                            options.StorageConnectionString = DBSettings.StorageConnectionString;
+                            options.SqlConnectionString = DBSettings.SqlConnectionString;
+                            options.ReplicaSqlConnectionString = DBSettings.ReplicaSqlConnectionString;
+                        });
+                    });
+                });
 
             StartupWebApiProject();
         }
 
         private static void StartupWebApiProject()
         {
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ServerCertificateCustomValidationCallback = delegate { return true; };
-            var httpclient = new HttpClient(httpClientHandler);
-            httpclient.BaseAddress = new Uri(TestEnvironment.WebApiBaseAddress);
+            var httpclient = WebApiFactory.CreateClient();
 
             HttpResponseMessage response;
             for (int i = 0; i < 10; i++)
             {
                 try
                 {
-                    response = httpclient.GetAsync("swagger").ConfigureAwait(false).GetAwaiter().GetResult();
+                    response = httpclient.GetAsync("/").ConfigureAwait(false).GetAwaiter().GetResult();
                 }
                 catch (Exception)
                 {
@@ -89,10 +82,6 @@ namespace WaterTrans.DailyReport.UnitTests
         {
             var setup = new DataSetup(DBSettings);
             setup.Cleanup();
-            if (_process != null && !_process.HasExited)
-            {
-                _process.Kill();
-            }
         }
     }
 }

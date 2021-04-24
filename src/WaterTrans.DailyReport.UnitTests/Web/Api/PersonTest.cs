@@ -24,11 +24,7 @@ namespace WaterTrans.DailyReport.UnitTests.Web.Api
 
         public PersonTest()
         {
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ServerCertificateCustomValidationCallback = delegate { return true; };
-            var httpclient = new HttpClient(httpClientHandler);
-            httpclient.BaseAddress = new Uri(TestEnvironment.WebApiBaseAddress);
-            _httpclient = httpclient;
+            _httpclient = TestEnvironment.WebApiFactory.CreateClient();
         }
 
         [TestMethod]

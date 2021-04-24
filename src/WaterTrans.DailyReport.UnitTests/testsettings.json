@@ -1,5 +1,4 @@
 ﻿{
-  "WebApiBaseAddress": "https://localhost:44351",
   "DBSettings": {
     "CommandTimeout": 300,
     "StorageConnectionString": "UseDevelopmentStorage=true",
