@@ -27,6 +27,11 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         public string Description { get; set; }
 
         /// <summary>
+        /// アプリケーションID
+        /// </summary>
+        public Guid ApplicationId { get; set; }
+
+        /// <summary>
         /// プリンシパルタイプ
         /// </summary>
         public string PrincipalType { get; set; }

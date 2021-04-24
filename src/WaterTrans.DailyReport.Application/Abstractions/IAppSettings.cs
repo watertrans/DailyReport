@@ -11,5 +11,10 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// アクセストークンの有効期限（秒）を取得します。
         /// </summary>
         int AccessTokenExpiresIn { get; }
+
+        /// <summary>
+        /// 認可コードの有効期限（秒）を取得します。
+        /// </summary>
+        int AuthorizationCodeExpiresIn { get; }
     }
 }

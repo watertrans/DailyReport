@@ -22,6 +22,18 @@ namespace WaterTrans.DailyReport.Application.Utils
         }
 
         /// <summary>
+        /// トークンおよび認可コードに使われるランダムコードを発行します。
+        /// </summary>
+        /// <returns>生成した結果を返します。</returns>
+        public static string CreateCode()
+        {
+            return (StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()) +
+                    StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()))
+                        .Replace("-", string.Empty)
+                        .Replace("_", string.Empty);
+        }
+
+        /// <summary>
         /// バイト配列をBase64Urlで文字列に変換します。
         /// </summary>
         /// <param name="input">バイト配列を指定します。</param>

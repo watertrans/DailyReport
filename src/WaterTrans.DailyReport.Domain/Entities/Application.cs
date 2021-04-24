@@ -50,6 +50,16 @@ namespace WaterTrans.DailyReport.Domain.Entities
         public List<string> GrantTypes { get; set; }
 
         /// <summary>
+        /// リダイレクトURI
+        /// </summary>
+        public List<string> RedirectUris { get; set; }
+
+        /// <summary>
+        /// ログアウト後リダイレクトURI
+        /// </summary>
+        public List<string> PostLogoutRedirectUris { get; set; }
+
+        /// <summary>
         /// ステータス
         /// </summary>
         public ApplicationStatus Status { get; set; }

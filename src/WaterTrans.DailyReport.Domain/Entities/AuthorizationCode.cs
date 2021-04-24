@@ -1,19 +1,17 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using WaterTrans.DailyReport.Domain.Constants;
 
-namespace WaterTrans.DailyReport.Application.TableEntities
+namespace WaterTrans.DailyReport.Domain.Entities
 {
     /// <summary>
-    /// 認可コードテーブルエンティティ
+    /// 認可コードエンティティ
     /// </summary>
-    [Table("AuthorizationCode")]
-    public class AuthorizationCodeTableEntity : SqlTableEntity
+    public class AuthorizationCode
     {
         /// <summary>
-        /// 認可コードID
+        /// アクセストークンID
         /// </summary>
-        [Key]
         public string CodeId { get; set; }
 
         /// <summary>
@@ -29,7 +27,7 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         /// <summary>
         /// ステータス
         /// </summary>
-        public string Status { get; set; }
+        public AuthorizationCodeStatus Status { get; set; }
 
         /// <summary>
         /// 有効期限日時

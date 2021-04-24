@@ -52,6 +52,16 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         public string GrantTypes { get; set; }
 
         /// <summary>
+        /// リダイレクトURI
+        /// </summary>
+        public string RedirectUris { get; set; }
+
+        /// <summary>
+        /// ログアウト後リダイレクトURI
+        /// </summary>
+        public string PostLogoutRedirectUris { get; set; }
+
+        /// <summary>
         /// ステータス
         /// </summary>
         public string Status { get; set; }

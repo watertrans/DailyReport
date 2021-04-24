@@ -16,6 +16,7 @@ namespace WaterTrans.DailyReport.Application.Services
     {
         private readonly IAppSettings _appSettings;
         private readonly IAccessTokenRepository _accessTokenRepository;
+        private readonly IAuthorizationCodeRepository _authorizationCodeRepository;
         private readonly IApplicationRepository _applicationRepository;
 
         /// <summary>
@@ -23,14 +24,17 @@ namespace WaterTrans.DailyReport.Application.Services
         /// </summary>
         /// <param name="appSettings"><see cref="IAppSettings"/></param>
         /// <param name="accessTokenRepository"><see cref="IAccessTokenRepository"/></param>
+        /// <param name="authorizationCodeRepository"><see cref="IAuthorizationCodeRepository"/></param>
         /// <param name="applicationRepository"><see cref="IApplicationRepository"/></param>
         public AuthorizeService(
             IAppSettings appSettings,
             IAccessTokenRepository accessTokenRepository,
+            IAuthorizationCodeRepository authorizationCodeRepository,
             IApplicationRepository applicationRepository)
         {
             _appSettings = appSettings;
             _accessTokenRepository = accessTokenRepository;
+            _authorizationCodeRepository = authorizationCodeRepository;
             _applicationRepository = applicationRepository;
         }
 
@@ -67,9 +71,8 @@ namespace WaterTrans.DailyReport.Application.Services
             var now = DateUtil.Now;
             var accessToken = new AccessTokenTableEntity
             {
-                TokenId =
-                    StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()) +
-                    StringUtil.Base64UrlEncode(Guid.NewGuid().ToByteArray()),
+                TokenId = StringUtil.CreateCode(),
+                ApplicationId = applicationId,
                 PrincipalType = PrincipalType.Application.ToString(),
                 PrincipalId = applicationId,
                 Name = application.Name + " - " + now.ToISO8601(),
@@ -90,12 +93,62 @@ namespace WaterTrans.DailyReport.Application.Services
                 Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
                 Scopes = JsonUtil.Deserialize<List<string>>(accessToken.Scopes),
                 TokenId = accessToken.TokenId,
+                ApplicationId = accessToken.ApplicationId,
                 PrincipalType = accessToken.PrincipalType,
                 PrincipalId = accessToken.PrincipalId,
                 ExpiryTime = accessToken.ExpiryTime,
                 Status = (AccessTokenStatus)Enum.Parse(typeof(AccessTokenStatus), accessToken.Status),
                 CreateTime = accessToken.CreateTime,
                 UpdateTime = accessToken.UpdateTime,
+            };
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public AuthorizationCode CreateAuthorizationCode(Guid applicationId, Guid accountId)
+        {
+            if (applicationId == null || applicationId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(applicationId));
+            }
+
+            if (accountId == null || accountId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(accountId));
+            }
+
+            var application = _applicationRepository.Read(new ApplicationTableEntity { ApplicationId = applicationId });
+            if (application == null || application.Status != ApplicationStatus.NORMAL.ToString())
+            {
+                throw new InvalidOperationException($"Application '{applicationId}' was not found.");
+            }
+
+            IList<string> accessTokenScopes = JsonUtil.Deserialize<List<string>>(application.Scopes);
+
+            var now = DateUtil.Now;
+            var authorizationCode = new AuthorizationCodeTableEntity
+            {
+                CodeId = StringUtil.CreateCode(),
+                ApplicationId = applicationId,
+                AccountId = accountId,
+                Status = AuthorizationCodeStatus.NORMAL.ToString(),
+                ExpiryTime = now.AddSeconds(_appSettings.AuthorizationCodeExpiresIn),
+                CreateTime = now,
+                UpdateTime = now,
+            };
+
+            _authorizationCodeRepository.Create(authorizationCode);
+
+            var result = new AuthorizationCode
+            {
+                CodeId = authorizationCode.CodeId,
+                ApplicationId = authorizationCode.ApplicationId,
+                AccountId = authorizationCode.AccountId,
+                ExpiryTime = authorizationCode.ExpiryTime,
+                Status = (AuthorizationCodeStatus)Enum.Parse(typeof(AuthorizationCodeStatus), authorizationCode.Status),
+                CreateTime = authorizationCode.CreateTime,
+                UpdateTime = authorizationCode.UpdateTime,
             };
 
             return result;
@@ -133,6 +186,7 @@ namespace WaterTrans.DailyReport.Application.Services
                 Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
                 Scopes = JsonUtil.Deserialize<List<string>>(accessToken.Scopes),
                 TokenId = accessToken.TokenId,
+                ApplicationId = accessToken.ApplicationId,
                 PrincipalType = accessToken.PrincipalType,
                 PrincipalId = accessToken.PrincipalId,
                 ExpiryTime = accessToken.ExpiryTime,
@@ -168,6 +222,8 @@ namespace WaterTrans.DailyReport.Application.Services
                 Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
                 Scopes = JsonUtil.Deserialize<List<string>>(application.Scopes),
                 GrantTypes = JsonUtil.Deserialize<List<string>>(application.GrantTypes),
+                RedirectUris = JsonUtil.Deserialize<List<string>>(application.RedirectUris),
+                PostLogoutRedirectUris = JsonUtil.Deserialize<List<string>>(application.PostLogoutRedirectUris),
                 Status = (ApplicationStatus)Enum.Parse(typeof(ApplicationStatus), application.Status),
                 CreateTime = application.CreateTime,
                 UpdateTime = application.UpdateTime,

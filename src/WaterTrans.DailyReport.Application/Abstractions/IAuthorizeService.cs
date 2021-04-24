@@ -18,6 +18,14 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         AccessToken CreateAccessToken(Guid applicationId, IList<string> scopes);
 
         /// <summary>
+        /// 認可コードを発行します。
+        /// </summary>
+        /// <param name="applicationId">アプリケーションIDを指定します。</param>
+        /// <param name="accountId">アカウントIDIDを指定します。</param>
+        /// <returns>アクセストークンの詳細情報を返します。</returns>
+        AuthorizationCode CreateAuthorizationCode(Guid applicationId, Guid accountId);
+
+        /// <summary>
         /// アクセストークンの詳細情報を取得します。
         /// </summary>
         /// <param name="token">トークンを指定します。</param>

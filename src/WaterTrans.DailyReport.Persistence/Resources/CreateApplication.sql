@@ -10,6 +10,8 @@ BEGIN
       , Roles NVARCHAR(max) NOT NULL
       , Scopes NVARCHAR(max) NOT NULL
       , GrantTypes NVARCHAR(max) NOT NULL
+      , RedirectUris NVARCHAR(max) NOT NULL
+      , PostLogoutRedirectUris NVARCHAR(max) NOT NULL
       , Status NVARCHAR(20) NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , UpdateTime DATETIMEOFFSET NOT NULL

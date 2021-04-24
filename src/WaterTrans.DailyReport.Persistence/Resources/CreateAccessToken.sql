@@ -5,6 +5,7 @@ BEGIN
         TokenId NVARCHAR(100) PRIMARY KEY
       , Name NVARCHAR(100) NOT NULL
       , Description NVARCHAR(400) NOT NULL
+      , ApplicationId UNIQUEIDENTIFIER NOT NULL
       , PrincipalType NVARCHAR(20) NOT NULL
       , PrincipalId UNIQUEIDENTIFIER NULL
       , Scopes NVARCHAR(max) NOT NULL

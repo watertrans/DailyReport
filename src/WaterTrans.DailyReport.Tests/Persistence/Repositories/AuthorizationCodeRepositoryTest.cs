@@ -18,6 +18,7 @@ namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
             {
                 CodeId = new string('X', 100),
                 ApplicationId = Guid.NewGuid(),
+                AccountId = Guid.NewGuid(),
                 Status = AuthorizationCodeStatus.NORMAL.ToString(),
                 ExpiryTime = DateTimeOffset.MaxValue,
                 CreateTime = DateTimeOffset.MaxValue,
@@ -61,6 +62,7 @@ namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
             {
                 CodeId = new string('Y', 100),
                 ApplicationId = Guid.NewGuid(),
+                AccountId = Guid.NewGuid(),
                 Status = AuthorizationCodeStatus.USED.ToString(),
                 ExpiryTime = DateTimeOffset.MaxValue,
                 CreateTime = DateTimeOffset.MaxValue,

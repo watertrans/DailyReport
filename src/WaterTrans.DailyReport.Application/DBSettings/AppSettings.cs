@@ -9,5 +9,8 @@ namespace WaterTrans.DailyReport.Application.Settings
     {
         /// <inheritdoc/>
         public int AccessTokenExpiresIn { get; set; }
+
+        /// <inheritdoc/>
+        public int AuthorizationCodeExpiresIn { get; set; }
     }
 }

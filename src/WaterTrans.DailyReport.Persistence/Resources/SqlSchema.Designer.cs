@@ -68,13 +68,13 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///        TokenId NVARCHAR(100) PRIMARY KEY
         ///      , Name NVARCHAR(100) NOT NULL
         ///      , Description NVARCHAR(400) NOT NULL
+        ///      , ApplicationId UNIQUEIDENTIFIER NOT NULL
         ///      , PrincipalType NVARCHAR(20) NOT NULL
         ///      , PrincipalId UNIQUEIDENTIFIER NULL
         ///      , Scopes NVARCHAR(max) NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , ExpiryTime DATETIMEOFFSET NOT NULL
-        ///      , CreateTime DATETIMEOFFSET NOT NULL
-        ///      , Updat [rest of string was truncated]&quot;;.
+        ///      ,  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateAccessToken {
             get {
@@ -117,8 +117,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///      , Roles NVARCHAR(max) NOT NULL
         ///      , Scopes NVARCHAR(max) NOT NULL
         ///      , GrantTypes NVARCHAR(max) NOT NULL
-        ///      , Status NVARCHAR(20) NOT NULL
-        ///      , Creat [rest of string was truncated]&quot;;.
+        ///      , RedirectUris NVARCHAR(max) NOT NULL
+        ///       [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreateApplication {
             get {
@@ -133,6 +133,7 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         ///    CREATE TABLE AuthorizationCode (
         ///        CodeId NVARCHAR(100) PRIMARY KEY
         ///      , ApplicationId UNIQUEIDENTIFIER NOT NULL
+        ///      , AccountId UNIQUEIDENTIFIER NOT NULL
         ///      , Status NVARCHAR(20) NOT NULL
         ///      , ExpiryTime DATETIMEOFFSET NOT NULL
         ///      , CreateTime DATETIMEOFFSET NOT NULL
@@ -310,8 +311,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;,        N&apos;owner-secret&apos;,        N&apos;(Debug) Owner Application&apos;,       N&apos;Owner Application for Debug&apos;,       N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
-        ///INSERT INTO Application (ApplicationId, ClientId, Clien [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, RedirectUris, PostLogoutRedirectUris, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner&apos;,        N&apos;owner-secret&apos;,        N&apos;(Debug) Owner Application&apos;,       N&apos;Owner Application for Debug&apos;,       N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;[]&apos;, N&apos;[]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INS [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadInitialData {
             get {
@@ -321,8 +322,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;, N&apos;owner-secret&apos;, N&apos;owner-normal&apos;,   N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;, N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;NORMAL&apos;, SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, Status,  [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, RedirectUris, PostLogoutRedirectUris, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;,      N&apos;owner-secret&apos;,       N&apos;owner-normal&apos;,      N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;[]&apos;, N&apos;[]&apos;, N&apos;NORMAL&apos;,    SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INSERT INTO Application (ApplicationId, Cli [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadUnitTestData {
             get {
