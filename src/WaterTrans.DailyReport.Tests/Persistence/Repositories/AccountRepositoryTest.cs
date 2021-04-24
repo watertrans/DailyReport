@@ -4,7 +4,7 @@ using WaterTrans.DailyReport.Application.TableEntities;
 using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Persistence.Repositories;
 
-namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
+namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
 {
     [TestClass]
     public class AccountRepositoryTest

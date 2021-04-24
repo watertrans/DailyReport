@@ -12,7 +12,7 @@ using WaterTrans.DailyReport.Application.Settings;
 using WaterTrans.DailyReport.Persistence;
 using WaterTrans.DailyReport.Web.Api;
 
-namespace WaterTrans.DailyReport.UnitTests
+namespace WaterTrans.DailyReport.Tests
 {
     [TestClass]
     public class TestEnvironment

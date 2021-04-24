@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using WaterTrans.DailyReport.Application.Utils;
 
-namespace WaterTrans.DailyReport.UnitTests.Application.Utils
+namespace WaterTrans.DailyReport.Tests.Application.Utils
 {
     [TestClass]
     public class JsonUtilTest

@@ -7,7 +7,7 @@ using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Web.Api.ObjectResults;
 using WaterTrans.DailyReport.Web.Api.ResponseObjects;
 
-namespace WaterTrans.DailyReport.UnitTests.Web.Api
+namespace WaterTrans.DailyReport.Tests.Web.Api
 {
     /// <summary>
     /// ベアラー認証テスト

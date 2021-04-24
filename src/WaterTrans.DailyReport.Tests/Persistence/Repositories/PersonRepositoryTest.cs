@@ -5,7 +5,7 @@ using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Domain.Constants;
 using WaterTrans.DailyReport.Persistence.Repositories;
 
-namespace WaterTrans.DailyReport.UnitTests.Persistence.Repositories
+namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
 {
     [TestClass]
     public class PersonRepositoryTest

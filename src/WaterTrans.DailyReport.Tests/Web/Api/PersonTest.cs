@@ -12,7 +12,7 @@ using WaterTrans.DailyReport.Web.Api.ObjectResults;
 using WaterTrans.DailyReport.Web.Api.RequestObjects;
 using WaterTrans.DailyReport.Web.Api.ResponseObjects;
 
-namespace WaterTrans.DailyReport.UnitTests.Web.Api
+namespace WaterTrans.DailyReport.Tests.Web.Api
 {
     /// <summary>
     /// 従業員エンドポイントテスト
