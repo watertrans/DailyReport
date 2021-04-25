@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import AuthService from './service/AuthService';
 import AppTopBar from './AppTopbar.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
@@ -62,11 +63,24 @@ export default {
       ]
     };
   },
+  authService: null,
+  created() {
+    this.$store.commit('initialiseStore');
+    this.authService = new AuthService();
+  },
   watch: {
-      $route() {
-          this.menuActive = false;
-          this.$toast.removeAllGroups();
+    $route() {
+      if (this.$route.query.code && this.$route.query.code !== this.$store.state.authorizationCode) {
+        this.authService.getAccessToken(this.$route.query.code)
+          .then(response => {
+            this.$store.commit('setAccessToken', response.data.access_token);
+            this.$store.commit('setAuthorizationCode', this.$route.query.code);
+          })
+          .catch(error => console.log('status:' + error.response.status)); // TODO エラー時にトーストを表示する？
       }
+      this.menuActive = false;
+      this.$toast.removeAllGroups();
+    }
   },
   methods: {
       onWrapperClick() {

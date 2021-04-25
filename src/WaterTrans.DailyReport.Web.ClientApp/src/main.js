@@ -6,6 +6,8 @@ import './assets/layout/layout.scss';
 
 import { createApp } from 'vue';
 import router from './router';
+import store from './store';
+
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Chart from 'primevue/chart';
@@ -26,6 +28,7 @@ const app = createApp(App);
 app.use(PrimeVue, { ripple: true });
 app.use(ConfirmationService);
 app.use(ToastService);
+app.use(store);
 app.use(router);
 
 app.directive('tooltip', Tooltip);

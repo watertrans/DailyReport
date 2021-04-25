@@ -107,6 +107,11 @@ namespace WaterTrans.DailyReport.Web.Api
                 {
                     options.AddDefaultPolicy(builder =>
                     {
+                        builder.WithOrigins("http://localhost:8080")
+                            .AllowCredentials()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+
                         builder.WithOrigins("https://editor.swagger.io")
                             .AllowCredentials()
                             .AllowAnyMethod()
