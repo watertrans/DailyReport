@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
@@ -46,7 +45,56 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [SwaggerOperationFilter(typeof(AnonymousOperationFilter))]
         public ActionResult<Token> CreateToken([FromForm] TokenCreateRequest request)
         {
-            if (request.GrantType == GrantTypes.ClientCredentials)
+            if (request.GrantType == GrantTypes.AuthorizationCode)
+            {
+                if (string.IsNullOrEmpty(request.ClientId))
+                {
+                    return ErrorObjectResultFactory.InvalidClient();
+                }
+
+                var application = _authorizeService.GetApplication(request.ClientId);
+
+                if (application == null)
+                {
+                    return ErrorObjectResultFactory.InvalidClient();
+                }
+
+                if (!application.GrantTypes.Contains(GrantTypes.AuthorizationCode))
+                {
+                    return ErrorObjectResultFactory.InvalidGrantType();
+                }
+
+                if (string.IsNullOrEmpty(request.Code))
+                {
+                    return ErrorObjectResultFactory.InvalidCode();
+                }
+
+                var authorizationCode = _authorizeService.GetAuthorizationCode(request.Code);
+
+                if (authorizationCode == null)
+                {
+                    return ErrorObjectResultFactory.InvalidCode();
+                }
+
+                if (application.ApplicationId != authorizationCode.ApplicationId)
+                {
+                    return ErrorObjectResultFactory.InvalidCode();
+                }
+
+                var accessToken = _authorizeService.CreateAccessToken(
+                    application.ApplicationId,
+                    authorizationCode.AccountId,
+                    application.Scopes);
+
+                return new Token
+                {
+                    AccessToken = accessToken.TokenId,
+                    ExpiresIn = _appSetgings.AccessTokenExpiresIn,
+                    Scope = string.Join(' ', accessToken.Scopes),
+                    TokenType = "Bearer",
+                };
+            }
+            else if (request.GrantType == GrantTypes.ClientCredentials)
             {
                 if (string.IsNullOrEmpty(request.ClientId))
                 {
@@ -92,7 +140,6 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
             }
             else
             {
-                // TODO
                 throw new NotImplementedException();
             }
         }

@@ -21,6 +21,11 @@
         public const string InvalidClient = "InvalidClient";
 
         /// <summary>
+        /// InvalidCode
+        /// </summary>
+        public const string InvalidCode = "InvalidCode";
+
+        /// <summary>
         /// InvalidGrantType
         /// </summary>
         public const string InvalidGrantType = "InvalidGrantType";

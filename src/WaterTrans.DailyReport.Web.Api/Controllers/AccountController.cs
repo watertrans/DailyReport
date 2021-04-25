@@ -88,6 +88,11 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 account = _accountService.GetAccount(accountId);
             }
 
+            if (account.Person.Status != PersonStatus.NORMAL)
+            {
+                return View("LoginPersonError");
+            }
+
             var authorizationCode = _authorizetService.CreateAuthorizationCode(application.ApplicationId, accountId);
             string url = redirectUri ?? application.RedirectUris[0];
 

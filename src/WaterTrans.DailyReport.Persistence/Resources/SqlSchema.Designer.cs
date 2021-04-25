@@ -322,8 +322,8 @@ namespace WaterTrans.DailyReport.Persistence.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to -- アプリケーション
-        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, RedirectUris, PostLogoutRedirectUris, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;,      N&apos;owner-secret&apos;,       N&apos;owner-normal&apos;,      N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;[]&apos;, N&apos;[]&apos;, N&apos;NORMAL&apos;,    SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
-        ///INSERT INTO Application (ApplicationId, Cli [rest of string was truncated]&quot;;.
+        ///INSERT INTO Application (ApplicationId, ClientId, ClientSecret, Name, Description, Roles, Scopes, GrantTypes, RedirectUris, PostLogoutRedirectUris, Status, CreateTime, UpdateTime) VALUES (N&apos;00000000-A001-0000-0000-000000000000&apos;, N&apos;owner-normal&apos;,        N&apos;owner-secret&apos;,       N&apos;owner-normal&apos;,         N&apos;&apos;, N&apos;[&quot;Owner&quot;]&apos;,       N&apos;[&quot;full_control&quot;,&quot;read&quot;,&quot;write&quot;]&apos;, N&apos;[&quot;client_credentials&quot;]&apos;, N&apos;[]&apos;, N&apos;[]&apos;, N&apos;NORMAL&apos;,    SYSDATETIMEOFFSET(), SYSDATETIMEOFFSET());
+        ///INSERT INTO Application (ApplicationId [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LoadUnitTestData {
             get {

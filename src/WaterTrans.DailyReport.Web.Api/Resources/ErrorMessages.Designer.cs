@@ -529,6 +529,15 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 認可コードが正しくありません。.
+        /// </summary>
+        public static string ErrorResultInvalidCode {
+            get {
+                return ResourceManager.GetString("ErrorResultInvalidCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 権限種別が正しくありません。.
         /// </summary>
         public static string ErrorResultInvalidGrantType {

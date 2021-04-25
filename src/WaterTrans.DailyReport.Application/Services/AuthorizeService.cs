@@ -18,6 +18,7 @@ namespace WaterTrans.DailyReport.Application.Services
         private readonly IAccessTokenRepository _accessTokenRepository;
         private readonly IAuthorizationCodeRepository _authorizationCodeRepository;
         private readonly IApplicationRepository _applicationRepository;
+        private readonly IAccountService _accountService;
 
         /// <summary>
         /// コンストラクタ。
@@ -26,16 +27,102 @@ namespace WaterTrans.DailyReport.Application.Services
         /// <param name="accessTokenRepository"><see cref="IAccessTokenRepository"/></param>
         /// <param name="authorizationCodeRepository"><see cref="IAuthorizationCodeRepository"/></param>
         /// <param name="applicationRepository"><see cref="IApplicationRepository"/></param>
+        /// <param name="accountService"><see cref="IAccountService"/></param>
         public AuthorizeService(
             IAppSettings appSettings,
             IAccessTokenRepository accessTokenRepository,
             IAuthorizationCodeRepository authorizationCodeRepository,
-            IApplicationRepository applicationRepository)
+            IApplicationRepository applicationRepository,
+            IAccountService accountService)
         {
             _appSettings = appSettings;
             _accessTokenRepository = accessTokenRepository;
             _authorizationCodeRepository = authorizationCodeRepository;
             _applicationRepository = applicationRepository;
+            _accountService = accountService;
+        }
+
+        /// <inheritdoc/>
+        public AccessToken CreateAccessToken(Guid applicationId, Guid accountId, IList<string> scopes)
+        {
+            if (applicationId == null || applicationId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(applicationId));
+            }
+
+            if (accountId == null || accountId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(accountId));
+            }
+
+            var application = _applicationRepository.Read(new ApplicationTableEntity { ApplicationId = applicationId });
+            if (application == null || application.Status != ApplicationStatus.NORMAL.ToString())
+            {
+                throw new InvalidOperationException($"Application '{applicationId}' was not found.");
+            }
+
+            var account = _accountService.GetAccount(accountId);
+            if (account == null)
+            {
+                throw new InvalidOperationException($"Account '{accountId}' was not found.");
+            }
+
+            if (account.Person == null || account.Person.Status != PersonStatus.NORMAL)
+            {
+                throw new InvalidOperationException($"Account '{accountId}' was not valid.");
+            }
+
+            IList<string> accessTokenScopes = scopes;
+            if (scopes == null || scopes.Count() == 0)
+            {
+                accessTokenScopes = JsonUtil.Deserialize<List<string>>(application.Scopes);
+            }
+            else
+            {
+                foreach (string scope in scopes)
+                {
+                    if (!application.Scopes.Contains(scope))
+                    {
+                        throw new InvalidOperationException($"Scope '{scope}' was not included in the application scope.");
+                    }
+                }
+            }
+
+            var now = DateUtil.Now;
+            var accessToken = new AccessTokenTableEntity
+            {
+                TokenId = StringUtil.CreateCode(),
+                ApplicationId = applicationId,
+                PrincipalType = PrincipalType.User.ToString(),
+                PrincipalId = accountId,
+                Name = accountId + " - " + now.ToISO8601(),
+                Description = string.Empty,
+                Scopes = JsonUtil.Serialize(accessTokenScopes),
+                Status = AccessTokenStatus.NORMAL.ToString(),
+                ExpiryTime = now.AddSeconds(_appSettings.AccessTokenExpiresIn),
+                CreateTime = now,
+                UpdateTime = now,
+            };
+
+            _accessTokenRepository.Create(accessToken);
+
+            var result = new AccessToken
+            {
+                Name = accessToken.Name,
+                Description = accessToken.Description,
+                Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
+                Scopes = JsonUtil.Deserialize<List<string>>(accessToken.Scopes),
+                TokenId = accessToken.TokenId,
+                ApplicationId = accessToken.ApplicationId,
+                PrincipalType = accessToken.PrincipalType,
+                PrincipalId = accessToken.PrincipalId,
+                ExpiryTime = accessToken.ExpiryTime,
+                Status = (AccessTokenStatus)Enum.Parse(typeof(AccessTokenStatus), accessToken.Status),
+                CreateTime = accessToken.CreateTime,
+                UpdateTime = accessToken.UpdateTime,
+            };
+
+            return result;
         }
 
         /// <inheritdoc/>
@@ -227,6 +314,39 @@ namespace WaterTrans.DailyReport.Application.Services
                 Status = (ApplicationStatus)Enum.Parse(typeof(ApplicationStatus), application.Status),
                 CreateTime = application.CreateTime,
                 UpdateTime = application.UpdateTime,
+            };
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public Domain.Entities.AuthorizationCode GetAuthorizationCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                throw new ArgumentNullException(nameof(code));
+            }
+
+            var authorizationCode = _authorizationCodeRepository.Read(new AuthorizationCodeTableEntity { CodeId = code });
+            if (authorizationCode == null || authorizationCode.Status != ApplicationStatus.NORMAL.ToString())
+            {
+                return null;
+            }
+
+            if (authorizationCode.ExpiryTime < DateUtil.Now)
+            {
+                return null;
+            }
+
+            var result = new Domain.Entities.AuthorizationCode
+            {
+                CodeId = code,
+                ApplicationId = authorizationCode.ApplicationId,
+                AccountId = authorizationCode.AccountId,
+                ExpiryTime = authorizationCode.ExpiryTime,
+                Status = (AuthorizationCodeStatus)Enum.Parse(typeof(AuthorizationCodeStatus), authorizationCode.Status),
+                CreateTime = authorizationCode.CreateTime,
+                UpdateTime = authorizationCode.UpdateTime,
             };
 
             return result;

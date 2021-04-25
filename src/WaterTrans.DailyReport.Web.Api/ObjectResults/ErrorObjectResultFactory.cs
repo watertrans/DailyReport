@@ -127,6 +127,21 @@ namespace WaterTrans.DailyReport.Web.Api.ObjectResults
         }
 
         /// <summary>
+        /// InvalidCodeエラー応答を生成します。
+        /// </summary>
+        /// <returns>エラー応答</returns>
+        public static ErrorObjectResult InvalidCode()
+        {
+            var result = new ErrorObjectResult(new Error()
+            {
+                Code = ErrorCodes.InvalidCode,
+                Message = ErrorMessages.ErrorResultInvalidCode,
+            });
+            result.StatusCode = StatusCodes.Status401Unauthorized;
+            return result;
+        }
+
+        /// <summary>
         /// InvalidGrantTypeエラー応答を生成します。
         /// </summary>
         /// <returns>エラー応答</returns>

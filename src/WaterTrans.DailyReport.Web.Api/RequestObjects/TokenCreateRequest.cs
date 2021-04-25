@@ -33,5 +33,11 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [ModelBinder(Name = "client_secret")]
         public string ClientSecret { get; set; }
+
+        /// <summary>
+        /// 認可コード
+        /// </summary>
+        [ModelBinder(Name = "code")]
+        public string Code { get; set; }
     }
 }

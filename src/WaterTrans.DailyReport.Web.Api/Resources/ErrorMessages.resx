@@ -280,6 +280,10 @@
     <value>クライアントの認証に失敗しました。</value>
     <comment>クライアント認証の失敗メッセージ。</comment>
   </data>
+  <data name="ErrorResultInvalidCode" xml:space="preserve">
+    <value>認可コードが正しくありません。</value>
+    <comment>認可コードによる認証トークン交換の失敗メッセージ。</comment>
+  </data>
   <data name="ErrorResultInvalidGrantType" xml:space="preserve">
     <value>権限種別が正しくありません。</value>
     <comment>許可されていない権限種別を指定した場合のメッセージ。</comment>
