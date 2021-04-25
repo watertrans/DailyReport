@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WaterTrans.DailyReport.Application.DataTransferObjects
 {
@@ -21,5 +22,10 @@ namespace WaterTrans.DailyReport.Application.DataTransferObjects
         /// ログインID
         /// </summary>
         public string LoginId { get; set; }
+
+        /// <summary>
+        /// ロール
+        /// </summary>
+        public List<string> Roles { get; set; }
     }
 }

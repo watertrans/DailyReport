@@ -22,7 +22,6 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [ApiController]
     [ApiVersion("1")]
     [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-    [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader)]
     public class ProjectsController : Controller
     {
         private readonly IMapper _mapper;
@@ -57,6 +56,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/projects/{projectId}")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<Project> GetProject(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -82,6 +82,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/projects")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<PagedObject<Project>> QueryProject([FromQuery] ProjectQueryRequest request)
         {
             var dto = _mapper.Map<ProjectQueryRequest, ProjectQueryDto>(request);
@@ -104,6 +105,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/projects/{projectId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult DeleteProject(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -138,6 +140,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPatch]
         [Route("api/v{version:apiVersion}/projects/{projectId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Project> UpdateProject(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -175,6 +178,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPost]
         [Route("api/v{version:apiVersion}/projects")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Project> CreateProject([FromBody] ProjectCreateRequest request)
         {
             if (_projectQueryService.ExistsProjectCode(request.ProjectCode))
@@ -198,6 +202,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPut]
         [Route("api/v{version:apiVersion}/projects/{projectId}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<PagedObject<Project>> AddProjectPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -236,6 +241,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/projects/{projectId}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<PagedObject<Project>> RemoveProjectPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -267,6 +273,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/projects/{projectId}/persons")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<PagedObject<Person>> QueryPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]

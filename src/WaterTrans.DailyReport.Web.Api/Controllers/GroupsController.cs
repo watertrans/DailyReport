@@ -22,7 +22,6 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [ApiController]
     [ApiVersion("1")]
     [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-    [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader)]
     public class GroupsController : Controller
     {
         private readonly IMapper _mapper;
@@ -57,6 +56,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<Group> GetGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -82,6 +82,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<PagedObject<Group>> QueryGroup([FromQuery] GroupQueryRequest request)
         {
             var dto = _mapper.Map<GroupQueryRequest, GroupQueryDto>(request);
@@ -104,6 +105,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult DeleteGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -138,6 +140,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPatch]
         [Route("api/v{version:apiVersion}/groups/{groupId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Group> UpdateGroup(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -184,6 +187,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPost]
         [Route("api/v{version:apiVersion}/groups")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Group> CreateGroup([FromBody] GroupCreateRequest request)
         {
             if (_groupQueryService.ExistsGroupCode(request.GroupCode))
@@ -215,6 +219,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPut]
         [Route("api/v{version:apiVersion}/groups/{groupId}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<PagedObject<Group>> AddGroupPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -255,6 +260,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/groups/{groupId}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<PagedObject<Group>> RemoveGroupPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -286,6 +292,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/groups/{groupId}/persons")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<PagedObject<GroupPerson>> QueryPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]

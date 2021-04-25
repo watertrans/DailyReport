@@ -31,6 +31,12 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         Account GetAccount(Guid accountId);
 
         /// <summary>
+        /// 最初のアカウントかどうか確認
+        /// </summary>
+        /// <returns>最初のアカウントの場合はtrueを返します。</returns>
+        bool IsFirstAccount();
+
+        /// <summary>
         /// アカウント取得
         /// </summary>
         /// <param name="accountId"><see cref="Guid"/></param>
@@ -38,7 +44,7 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         bool ExistsAccount(Guid accountId);
 
         /// <summary>
-        /// 最終ログインIDを更新します。
+        /// 最終ログインIDを更新
         /// </summary>
         /// <param name="accountId">アカウントIDを指定します。</param>
         void UpdateLastLoginTime(Guid accountId);

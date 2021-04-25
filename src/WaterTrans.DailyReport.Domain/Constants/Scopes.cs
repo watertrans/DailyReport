@@ -24,5 +24,10 @@
         /// 書き込み
         /// </summary>
         public const string Write = "write";
+
+        /// <summary>
+        /// ユーザー
+        /// </summary>
+        public const string User = "user";
     }
 }

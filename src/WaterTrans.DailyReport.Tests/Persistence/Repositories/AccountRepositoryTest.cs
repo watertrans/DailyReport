@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using WaterTrans.DailyReport.Application.TableEntities;
 using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Persistence.Repositories;
@@ -17,6 +18,7 @@ namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
             {
                 AccountId = Guid.NewGuid(),
                 PersonId = Guid.NewGuid(),
+                Roles = JsonUtil.Serialize(new List<string>()),
                 CreateTime = DateTimeOffset.MaxValue,
                 LastLoginTime = DateTimeOffset.MaxValue,
             };
@@ -58,6 +60,7 @@ namespace WaterTrans.DailyReport.Tests.Persistence.Repositories
             {
                 AccountId = Guid.NewGuid(),
                 PersonId = Guid.NewGuid(),
+                Roles = JsonUtil.Serialize(new List<string>()),
                 CreateTime = DateTimeOffset.MaxValue,
                 LastLoginTime = DateTimeOffset.MaxValue,
             };

@@ -22,7 +22,6 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
     [ApiController]
     [ApiVersion("1")]
     [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-    [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader)]
     public class PersonsController : Controller
     {
         private readonly IMapper _mapper;
@@ -53,6 +52,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<Person> GetPerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -78,6 +78,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpGet]
         [Route("api/v{version:apiVersion}/persons")]
         [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
         public ActionResult<PagedObject<Person>> QueryPerson([FromQuery] PersonQueryRequest request)
         {
             var dto = _mapper.Map<PersonQueryRequest, PersonQueryDto>(request);
@@ -100,6 +101,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpDelete]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult DeletePerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -127,6 +129,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPatch]
         [Route("api/v{version:apiVersion}/persons/{personId}")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Person> UpdatePerson(
             [FromRoute]
             [Required(ErrorMessage = "DataAnnotationRequired")]
@@ -173,6 +176,7 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
         [HttpPost]
         [Route("api/v{version:apiVersion}/persons")]
         [Authorize(Policies.WriteScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor)]
         public ActionResult<Person> CreatePerson([FromBody] PersonCreateRequest request)
         {
             if (_personQueryService.ExistsPersonCode(request.PersonCode))

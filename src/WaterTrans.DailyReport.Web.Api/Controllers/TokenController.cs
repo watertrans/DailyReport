@@ -84,7 +84,9 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 var accessToken = _authorizeService.CreateAccessToken(
                     application.ApplicationId,
                     authorizationCode.AccountId,
-                    application.Scopes);
+                    null);
+
+                _authorizeService.UseAuthorizationCode(request.Code);
 
                 return new Token
                 {

@@ -22,6 +22,11 @@ namespace WaterTrans.DailyReport.Application.TableEntities
         public Guid PersonId { get; set; }
 
         /// <summary>
+        /// ロール
+        /// </summary>
+        public string Roles { get; set; }
+
+        /// <summary>
         /// 作成日時
         /// </summary>
         public DateTimeOffset CreateTime { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Transactions;
 using WaterTrans.DailyReport.Application.Abstractions;
 using WaterTrans.DailyReport.Application.DataTransferObjects;
@@ -79,6 +80,7 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 AccountId = account.AccountId,
                 Person = _personQueryService.GetPerson(personId),
+                Roles = JsonUtil.Deserialize<List<string>>(account.Roles),
                 CreateTime = account.CreateTime,
                 LastLoginTime = account.LastLoginTime,
             };
@@ -106,6 +108,7 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 AccountId = dto.AccountId,
                 PersonId = personId,
+                Roles = JsonUtil.Serialize(dto.Roles),
                 CreateTime = now,
                 LastLoginTime = now,
             };
@@ -140,6 +143,7 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 AccountId = account.AccountId,
                 Person = _personQueryService.GetPerson(personId),
+                Roles = JsonUtil.Deserialize<List<string>>(account.Roles),
                 CreateTime = account.CreateTime,
                 LastLoginTime = account.LastLoginTime,
             };
@@ -181,9 +185,16 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 AccountId = account.AccountId,
                 Person = _personQueryService.GetPerson(account.PersonId),
+                Roles = JsonUtil.Deserialize<List<string>>(account.Roles),
                 CreateTime = account.CreateTime,
                 LastLoginTime = account.LastLoginTime,
             };
+        }
+
+        /// <inheritdoc/>
+        public bool IsFirstAccount()
+        {
+            return _accountQueryService.Count() == 0;
         }
     }
 }

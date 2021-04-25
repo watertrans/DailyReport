@@ -4,6 +4,7 @@ BEGIN
     CREATE TABLE Account (
         AccountId UNIQUEIDENTIFIER PRIMARY KEY
       , PersonId UNIQUEIDENTIFIER NOT NULL
+      , Roles NVARCHAR(max) NOT NULL
       , CreateTime DATETIMEOFFSET NOT NULL
       , LastLoginTime DATETIMEOFFSET NOT NULL
     );

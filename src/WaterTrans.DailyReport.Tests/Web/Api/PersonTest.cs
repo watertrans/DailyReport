@@ -454,6 +454,21 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
         }
 
         [TestMethod]
+        public void GetPerson_OK_UserAccessToken_PersonIDの指定が存在する()
+        {
+            var personId = "00000000-1001-0000-0000-000000000000";
+
+            var request = new HttpRequestMessage(HttpMethod.Get, $"/api/v1/persons/{personId}");
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "user");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var person = JsonUtil.Deserialize<Person>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual("00001", person.PersonCode);
+        }
+
+        [TestMethod]
         public void CreatePerson_OK_すべての値が正常値()
         {
             var requestObject = new PersonCreateRequest

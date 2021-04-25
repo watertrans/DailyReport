@@ -54,5 +54,11 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// <param name="code">認可コードを指定します。</param>
         /// <returns>認可コードの詳細情報を返します。認可コードが存在しないまたは有効期限が切れている場合はnullを返します。</returns>
         Domain.Entities.AuthorizationCode GetAuthorizationCode(string code);
+
+        /// <summary>
+        /// 認可コードの使用済みに更新します。
+        /// </summary>
+        /// <param name="code">認可コードを指定します。</param>
+        void UseAuthorizationCode(string code);
     }
 }

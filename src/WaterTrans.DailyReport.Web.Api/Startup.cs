@@ -154,7 +154,7 @@ namespace WaterTrans.DailyReport.Web.Api
                 });
                 options.AddPolicy(Policies.ReadScopePolicy, policy =>
                 {
-                    policy.RequireClaim(Scopes.ClaimType, Scopes.FullControl, Scopes.Read, Scopes.Write);
+                    policy.RequireClaim(Scopes.ClaimType, Scopes.FullControl, Scopes.Read, Scopes.Write, Scopes.User);
                 });
                 options.AddPolicy(Policies.WriteScopePolicy, policy =>
                 {

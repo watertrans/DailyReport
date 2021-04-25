@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WaterTrans.DailyReport.Domain.Entities
 {
@@ -16,6 +17,11 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// 従業員
         /// </summary>
         public Person Person { get; set; }
+
+        /// <summary>
+        /// ロール
+        /// </summary>
+        public List<string> Roles { get; set; }
 
         /// <summary>
         /// 作成日時

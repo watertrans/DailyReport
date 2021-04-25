@@ -72,18 +72,19 @@ namespace WaterTrans.DailyReport.Application.Services
                 throw new InvalidOperationException($"Account '{accountId}' was not valid.");
             }
 
+            var roleScopes = GetAccountRoleScopes(account.Roles);
             IList<string> accessTokenScopes = scopes;
             if (scopes == null || scopes.Count() == 0)
             {
-                accessTokenScopes = JsonUtil.Deserialize<List<string>>(application.Scopes);
+                accessTokenScopes = roleScopes;
             }
             else
             {
                 foreach (string scope in scopes)
                 {
-                    if (!application.Scopes.Contains(scope))
+                    if (!roleScopes.Contains(scope))
                     {
-                        throw new InvalidOperationException($"Scope '{scope}' was not included in the application scope.");
+                        throw new InvalidOperationException($"Scope '{scope}' was not included in the account role scope.");
                     }
                 }
             }
@@ -110,7 +111,7 @@ namespace WaterTrans.DailyReport.Application.Services
             {
                 Name = accessToken.Name,
                 Description = accessToken.Description,
-                Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
+                Roles = account.Roles,
                 Scopes = JsonUtil.Deserialize<List<string>>(accessToken.Scopes),
                 TokenId = accessToken.TokenId,
                 ApplicationId = accessToken.ApplicationId,
@@ -255,22 +256,40 @@ namespace WaterTrans.DailyReport.Application.Services
                 return null;
             }
 
-            if (accessToken.PrincipalType != PrincipalType.Application.ToString())
+            if (accessToken.PrincipalType != PrincipalType.Application.ToString() &&
+                accessToken.PrincipalType != PrincipalType.User.ToString())
             {
                 throw new NotImplementedException();
             }
 
-            var application = _applicationRepository.Read(new ApplicationTableEntity { ApplicationId = accessToken.PrincipalId });
+            var application = _applicationRepository.Read(new ApplicationTableEntity { ApplicationId = accessToken.ApplicationId });
             if (application == null || application.Status != ApplicationStatus.NORMAL.ToString())
             {
                 return null;
+            }
+
+            var roles = JsonUtil.Deserialize<List<string>>(application.Roles);
+            if (accessToken.PrincipalType == PrincipalType.User.ToString())
+            {
+                var account = _accountService.GetAccount(accessToken.PrincipalId);
+                if (account == null)
+                {
+                    return null;
+                }
+
+                if (account.Person == null || account.Person.Status != PersonStatus.NORMAL)
+                {
+                    return null;
+                }
+
+                roles = account.Roles;
             }
 
             var result = new AccessToken
             {
                 Name = accessToken.Name,
                 Description = accessToken.Description,
-                Roles = JsonUtil.Deserialize<List<string>>(application.Roles),
+                Roles = roles,
                 Scopes = JsonUtil.Deserialize<List<string>>(accessToken.Scopes),
                 TokenId = accessToken.TokenId,
                 ApplicationId = accessToken.ApplicationId,
@@ -348,6 +367,49 @@ namespace WaterTrans.DailyReport.Application.Services
                 CreateTime = authorizationCode.CreateTime,
                 UpdateTime = authorizationCode.UpdateTime,
             };
+
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public void UseAuthorizationCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                throw new ArgumentNullException(nameof(code));
+            }
+
+            var authorizationCode = _authorizationCodeRepository.Read(new AuthorizationCodeTableEntity { CodeId = code });
+            authorizationCode.Status = AuthorizationCodeStatus.USED.ToString();
+            authorizationCode.UpdateTime = DateUtil.Now;
+            _authorizationCodeRepository.Update(authorizationCode);
+        }
+
+        private List<string> GetAccountRoleScopes(List<string> roles)
+        {
+            var result = new List<string>();
+            if (roles.Contains(Roles.Owner))
+            {
+                result.Add(Scopes.FullControl);
+                result.Add(Scopes.Write);
+                result.Add(Scopes.Read);
+                result.Add(Scopes.User);
+            }
+            else if (roles.Contains(Roles.Contributor))
+            {
+                result.Add(Scopes.Write);
+                result.Add(Scopes.Read);
+                result.Add(Scopes.User);
+            }
+            else if (roles.Contains(Roles.Reader))
+            {
+                result.Add(Scopes.Read);
+                result.Add(Scopes.User);
+            }
+            else if (roles.Contains(Roles.User))
+            {
+                result.Add(Scopes.User);
+            }
 
             return result;
         }

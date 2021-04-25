@@ -21,6 +21,18 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         }
 
         /// <inheritdoc/>
+        public int Count()
+        {
+            var sql = new StringBuilder();
+
+            sql.AppendLine(" SELECT COUNT(*) ");
+            sql.AppendLine("   FROM Account ");
+
+            var result = Connection.ExecuteScalar(sql.ToString(), null, commandTimeout: DBSettings.CommandTimeout);
+            return int.Parse(result.ToString());
+        }
+
+        /// <inheritdoc/>
         public void UpdateLastLoginTime(Guid accountId)
         {
             var sql = new StringBuilder();

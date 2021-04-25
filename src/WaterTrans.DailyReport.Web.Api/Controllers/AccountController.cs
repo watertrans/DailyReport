@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WaterTrans.DailyReport.Application.Abstractions;
@@ -71,7 +72,18 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
                 AccountId = accountId,
                 LoginId = User.Identity.Name,
                 Name = User.Claims.ToList().Find(e => e.Type == "name").Value,
+                Roles = new List<string>(),
             };
+
+            if (_accountService.IsFirstAccount())
+            {
+                accountCreateDto.Roles.Add(Roles.Owner);
+                accountCreateDto.Roles.Add(Roles.User);
+            }
+            else
+            {
+                accountCreateDto.Roles.Add(Roles.User);
+            }
 
             if (account != null && account.Person != null)
             {
