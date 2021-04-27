@@ -18,7 +18,12 @@ const routes = [
           component: () => import('../components/tabs/RankingSentLikeIt.vue'),
       }
     ],
-  }
+  },
+  {
+    path: '/master/group',
+    name: 'MasterGroup',
+    component: () => import('../views/MasterGroup.vue')
+  },
 ];
 
 const router = createRouter({

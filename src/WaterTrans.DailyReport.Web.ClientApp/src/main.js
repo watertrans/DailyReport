@@ -10,18 +10,26 @@ import store from './store';
 
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
+import Button from 'primevue/button';
 import Chart from 'primevue/chart';
 import Column from 'primevue/column';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmPopup from 'primevue/confirmpopup';
 import ConfirmationService from 'primevue/confirmationservice';
 import DataTable from 'primevue/datatable';
+import Dialog from 'primevue/dialog';
+import Dropdown from 'primevue/dropdown';
+import FileUpload from 'primevue/fileupload';
 import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
+import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import TabMenu from 'primevue/tabmenu';
+import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
+import Toolbar from 'primevue/toolbar';
 
 const app = createApp(App);
 
@@ -34,13 +42,21 @@ app.use(router);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 
+app.component('Button', Button);
 app.component('Chart', Chart);
 app.component('Column', Column);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('ConfirmPopup', ConfirmPopup);
 app.component('DataTable', DataTable);
+app.component('Dialog', Dialog);
+app.component('Dropdown', Dropdown);
+app.component('FileUpload', FileUpload);
 app.component('InputText', InputText);
+app.component('InputNumber', InputNumber);
+app.component('RadioButton', RadioButton);
 app.component('TabMenu', TabMenu);
+app.component('Textarea', Textarea);
 app.component('Toast', Toast);
+app.component('Toolbar', Toolbar);
 
 app.mount('#app');
