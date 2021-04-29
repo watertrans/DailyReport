@@ -5,8 +5,8 @@ export default class AuthService {
     var params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', code);
-    params.append('client_id', 'clientapp');
-    return axios.post('https://localhost:44350/api/v1/token', params); // TODO 設定に移行する
+    params.append('client_id', process.env.VUE_APP_CLIENT_ID);
+    return axios.post(process.env.VUE_APP_API_BASE_URL + '/token', params);
   }
 
 }

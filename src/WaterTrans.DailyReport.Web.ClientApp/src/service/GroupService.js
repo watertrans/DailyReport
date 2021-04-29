@@ -19,11 +19,11 @@ export default class GroupService {
     if (sort) {
       params['sort'] = sort;
     }
-    return axios.get('https://localhost:44350/api/v1/groups', {
+    return axios.get(process.env.VUE_APP_API_BASE_URL + '/groups', {
       params: params,
       headers: {
         Authorization: `Bearer ${this.token}`,
       }
-    }); // TODO 設定に移行する
+    });
   }
 }

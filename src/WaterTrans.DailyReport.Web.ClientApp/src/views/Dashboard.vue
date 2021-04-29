@@ -42,19 +42,6 @@ export default {
   name: 'Dashboard',
   data() {
     return {
-      products: null,
-      productDialog: false,
-      deleteProductDialog: false,
-      deleteProductsDialog: false,
-      product: {},
-      selectedProducts: null,
-      filters: {},
-      submitted: false,
-      statuses: [
-        {label: 'INSTOCK', value: 'instock'},
-        {label: 'LOWSTOCK', value: 'lowstock'},
-        {label: 'OUTOFSTOCK', value: 'outofstock'}
-      ],
       nestedRouteItems: [
         {
           label: 'いいね獲得数',

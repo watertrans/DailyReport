@@ -33,31 +33,31 @@ export default {
       overlayMenuActive: false,
       mobileMenuActive: false,
       menu : [
-        {label: 'ダッシュボード', icon: 'pi pi-fw pi-home', to: '/'},
-        {label: '未提出', icon: 'pi pi-fw pi-exclamation-circle', to: '/search?unreported=true'},
-        {label: '全未読', icon: 'pi pi-fw pi-check-square', to: '/search?unread=true'},
-        {label: 'スレッド', icon: 'pi pi-fw pi-comments', to: '/thread'},
-        {label: 'メンション＆リアクション', icon: 'pi pi-fw pi-comment', to: '/reaction'},
-        {label: 'ブックマーク', icon: 'pi pi-fw pi-bookmark', to: '/bookmark'},
-        {label: '検索', icon: 'pi pi-fw pi-search', to: '/search'},
+        {label: this.$i18n.t('menu.dashborad'), icon: 'pi pi-fw pi-home', to: '/'},
+        {label: this.$i18n.t('menu.unreported'), icon: 'pi pi-fw pi-exclamation-circle', to: '/search?unreported=true'},
+        {label: this.$i18n.t('menu.unread'), icon: 'pi pi-fw pi-check-square', to: '/search?unread=true'},
+        {label: this.$i18n.t('menu.thread'), icon: 'pi pi-fw pi-comments', to: '/thread'},
+        {label: this.$i18n.t('menu.reaction'), icon: 'pi pi-fw pi-comment', to: '/reaction'},
+        {label: this.$i18n.t('menu.bookmark'), icon: 'pi pi-fw pi-bookmark', to: '/bookmark'},
+        {label: this.$i18n.t('menu.search'), icon: 'pi pi-fw pi-search', to: '/search'},
         {
-          label: 'マスタメンテ', icon:'pi pi-fw pi-book',
+          label: this.$i18n.t('menu.master'), icon:'pi pi-fw pi-book',
           items: [
-            {label: '部署', icon:'pi pi-fw pi-sitemap', to:'/master/group'},
-            {label: 'プロジェクト', icon:'pi pi-fw pi-briefcase', to:'/master/project'},
-            {label: '従業員', icon:'pi pi-fw pi-users', to:'/master/person'},
-            {label: '業務', icon:'pi pi-fw pi-desktop', to:'/master/workType'}
+            {label: this.$i18n.t('menu.masterGroup'), icon:'pi pi-fw pi-sitemap', to:'/master/group'},
+            {label: this.$i18n.t('menu.masterProject'), icon:'pi pi-fw pi-briefcase', to:'/master/project'},
+            {label: this.$i18n.t('menu.masterPerson'), icon:'pi pi-fw pi-users', to:'/master/person'},
+            {label: this.$i18n.t('menu.masterWorkType'), icon:'pi pi-fw pi-desktop', to:'/master/workType'}
           ]
         },
         {
-          label: '分析', icon:'pi pi-fw pi-globe',
+          label: this.$i18n.t('menu.analysis'), icon:'pi pi-fw pi-globe',
           items: [
-            {label: '部署', icon:'pi pi-fw pi-sitemap', to:'/analysis/group'},
-            {label: 'プロジェクト', icon:'pi pi-fw pi-briefcase', to:'/analysis/project'},
-            {label: '従業員', icon:'pi pi-fw pi-users', to:'/analysis/person'},
-            {label: '業務', icon:'pi pi-fw pi-desktop', to:'/analysis/workType'},
-            {label: 'いいね', icon:'pi pi-fw pi-thumbs-up', to:'/analysis/likeIt'},
-            {label: 'リアクション', icon:'pi pi-fw pi-comment', to:'/analysis/reaction'}
+            {label: this.$i18n.t('menu.analysisGroup'), icon:'pi pi-fw pi-sitemap', to:'/analysis/group'},
+            {label: this.$i18n.t('menu.analysisProject'), icon:'pi pi-fw pi-briefcase', to:'/analysis/project'},
+            {label: this.$i18n.t('menu.analysisPerson'), icon:'pi pi-fw pi-users', to:'/analysis/person'},
+            {label: this.$i18n.t('menu.analysisWorkType'), icon:'pi pi-fw pi-desktop', to:'/analysis/workType'},
+            {label: this.$i18n.t('menu.analysisLikeIt'), icon:'pi pi-fw pi-thumbs-up', to:'/analysis/likeIt'},
+            {label: this.$i18n.t('menu.analysisReaction'), icon:'pi pi-fw pi-comment', to:'/analysis/reaction'}
           ]
         }
       ]

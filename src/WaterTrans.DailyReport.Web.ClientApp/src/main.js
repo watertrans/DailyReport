@@ -7,6 +7,7 @@ import './assets/layout/layout.scss';
 import { createApp } from 'vue';
 import router from './router';
 import store from './store';
+import i18n from './i18n';
 
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
@@ -33,6 +34,7 @@ import Toolbar from 'primevue/toolbar';
 
 const app = createApp(App);
 
+app.use(i18n);
 app.use(PrimeVue, { ripple: true });
 app.use(ConfirmationService);
 app.use(ToastService);
