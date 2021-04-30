@@ -131,6 +131,7 @@
 </template>
 
 <script>
+import ErrorHandling from '../mixins/ErrorHandling';
 import GroupService from '../service/GroupService';
 
 export default {
@@ -155,9 +156,10 @@ export default {
       ]
     };
   },
+  mixins: [ErrorHandling],
   groupService: null,
   created() {
-    this.groupService = new GroupService(this.$store.state.accessToken);
+    this.groupService = new GroupService(this.$axios, this.$store.state.accessToken);
   },
   mounted() {
     this.queryGroups();
@@ -165,11 +167,22 @@ export default {
   methods: {
     queryGroups(event) {
       if (!event || !event.isComposing) {
-          this.groupService.queryGroups(this.query).then(response => {
+        this.groupService.queryGroups(this.query)
+        .then(response => {
           this.groups = response.data.items;
           this.rows = response.data.items.length;
           this.totalRecords = response.data.total;
           this.loading = false;
+        })
+        .catch(error => {
+          const errorResponse = this.handleError(error);
+          if (errorResponse.isUnauthorizedError) {
+            this.handleUnauthorizedError();
+          } else if (errorResponse.isValidationError) {
+            console.log(errorResponse.errors);
+          } else {
+            this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+          }
         });
       }
     },

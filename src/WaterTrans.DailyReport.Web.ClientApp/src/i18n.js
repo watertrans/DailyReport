@@ -45,7 +45,22 @@ const messages = {
       analysisWorkType: '業務',
       analysisLikeIt: 'いいね',
       analysisReaction: 'リアクション',
-    }
+    },
+    dialog: {
+      unauthorized: 'タイムアウト',
+      unauthorizedMessage: 'アクセストークンがタイムアウトしました。認証画面に戻りますがよろしいですか？',
+    },
+    dashboard: {
+      unreadTitle: '未読日報',
+      unreadDetail: '所属部署の日報の未読件数',
+      unreportedTitle: '未提出日報',
+      unreportedDetail: '所属部署の日報の未提出件数',
+      workTypePieTitle: '今月の業務',
+      workTypeLineTitle: '過去の業務',
+      rankingTitle: 'ランキング',
+      rankingTabReceivedTitle: 'いいね獲得数',
+      rankingTabSentTitle: 'いいね送信数',
+    },
   },
 };
 

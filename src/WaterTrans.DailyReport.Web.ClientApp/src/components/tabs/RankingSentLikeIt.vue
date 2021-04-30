@@ -20,7 +20,7 @@ export default {
   },
   rankingService: null,
   created() {
-    this.rankingService = new RankingService();
+    this.rankingService = new RankingService(this.$axios, this.$store.state.accessToken);
   },
   mounted() {
     this.rankingService.getRankingSentLikeIt().then(data => this.ranking = data);

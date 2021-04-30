@@ -15,6 +15,7 @@
       <router-view />
     </div>
     <AppFooter />
+    <ConfirmDialog></ConfirmDialog>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import AuthService from './service/AuthService';
 import AppTopBar from './AppTopbar.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
+import ErrorHandling from './mixins/ErrorHandling';
 
 export default {
   data() {
@@ -63,10 +65,11 @@ export default {
       ]
     };
   },
+  mixins: [ErrorHandling],
   authService: null,
   created() {
     this.$store.commit('initialiseStore');
-    this.authService = new AuthService();
+    this.authService = new AuthService(this.$axios, this.$store.state.accessToken);
   },
   watch: {
     $route() {
@@ -76,7 +79,14 @@ export default {
             this.$store.commit('setAccessToken', response.data.access_token);
             this.$store.commit('setAuthorizationCode', this.$route.query.code);
           })
-          .catch(error => console.log('status:' + error.response.status)); // TODO エラー時にトーストを表示する？
+          .catch(error => {
+            const errorResponse = this.handleError(error);
+            if (errorResponse.isUnauthorizedError) {
+              this.handleUnauthorizedError();
+            } else {
+              this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+            }
+          });
       }
       this.menuActive = false;
       this.$toast.removeAllGroups();

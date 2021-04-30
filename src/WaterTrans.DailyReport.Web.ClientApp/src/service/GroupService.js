@@ -1,7 +1,7 @@
-import axios from 'axios';
 export default class GroupService {
 
-  constructor(token) {
+  constructor(axios, token) {
+    this.axios = axios;
     this.token = token;
   }
 
@@ -19,7 +19,7 @@ export default class GroupService {
     if (sort) {
       params['sort'] = sort;
     }
-    return axios.get(process.env.VUE_APP_API_BASE_URL + '/groups', {
+    return this.axios.get(process.env.VUE_APP_API_BASE_URL + '/groups', {
       params: params,
       headers: {
         Authorization: `Bearer ${this.token}`,
