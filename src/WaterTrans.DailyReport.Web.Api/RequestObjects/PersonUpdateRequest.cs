@@ -14,6 +14,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 従業員コード
         /// </summary>
         [Display(Name = "DisplayPersonPersonCode")]
+        [RegularExpression(RegExpPatterns.DataCode, ErrorMessage = "DataAnnotationDataCode")]
         [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string PersonCode { get; set; }
 

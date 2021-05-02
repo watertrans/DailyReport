@@ -1,7 +1,5 @@
 <script>
 export default {
-  props: {},
-  computed: {},
   methods: {
     handleUnauthorizedError() {
       this.$confirm.require({
@@ -19,7 +17,8 @@ export default {
         isUnauthorizedError: false,
         message: 'Network Error.',
         type: 'error',
-        errors: [],
+        code: null,
+        details: [],
         timeout: 2500,
       };
       const ErrorMessages = {
@@ -65,24 +64,32 @@ export default {
       if (error && error.response) {
         if (error.response.status === 400) {
           errorResponse.isValidationError = true;
-          errorResponse.errors = error.response.data.errors;
+          errorResponse.code = error.response.data.code;
+          errorResponse.details = error.response.data.details;
           errorResponse.message = error.response.data.message;
         } else if (error.response.status === 401) {
           errorResponse.isUnauthorizedError = true;
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['401'];
         } else if (error.response.status === 403) {
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['403'];
         } else if (error.response.status === 404) {
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['404'];
         } else if (error.response.status === 422) {
           errorResponse.isValidationError = true;
-          errorResponse.errors = error.response.data.errors;
+          errorResponse.code = error.response.data.code;
+          errorResponse.details = error.response.data.details;
           errorResponse.message = error.response.data.message;
         } else if (error.response.status === 405) {
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['405'];
         } else if (error.response.status >= 500) {
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['500'];
         } else if (error.response.status === 429) {
+          errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['429'];
         }
       } else if (error && error.request) {

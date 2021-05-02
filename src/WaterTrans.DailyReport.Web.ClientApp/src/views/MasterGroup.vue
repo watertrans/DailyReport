@@ -1,5 +1,5 @@
 <template>
-  <div class="p-grid">
+  <div class="p-grid masterGroup">
     <div class="p-col-12">
       <div class="card">
         <Toast/>
@@ -9,7 +9,7 @@
             <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2" @click="confirmDeleteSelected" :disabled="!selectedGroups || !selectedGroups.length" />
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
-              <InputText v-model="query" placeholder="Search..." @keydown.enter="queryGroups" />
+              <InputText v-model="query" placeholder="Search..." @keydown.enter="onSearchKeyDown" />
             </span>
           </template>
 
@@ -19,82 +19,62 @@
           </template>
         </Toolbar>
 
-        <DataTable ref="dt" :value="groups" v-model:selection="selectedGroups" dataKey="groupId" :loading="loading" :filters="filters"
+        <DataTable ref="dt" :value="groups" v-model:selection="selectedGroups" dataKey="groupId" :lazy="true" :paginator="true" :rows="rows" :first="first"
+              :totalRecords="totalRecords" :loading="loading" :resizableColumns="true" :removableSort="true" :sortOrder="sortOrder" :sortField="sortField"
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5,10,20,50,100]"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} groups" responsiveLayout="scroll">
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} groups" responsiveLayout="scroll" @page="onPage" @sort="onPage">
           <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-          <Column field="groupCode" header="コード" :sortable="true"></Column>
-          <Column field="groupTree" header="階層" :sortable="true"></Column>
-          <Column field="name" header="名前" :sortable="true"></Column>
-          <Column field="status" header="ステータス"></Column>
-          <Column field="sortNo" header="並び順" :sortable="true"></Column>
-          <Column>
+          <Column field="groupCode" :header="$t('schema.group.groupCode')" headerStyle="width: 10rem" :sortable="true"></Column>
+          <Column field="groupTree" :header="$t('schema.group.groupTree')" headerStyle="width: 6rem" :sortable="true"></Column>
+          <Column field="name" :header="$t('schema.group.name')" :sortable="true"></Column>
+          <Column field="status" :header="$t('schema.group.status')" headerStyle="width: 8rem"></Column>
+          <Column field="sortNo" :header="$t('schema.group.sortNo')" headerStyle="width: 8rem" :sortable="true"></Column>
+          <Column field="persons.length" :header="$t('schema.group.persons')" headerStyle="width: 8rem"></Column>
+          <Column headerStyle="width: 10rem">
             <template #body="slotProps">
-              <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="editGroup(slotProps.data)" />
-              <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="confirmDeleteGroup(slotProps.data)" />
+              <Button icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-success p-mr-2" @click="editGroup(slotProps.data)" />
+              <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-warning" @click="confirmDeleteGroup(slotProps.data)" :disabled="slotProps.data.persons.length > 0" />
             </template>
           </Column>
         </DataTable>
 
-        <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" header="Group Details" :modal="true" class="p-fluid">
-          <img :src="'assets/demo/images/group/' + group.image" :alt="group.image" class="group-image" v-if="group.image" />
-          <div class="p-field">
-            <label for="name">Name</label>
-            <InputText id="name" v-model.trim="group.name" required="true" autofocus :class="{'p-invalid': submitted && !group.name}" />
-            <small class="p-invalid" v-if="submitted && !group.name">Name is required.</small>
-          </div>
-          <div class="p-field">
-            <label for="description">Description</label>
-            <Textarea id="description" v-model="group.description" required="true" rows="3" cols="20" />
-          </div>
-
-          <div class="p-field">
-            <label for="inventoryStatus" class="p-mb-3">Inventory Status</label>
-            <Dropdown id="inventoryStatus" v-model="group.inventoryStatus" :options="statuses" optionLabel="label" placeholder="Select a Status">
-              <template #value="slotProps">
-                <div v-if="slotProps.value && slotProps.value.value">
-                  <span :class="'group-badge status-' +slotProps.value.value">{{slotProps.value.label}}</span>
-                </div>
-                <div v-else-if="slotProps.value && !slotProps.value.value">
-                  <span :class="'group-badge status-' +slotProps.value.toLowerCase()">{{slotProps.value}}</span>
-                </div>
-                <span v-else>
-                  {{slotProps.placeholder}}
-                </span>
-              </template>
-            </Dropdown>
-          </div>
-
-          <div class="p-field">
-            <label class="p-mb-3">Category</label>
-            <div class="p-formgrid p-grid">
-              <div class="p-field-radiobutton p-col-6">
-                <RadioButton id="category1" name="category" value="Accessories" v-model="group.category" />
-                <label for="category1">Accessories</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                <RadioButton id="category2" name="category" value="Clothing" v-model="group.category" />
-                <label for="category2">Clothing</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                <RadioButton id="category3" name="category" value="Electronics" v-model="group.category" />
-                <label for="category3">Electronics</label>
-              </div>
-              <div class="p-field-radiobutton p-col-6">
-                <RadioButton id="category4" name="category" value="Fitness" v-model="group.category" />
-                <label for="category4">Fitness</label>
-              </div>
+        <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" :header="$t('masterGroup.detailTitle')" :modal="true" class="p-fluid">
+          <div class="p-formgrid p-grid">
+            <div class="p-field p-col">
+              <label for="groupCode">{{$t('schema.group.groupCode')}}</label>
+              <InputText id="groupCode" v-model="group.groupCode" required="true" autofocus :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupCode') }" />
+              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'groupCode')">{{error.details.find(e => e.target == 'groupCode').message}}</small>
+              <small class="help-text">{{$t('helpText.dataCode')}}</small>
             </div>
+            <div class="p-field p-col">
+              <label for="groupTree">{{$t('schema.group.groupTree')}}</label>
+              <InputText id="groupTree" v-model="group.groupTree" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupTree') }" />
+              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'groupTree')">{{error.details.find(e => e.target == 'groupTree').message}}</small>
+              <small class="help-text">{{$t('helpText.dataTree')}}</small>
+            </div>
+          </div>
+
+          <div class="p-field">
+            <label for="name">{{$t('schema.group.name')}}</label>
+            <InputText id="name" v-model="group.name" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'name') }" />
+            <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'name')">{{error.details.find(e => e.target == 'name').message}}</small>
+            <small class="help-text">{{$t('helpText.text256')}}</small>
+          </div>
+          <div class="p-field">
+            <label for="description">{{$t('schema.group.description')}}</label>
+            <Textarea id="description" v-model="group.description" rows="3" cols="20" />
           </div>
 
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
-              <label for="price">Price</label>
-              <InputNumber id="price" v-model="group.price" mode="currency" currency="USD" locale="en-US" />
+              <label for="status">{{$t('schema.group.status')}}</label>
+              <Dropdown id="status" v-model="group.status" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" />
+              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'status')">{{error.details.find(e => e.target == 'status').message}}</small>
             </div>
             <div class="p-field p-col">
-              <label for="quantity">Quantity</label>
-              <InputNumber id="quantity" v-model="group.quantity" integeronly />
+              <label for="sortNo">{{$t('schema.group.sortNo')}}</label>
+              <InputNumber id="sortNo" v-model="group.sortNo" required="true" :mode="decimal" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
+              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'sortNo')">{{error.details.find(e => e.target == 'sortNo').message}}</small>
             </div>
           </div>
           <template #footer>
@@ -133,6 +113,7 @@
 <script>
 import ErrorHandling from '../mixins/ErrorHandling';
 import GroupService from '../service/GroupService';
+import Utility from '../mixins/Utility';
 
 export default {
   data() {
@@ -143,34 +124,94 @@ export default {
       deleteGroupsDialog: false,
       group: {},
       selectedGroups: null,
-      filters: {},
       query: null,
-      rows: 0,
+      sortOrder: 1,
+      sortField: null,
+      first: 0,
+      rows: 20,
       totalRecords: 0,
       loading: true,
-      submitted: false,
+      error: null,
       statuses: [
-        {label: 'INSTOCK', value: 'instock'},
-        {label: 'LOWSTOCK', value: 'lowstock'},
-        {label: 'OUTOFSTOCK', value: 'outofstock'}
+        {label: 'NORMAL', value: 'NORMAL'},
+        {label: 'SUSPENDED', value: 'SUSPENDED'}
       ]
     };
   },
-  mixins: [ErrorHandling],
+  mixins: [ErrorHandling,Utility],
   groupService: null,
   created() {
     this.groupService = new GroupService(this.$axios, this.$store.state.accessToken);
+    if (this.$route.query && this.$route.query.q)
+    {
+      this.query = this.$route.query.q;
+    }
+    if (this.$route.query && this.$route.query.sort)
+    {
+      const firstChar = this.$route.query.sort.substring(0,1);
+      if (firstChar === '-') {
+        this.sortField = this.$route.query.sort.replace('-','');
+        this.sortOrder = -1;
+      } else {
+        this.sortField = this.$route.query.sort;
+        this.sortOrder = 1;
+      }
+    }
+    if (this.$route.query && this.$route.query.pageSize && !isNaN(this.$route.query.pageSize))
+    {
+      this.rows = parseInt(this.$route.query.pageSize);
+    }
+    if (this.$route.query && this.$route.query.page && !isNaN(this.$route.query.page))
+    {
+      this.first = (this.rows * parseInt(this.$route.query.page)) - 1;
+    }
   },
   mounted() {
-    this.queryGroups();
+    this.reloadDataTable();
   },
   methods: {
-    queryGroups(event) {
+    onSearchKeyDown(event) {
       if (!event || !event.isComposing) {
-        this.groupService.queryGroups(this.query)
+        this.reloadDataTable();
+      }
+    },
+    onPage(event) {
+      var page = 1;
+      if (!isNaN(event.page)) {
+        page = event.page + 1;
+      }
+      this.loadDataTable(this.buildSortReuqest(event), page);
+    },
+    reloadDataTable() {
+      this.loadDataTable(this.buildSortReuqest({ 
+        sortField: this.$refs.dt.d_sortField,
+        sortOrder: this.$refs.dt.d_sortOrder
+      }), Math.floor(this.$refs.dt.first / this.$refs.dt.d_rows) + 1);
+    },
+    loadDataTable(sort = null, page = 1) {
+      const routerQuery = {};
+      const pageSize = this.$refs.dt.d_rows;
+      if (this.query) {
+        routerQuery.q = this.query;
+      }
+      if (sort) {
+        routerQuery.sort = sort;
+      }
+      if (page != 1) {
+        routerQuery.page = page;
+      }
+      if (pageSize != 20) {
+        routerQuery.pageSize = pageSize;
+      }
+      this.$router.push({ query: routerQuery });
+      this.queryGroups(routerQuery.q, routerQuery.sort, routerQuery.page, routerQuery.pageSize);
+    },
+    queryGroups(query, sort, page, pageSize) {
+      this.loading = true;
+      this.groupService.queryGroups(query, sort, page, pageSize)
         .then(response => {
           this.groups = response.data.items;
-          this.rows = response.data.items.length;
+          this.rows = response.data.pageSize;
           this.totalRecords = response.data.total;
           this.loading = false;
         })
@@ -179,40 +220,72 @@ export default {
           if (errorResponse.isUnauthorizedError) {
             this.handleUnauthorizedError();
           } else if (errorResponse.isValidationError) {
-            console.log(errorResponse.errors);
+            console.log(errorResponse.details);
           } else {
             this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
           }
         });
-      }
     },
     openNew() {
-      this.group = {};
-      this.submitted = false;
+      this.error = null;
+      this.group = { description: '', tags: []};
       this.groupDialog = true;
     },
     hideDialog() {
       this.groupDialog = false;
-      this.submitted = false;
     },
     saveGroup() {
-      this.submitted = true;
-      if (this.group.name.trim()) {
-      if (this.group.id) {
+      this.error = { details: [] };
+
+      if (!this.group.groupCode) {
+        this.error.message = this.$i18n.t('general.validationError');
+        this.error.details.push({ target: 'groupCode', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.groupCode')}) });
+      }
+      if (!this.group.groupTree) {
+        this.error.message = this.$i18n.t('general.validationError');
+        this.error.details.push({ target: 'groupTree', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.groupTree')}) });
+      }
+      if (!this.group.name) {
+        this.error.message = this.$i18n.t('general.validationError');
+        this.error.details.push({ target: 'name', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.name')}) });
+      }
+      if (!this.group.status) {
+        this.error.message = this.$i18n.t('general.validationError');
+        this.error.details.push({ target: 'status', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.status')}) });
+      }
+      if (!this.group.sortNo) {
+        this.error.message = this.$i18n.t('general.validationError');
+        this.error.details.push({ target: 'sortNo', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.sortNo')}) });
+      }
+
+      if (this.error.message) {
+        return;
+      }
+
+      if (this.group.groupId) {
         this.group.inventoryStatus = this.group.inventoryStatus.value ? this.group.inventoryStatus.value: this.group.inventoryStatus;
         this.groups[this.findIndexById(this.group.id)] = this.group;
         this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Updated', life: 3000});
-        }
-        else {
-          this.group.id = this.createId();
-          this.group.code = this.createId();
-          this.group.image = 'group-placeholder.svg';
-          this.group.inventoryStatus = this.group.inventoryStatus ? this.group.inventoryStatus.value : 'INSTOCK';
-          this.groups.push(this.group);
-          this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Created', life: 3000});
-        }
-        this.groupDialog = false;
-        this.group = {};
+      } else {
+        this.groupService.createGroup(this.group)
+          .then(response => {
+            this.groups.push(response.data);
+            this.reloadDataTable();
+            this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Created', life: 3000});
+            this.groupDialog = false;
+            this.group = {};
+          })
+          .catch(error => {
+            const errorResponse = this.handleError(error);
+            if (errorResponse.isUnauthorizedError) {
+              this.handleUnauthorizedError();
+            } else if (errorResponse.isValidationError) {
+              this.error.message = errorResponse.message;
+              this.error.details = errorResponse.details;
+            } else {
+              this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+            }
+          });
       }
     },
     editGroup(group) {

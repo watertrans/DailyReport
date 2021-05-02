@@ -1,4 +1,13 @@
 .layout-main {
-    transition: margin-left $transitionDuration;
-    padding: 70px 2rem 2rem 2rem;
+  transition: margin-left $transitionDuration;
+  padding: 70px 2rem 2rem 2rem;
 }
+
+.help-text {
+  color: $textSecondaryColor;
+}
+
+small.p-error {
+  display: block;
+}
+

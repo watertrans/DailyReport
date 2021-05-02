@@ -61,6 +61,24 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;は英数字とハイフンのみで入力してください。.
+        /// </summary>
+        public static string DataAnnotationDataCode {
+            get {
+                return ResourceManager.GetString("DataAnnotationDataCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos;は数字2、4、6、8文字のいずれかで入力してください。.
+        /// </summary>
+        public static string DataAnnotationDataTree {
+            get {
+                return ResourceManager.GetString("DataAnnotationDataTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos;は重複登録できません。.
         /// </summary>
         public static string DataAnnotationDuplicatedStringArray {

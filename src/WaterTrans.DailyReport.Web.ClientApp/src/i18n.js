@@ -46,6 +46,16 @@ const messages = {
       analysisLikeIt: 'いいね',
       analysisReaction: 'リアクション',
     },
+    general: {
+      selectPlaceholder: '選択してください',
+      validationError: '入力エラーが発生しました。エラーメッセージを確認してください。',
+      validationRequired: '\'{target}\'を入力してください。',
+    },
+    helpText: {
+      dataCode: '英数字とハイフン20文字以内',
+      dataTree: '数字2,4,6,8文字',
+      text256: '256文字以内',
+    },
     dialog: {
       unauthorized: 'タイムアウト',
       unauthorizedMessage: 'アクセストークンがタイムアウトしました。認証画面に戻りますがよろしいですか？',
@@ -61,6 +71,24 @@ const messages = {
       rankingTabReceivedTitle: 'いいね獲得数',
       rankingTabSentTitle: 'いいね送信数',
     },
+    masterGroup: {
+      detailTitle: '部署詳細',
+    },
+    schema: {
+      group: {
+        groupId: '部署ID',
+        groupCode: '部署コード',
+        groupTree: '部署階層',
+        name: '部署名',
+        description: '説明',
+        status: 'ステータス',
+        sortNo: '並び順',
+        tags: 'タグ',
+        persons: '所属従業員',
+        createTime: '作成日時',
+        updateTime: '更新日時',
+      }
+    }
   },
 };
 

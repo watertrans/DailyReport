@@ -14,6 +14,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 部署コード
         /// </summary>
         [Display(Name = "DisplayGroupGroupCode")]
+        [RegularExpression(RegExpPatterns.DataCode, ErrorMessage = "DataAnnotationDataCode")]
         [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string GroupCode { get; set; }
 
@@ -21,6 +22,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// 部署階層
         /// </summary>
         [Display(Name = "DisplayGroupGroupTree")]
+        [RegularExpression(RegExpPatterns.DataTree, ErrorMessage = "DataAnnotationDataTree")]
         [StringLength(8, ErrorMessage = "DataAnnotationStringLength")]
         public string GroupTree { get; set; }
 

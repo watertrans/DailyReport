@@ -26,4 +26,12 @@ export default class GroupService {
       }
     });
   }
+
+  createGroup(group) {
+    return this.axios.post(process.env.VUE_APP_API_BASE_URL + '/groups', group, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      }
+    });
+  }
 }

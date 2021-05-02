@@ -15,6 +15,7 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         /// </summary>
         [Display(Name = "DisplayProjectProjectCode")]
         [Required(ErrorMessage = "DataAnnotationRequired")]
+        [RegularExpression(RegExpPatterns.DataCode, ErrorMessage = "DataAnnotationDataCode")]
         [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
         public string ProjectCode { get; set; }
 
