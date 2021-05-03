@@ -5,8 +5,8 @@
         <Toast/>
         <Toolbar class="p-mb-4">
           <template v-slot:left>
-            <Button label="New" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />
-            <Button label="Delete" icon="pi pi-trash" class="p-button-danger p-mr-2" @click="confirmDeleteSelected" :disabled="!selectedGroups || !selectedGroups.length" />
+            <Button :label="$t('general.createButtonLabel')" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />
+            <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="confirmDeleteSelected" :disabled="!selectedGroups || !selectedGroups.length" />
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
               <InputText v-model="query" placeholder="Search..." @keydown.enter="onSearchKeyDown" />
@@ -38,7 +38,7 @@
           </Column>
         </DataTable>
 
-        <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" :header="$t('masterGroup.detailTitle')" :modal="true" class="p-fluid">
+        <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" :header="groupDialogHeader" :modal="true" class="p-fluid">
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
               <label for="groupCode">{{$t('schema.group.groupCode')}}</label>
@@ -53,7 +53,6 @@
               <small class="help-text">{{$t('helpText.dataTree')}}</small>
             </div>
           </div>
-
           <div class="p-field">
             <label for="name">{{$t('schema.group.name')}}</label>
             <InputText id="name" v-model="group.name" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'name') }" />
@@ -64,7 +63,6 @@
             <label for="description">{{$t('schema.group.description')}}</label>
             <Textarea id="description" v-model="group.description" rows="3" cols="20" />
           </div>
-
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
               <label for="status">{{$t('schema.group.status')}}</label>
@@ -76,6 +74,12 @@
               <InputNumber id="sortNo" v-model="group.sortNo" required="true" :mode="decimal" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
               <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'sortNo')">{{error.details.find(e => e.target == 'sortNo').message}}</small>
             </div>
+          </div>
+          <div class="p-field">
+            <label for="tags">{{$t('schema.group.tags')}}</label>
+            <Chips id="tags" v-model="group.tags" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
+            <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'tags')">{{error.details.find(e => e.target == 'tags').message}}</small>
+            <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
             <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
@@ -113,13 +117,13 @@
 <script>
 import ErrorHandling from '../mixins/ErrorHandling';
 import GroupService from '../service/GroupService';
-import Utility from '../mixins/Utility';
 
 export default {
   data() {
     return {
       groups: null,
       groupDialog: false,
+      groupDialogHeader: null,
       deleteGroupDialog: false,
       deleteGroupsDialog: false,
       group: {},
@@ -138,7 +142,7 @@ export default {
       ]
     };
   },
-  mixins: [ErrorHandling,Utility],
+  mixins: [ErrorHandling],
   groupService: null,
   created() {
     this.groupService = new GroupService(this.$axios, this.$store.state.accessToken);
@@ -180,10 +184,10 @@ export default {
       if (!isNaN(event.page)) {
         page = event.page + 1;
       }
-      this.loadDataTable(this.buildSortReuqest(event), page);
+      this.loadDataTable(this.convertToSortReuqest(event), page);
     },
     reloadDataTable() {
-      this.loadDataTable(this.buildSortReuqest({ 
+      this.loadDataTable(this.convertToSortReuqest({ 
         sortField: this.$refs.dt.d_sortField,
         sortOrder: this.$refs.dt.d_sortOrder
       }), Math.floor(this.$refs.dt.first / this.$refs.dt.d_rows) + 1);
@@ -219,20 +223,22 @@ export default {
           const errorResponse = this.handleError(error);
           if (errorResponse.isUnauthorizedError) {
             this.handleUnauthorizedError();
-          } else if (errorResponse.isValidationError) {
-            console.log(errorResponse.details);
           } else {
-            this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+            this.$toast.add({severity:'Error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
           }
         });
     },
     openNew() {
       this.error = null;
       this.group = { description: '', tags: []};
+      this.groupDialogHeader = this.$i18n.t('masterGroup.createGroupTitle');
       this.groupDialog = true;
     },
-    hideDialog() {
-      this.groupDialog = false;
+    editGroup(group) {
+      this.error = null;
+      this.group = {...group};
+      this.groupDialogHeader = this.$i18n.t('masterGroup.updateGroupTitle');
+      this.groupDialog = true;
     },
     saveGroup() {
       this.error = { details: [] };
@@ -253,7 +259,7 @@ export default {
         this.error.message = this.$i18n.t('general.validationError');
         this.error.details.push({ target: 'status', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.status')}) });
       }
-      if (!this.group.sortNo) {
+      if (!this.group.sortNo && this.group.sortNo !== 0) {
         this.error.message = this.$i18n.t('general.validationError');
         this.error.details.push({ target: 'sortNo', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.sortNo')}) });
       }
@@ -263,17 +269,12 @@ export default {
       }
 
       if (this.group.groupId) {
-        this.group.inventoryStatus = this.group.inventoryStatus.value ? this.group.inventoryStatus.value: this.group.inventoryStatus;
-        this.groups[this.findIndexById(this.group.id)] = this.group;
-        this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Updated', life: 3000});
-      } else {
-        this.groupService.createGroup(this.group)
+        this.groupService.updateGroup(this.group)
           .then(response => {
-            this.groups.push(response.data);
             this.reloadDataTable();
-            this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Created', life: 3000});
+            this.$toast.add({severity:'success', summary: this.$i18n.t('toast.updateSummary'), detail: this.$i18n.t('toast.updateDetail'), life: 5000});
             this.groupDialog = false;
-            this.group = {};
+            this.group = response.data;
           })
           .catch(error => {
             const errorResponse = this.handleError(error);
@@ -283,14 +284,29 @@ export default {
               this.error.message = errorResponse.message;
               this.error.details = errorResponse.details;
             } else {
-              this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+            }
+          });
+      } else {
+        this.groupService.createGroup(this.group)
+          .then(response => {
+            this.reloadDataTable();
+            this.$toast.add({severity:'success', summary: this.$i18n.t('toast.createSummary'), detail: this.$i18n.t('toast.createDetail'), life: 5000});
+            this.groupDialog = false;
+            this.group = response.data;
+          })
+          .catch(error => {
+            const errorResponse = this.handleError(error);
+            if (errorResponse.isUnauthorizedError) {
+              this.handleUnauthorizedError();
+            } else if (errorResponse.isValidationError) {
+              this.error.message = errorResponse.message;
+              this.error.details = errorResponse.details;
+            } else {
+              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
             }
           });
       }
-    },
-    editGroup(group) {
-      this.group = {...group};
-      this.groupDialog = true;
     },
     confirmDeleteGroup(group) {
       this.group = group;
@@ -302,23 +318,8 @@ export default {
       this.group = {};
       this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Deleted', life: 3000});
     },
-    findIndexById(id) {
-      let index = -1;
-      for (let i = 0; i < this.groups.length; i++) {
-        if (this.groups[i].id === id) {
-          index = i;
-          break;
-        }
-      }
-      return index;
-    },
-    createId() {
-      let id = '';
-      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for ( var i = 0; i < 5; i++ ) {
-        id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
+    hideDialog() {
+      this.groupDialog = false;
     },
     exportCSV() {
       this.$refs.dt.exportCSV();

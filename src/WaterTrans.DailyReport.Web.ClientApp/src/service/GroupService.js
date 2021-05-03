@@ -34,4 +34,12 @@ export default class GroupService {
       }
     });
   }
+
+  updateGroup(group) {
+    return this.axios.patch(process.env.VUE_APP_API_BASE_URL + '/groups/' + group.groupId, group, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      }
+    });
+  }
 }

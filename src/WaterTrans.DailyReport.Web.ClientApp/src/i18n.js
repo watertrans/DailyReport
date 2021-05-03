@@ -47,6 +47,8 @@ const messages = {
       analysisReaction: 'リアクション',
     },
     general: {
+      createButtonLabel: '新規登録',
+      updateSelectedButtonLabel: '一括更新',
       selectPlaceholder: '選択してください',
       validationError: '入力エラーが発生しました。エラーメッセージを確認してください。',
       validationRequired: '\'{target}\'を入力してください。',
@@ -55,10 +57,20 @@ const messages = {
       dataCode: '英数字とハイフン20文字以内',
       dataTree: '数字2,4,6,8文字',
       text256: '256文字以内',
+      tags: 'Enterキーで確定、最大10個',
     },
     dialog: {
       unauthorized: 'タイムアウト',
       unauthorizedMessage: 'アクセストークンがタイムアウトしました。認証画面に戻りますがよろしいですか？',
+    },
+    toast: {
+      errorSummary: 'エラー',
+      createSummary: '登録完了',
+      createDetail: '登録処理が完了しました。',
+      updateSummary: '更新完了',
+      updateDetail: '更新処理が完了しました。',
+      deleteSummary: '削除完了',
+      deleteDetail: '削除処理が完了しました。',
     },
     dashboard: {
       unreadTitle: '未読日報',
@@ -72,7 +84,8 @@ const messages = {
       rankingTabSentTitle: 'いいね送信数',
     },
     masterGroup: {
-      detailTitle: '部署詳細',
+      createGroupTitle: '部署登録',
+      updateGroupTitle: '部署更新',
     },
     schema: {
       group: {

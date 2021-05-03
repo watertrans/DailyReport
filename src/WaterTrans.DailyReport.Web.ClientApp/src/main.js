@@ -9,11 +9,13 @@ import router from './router';
 import store from './store';
 import i18n from './i18n';
 import axios from './plugins/axios';
+import utils from './plugins/utils';
 
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 import Chart from 'primevue/chart';
+import Chips from 'primevue/chips';
 import Column from 'primevue/column';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmPopup from 'primevue/confirmpopup';
@@ -42,12 +44,14 @@ app.use(i18n);
 app.use(store);
 app.use(router);
 app.use(axios);
+app.use(utils);
 
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 
 app.component('Button', Button);
 app.component('Chart', Chart);
+app.component('Chips', Chips);
 app.component('Column', Column);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('ConfirmPopup', ConfirmPopup);
