@@ -17,5 +17,6 @@ BEGIN
     CREATE UNIQUE INDEX ix_Person_PersonCode ON Person (PersonCode);
     CREATE UNIQUE INDEX ix_Person_LoginId ON Person (LoginId);
     CREATE INDEX ix_Person_Name ON Person (Name);
+    CREATE INDEX ix_Person_Title ON Person (Title);
 
 END;

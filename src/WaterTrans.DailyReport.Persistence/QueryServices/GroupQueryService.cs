@@ -82,7 +82,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             var param = new
             {
-                Query = DataUtil.EscapeLike(query, LikeMatchType.PartialMatch),
+                Query = DataUtil.EscapeLike(query, LikeMatchType.PrefixSearch),
                 TagQuery = query,
                 Page = paging.Page,
                 PageSize = paging.PageSize,
