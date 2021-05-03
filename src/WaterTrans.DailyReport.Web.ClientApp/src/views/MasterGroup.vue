@@ -27,6 +27,11 @@
           <Column field="groupCode" :header="$t('schema.group.groupCode')" headerStyle="width: 10rem" :sortable="true"></Column>
           <Column field="groupTree" :header="$t('schema.group.groupTree')" headerStyle="width: 6rem" :sortable="true"></Column>
           <Column field="name" :header="$t('schema.group.name')" :sortable="true"></Column>
+          <Column field="tags" :header="$t('schema.group.tags')" headerStyle="width: 15rem">
+            <template #body="slotProps">
+              <Chip v-for="tag in slotProps.data.tags" :key="tag" :label="tag" />
+            </template>
+          </Column>
           <Column field="status" :header="$t('schema.group.status')" headerStyle="width: 8rem"></Column>
           <Column field="sortNo" :header="$t('schema.group.sortNo')" headerStyle="width: 8rem" :sortable="true"></Column>
           <Column field="persons.length" :header="$t('schema.group.persons')" headerStyle="width: 8rem"></Column>

@@ -15,6 +15,7 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 import Chart from 'primevue/chart';
+import Chip from 'primevue/chip';
 import Chips from 'primevue/chips';
 import Column from 'primevue/column';
 import ConfirmDialog from 'primevue/confirmdialog';
@@ -51,6 +52,7 @@ app.directive('ripple', Ripple);
 
 app.component('Button', Button);
 app.component('Chart', Chart);
+app.component('Chip', Chip);
 app.component('Chips', Chips);
 app.component('Column', Column);
 app.component('ConfirmDialog', ConfirmDialog);
