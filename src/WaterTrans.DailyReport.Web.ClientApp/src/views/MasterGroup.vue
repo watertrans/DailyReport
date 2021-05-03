@@ -92,10 +92,10 @@
           </template>
         </Dialog>
 
-        <Dialog v-model:visible="deleteGroupDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+        <Dialog v-model:visible="deleteGroupDialog" :style="{width: '450px'}" :header="$t('general.deleteComfirmTitle')" :modal="true">
           <div class="confirmation-content">
             <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
-            <span v-if="group">Are you sure you want to delete <b>{{group.name}}</b>?</span>
+            <span v-if="group">{{$t('general.deleteComfirmMessage', { target : group.name })}}</span>
           </div>
           <template #footer>
             <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteGroupDialog = false"/>
@@ -318,10 +318,29 @@ export default {
       this.deleteGroupDialog = true;
     },
     deleteGroup() {
-      this.groups = this.groups.filter(val => val.id !== this.group.id);
-      this.deleteGroupDialog = false;
-      this.group = {};
-      this.$toast.add({severity:'success', summary: 'Successful', detail: 'Group Deleted', life: 3000});
+      this.groupService.deleteGroup(this.group.groupId)
+        .then(() => {
+          this.reloadDataTable();
+          this.$toast.add({severity:'success', summary: this.$i18n.t('toast.deleteSummary'), detail: this.$i18n.t('toast.deleteDetail'), life: 5000});
+          this.deleteGroupDialog = false;
+          this.group = {};
+        })
+        .catch(error => {
+          const errorResponse = this.handleError(error);
+          if (errorResponse.isUnauthorizedError) {
+            this.handleUnauthorizedError();
+          } else if (errorResponse.isValidationError) {
+            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+            errorResponse.details.forEach(element => {
+              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
+            });
+          } else {
+            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+          }
+          this.reloadDataTable();
+          this.deleteGroupDialog = false;
+          this.group = {};
+        });
     },
     hideDialog() {
       this.groupDialog = false;

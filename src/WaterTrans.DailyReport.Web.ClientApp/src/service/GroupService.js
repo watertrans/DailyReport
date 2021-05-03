@@ -42,4 +42,12 @@ export default class GroupService {
       }
     });
   }
+
+  deleteGroup(groupId) {
+    return this.axios.delete(process.env.VUE_APP_API_BASE_URL + '/groups/' + groupId, {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      }
+    });
+  }
 }

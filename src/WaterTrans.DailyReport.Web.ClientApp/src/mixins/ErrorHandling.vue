@@ -15,24 +15,27 @@ export default {
       const errorResponse = {
         isValidationError: false,
         isUnauthorizedError: false,
-        message: 'Network Error.',
+        message: '',
         type: 'error',
         code: null,
         details: [],
         timeout: 2500,
       };
       const ErrorMessages = {
-        400: 'There was Some Problem, while processing your Request', // not being used currently
-        401: 'Unauthorized, You are not Allowed',
-        403: 'Sorry, You are not allowed for This Action',
-        404: 'API Route is Missing or Undefined',
-        405: 'API Route Method Not Allowed',
-        429: 'Too Many Requests',
-        500: 'Server Error, please try again later',
+        400: this.$i18n.t('general.status400Error'),
+        401: this.$i18n.t('general.status401Error'),
+        403: this.$i18n.t('general.status403Error'),
+        404: this.$i18n.t('general.status404Error'),
+        405: this.$i18n.t('general.status405Error'),
+        422: this.$i18n.t('general.status422Error'),
+        429: this.$i18n.t('general.status429Error'),
+        500: this.$i18n.t('general.status500Error'),
+        validationError:
+          this.$i18n.t('general.validationError'),
         request:
-          'There is Some Problem With Our Servers, Please Try again Later',
+          this.$i18n.t('general.requestError'),
         other:
-          'There was some Problem with your Request, Please Try again Later',
+          this.$i18n.t('general.otherError'),
       };
       if (Object.prototype.hasOwnProperty.call(customMessages, '400')) {
         ErrorMessages['400'] = customMessages['400'];
@@ -49,6 +52,9 @@ export default {
       if (Object.prototype.hasOwnProperty.call(customMessages, '405')) {
         ErrorMessages['405'] = customMessages['405'];
       }
+      if (Object.prototype.hasOwnProperty.call(customMessages, '422')) {
+        ErrorMessages['422'] = customMessages['422'];
+      }
       if (Object.prototype.hasOwnProperty.call(customMessages, '429')) {
         ErrorMessages['429'] = customMessages['429'];
       }
@@ -62,11 +68,14 @@ export default {
         ErrorMessages.other = customMessages.other;
       }
       if (error && error.response) {
-        if (error.response.status === 400) {
+        if (error.response.status === 400 && error.response.data.code === 'ValidationError') {
           errorResponse.isValidationError = true;
           errorResponse.code = error.response.data.code;
           errorResponse.details = error.response.data.details;
-          errorResponse.message = error.response.data.message;
+          errorResponse.message = ErrorMessages.validationError;
+        } else if (error.response.status === 400) {
+          errorResponse.code = error.response.data.code;
+          errorResponse.message = ErrorMessages['400'];
         } else if (error.response.status === 401) {
           errorResponse.isUnauthorizedError = true;
           errorResponse.code = error.response.data.code;
@@ -77,14 +86,14 @@ export default {
         } else if (error.response.status === 404) {
           errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['404'];
+        } else if (error.response.status === 405) {
+          errorResponse.code = error.response.data.code;
+          errorResponse.message = ErrorMessages['405'];
         } else if (error.response.status === 422) {
           errorResponse.isValidationError = true;
           errorResponse.code = error.response.data.code;
           errorResponse.details = error.response.data.details;
-          errorResponse.message = error.response.data.message;
-        } else if (error.response.status === 405) {
-          errorResponse.code = error.response.data.code;
-          errorResponse.message = ErrorMessages['405'];
+          errorResponse.message = ErrorMessages['422'];
         } else if (error.response.status >= 500) {
           errorResponse.code = error.response.data.code;
           errorResponse.message = ErrorMessages['500'];
