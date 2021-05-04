@@ -38,7 +38,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
                 sqlWhere.AppendLine("     Title LIKE @Query OR ");
                 sqlWhere.AppendLine("     PersonId IN ( ");
                 sqlWhere.AppendLine("         SELECT TargetId ");
-                sqlWhere.AppendLine("         FROM   Tag AS TG1 ");
+                sqlWhere.AppendLine("         FROM   Tag AS TG1 WITH (NOLOCK) ");
                 sqlWhere.AppendLine("         WHERE  TG1.TargetTable = 'Person' ");
                 sqlWhere.AppendLine("         AND    TG1.Value = @TagQuery ");
                 sqlWhere.AppendLine("     ) ");
@@ -97,7 +97,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             sql.AppendLine(" SELECT PS1.* ");
             sql.AppendLine("      , (SELECT TG1.Value ");
-            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("           FROM Tag AS TG1 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG1.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG1.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -128,7 +128,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             sql.AppendLine(" SELECT PS1.* ");
             sql.AppendLine("      , (SELECT TG1.Value ");
-            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("           FROM Tag AS TG1 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG1.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG1.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -160,7 +160,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             sql.AppendLine(" SELECT PS1.* ");
             sql.AppendLine("      , (SELECT TG1.Value ");
-            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("           FROM Tag AS TG1 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG1.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG1.Value ");
             sql.AppendLine("            FOR JSON PATH ");

@@ -6,7 +6,7 @@
         <Toolbar class="p-mb-4">
           <template v-slot:left>
             <Button :label="$t('general.createButtonLabel')" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />
-            <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="confirmDeleteSelected" :disabled="!selectedGroups || !selectedGroups.length" />
+            <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="updateSelected" :disabled="!selectedGroups || !selectedGroups.length" />
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
               <InputText v-model="query" placeholder="Search..." @keydown.enter="onSearchKeyDown" />
@@ -44,6 +44,7 @@
         </DataTable>
 
         <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" :header="groupDialogHeader" :modal="true" class="p-fluid">
+          <Message v-if="error && error.message" severity="error" :closable="false">{{error.message}}</Message>
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
               <label for="groupCode">{{$t('schema.group.groupCode')}}</label>
@@ -82,12 +83,12 @@
           </div>
           <div class="p-field">
             <label for="tags">{{$t('schema.group.tags')}}</label>
-            <Chips id="tags" v-model="group.tags" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
+            <Chips id="tags" v-model="group.tags" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
             <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'tags')">{{error.details.find(e => e.target == 'tags').message}}</small>
             <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
-            <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
+            <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="groupDialog = false"/>
             <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveGroup" />
           </template>
         </Dialog>
@@ -103,14 +104,36 @@
           </template>
         </Dialog>
 
-        <Dialog v-model:visible="deleteGroupsDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
-          <div class="confirmation-content">
-            <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
-            <span v-if="group">Are you sure you want to delete the selected groups?</span>
+        <Dialog v-model:visible="updateSelectedDialog" :style="{width: '450px'}" :header="$t('masterGroup.updateSelectedGroupTitle')" :modal="true" class="p-fluid">
+          <Message v-if="error && error.message" severity="error" :closable="false">{{error.message}}</Message>
+          <div class="p-field">
+            <label for="status2">{{$t('schema.group.status')}}</label>
+            <div class="p-formgrid p-grid">
+              <div class="p-col-fixed">
+                <ToggleButton v-model="updateSelectedGroup.statusChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
+              </div>
+              <div class="p-col">
+                <Dropdown id="status2" v-model="updateSelectedGroup.status" :disabled="!updateSelectedGroup.statusChecked" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" :style="{width: '100%'}" />
+              </div>
+            </div>
+            <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'status')">{{error.details.find(e => e.target == 'status').message}}</small>
+          </div>
+          <div class="p-field">
+            <label for="tags2">{{$t('schema.group.tags')}}</label>
+            <div class="p-formgrid p-grid">
+              <div class="p-col-fixed">
+                <ToggleButton v-model="updateSelectedGroup.tagsChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
+              </div>
+              <div class="p-col">
+                <Chips id="tags2" v-model="updateSelectedGroup.tags" :disabled="!updateSelectedGroup.tagsChecked" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
+              </div>
+            </div>
+            <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'tags')">{{error.details.find(e => e.target == 'tags').message}}</small>
+            <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
-            <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteGroupsDialog = false"/>
-            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteSelectedGroups" />
+            <Button label="No" icon="pi pi-times" class="p-button-text" @click="updateSelectedDialog = false"/>
+            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="updateSelectedGroups" />
           </template>
         </Dialog>
       </div>
@@ -130,8 +153,9 @@ export default {
       groupDialog: false,
       groupDialogHeader: null,
       deleteGroupDialog: false,
-      deleteGroupsDialog: false,
+      updateSelectedDialog: false,
       group: {},
+      updateSelectedGroup: {},
       selectedGroups: null,
       query: null,
       sortOrder: 1,
@@ -342,20 +366,62 @@ export default {
           this.group = {};
         });
     },
-    hideDialog() {
-      this.groupDialog = false;
-    },
     exportCSV() {
       this.$refs.dt.exportCSV();
     },
-    confirmDeleteSelected() {
-      this.deleteGroupsDialog = true;
+    updateSelected() {
+      this.error = null;
+      this.updateSelectedGroup = { tags: []};
+      this.updateSelectedDialog = true;
     },
-    deleteSelectedGroups() {
-      this.groups = this.groups.filter(val => !this.selectedGroups.includes(val));
-      this.deleteGroupsDialog = false;
-      this.selectedGroups = null;
-      this.$toast.add({severity:'success', summary: 'Successful', detail: 'Groups Deleted', life: 3000});
+    updateSelectedGroups() {
+      this.error = { details: [] };
+
+      if (!this.updateSelectedGroup.statusChecked && !this.updateSelectedGroup.tagsChecked) {
+        this.error.message = this.$i18n.t('general.updateSelectedRequired');
+      }
+
+      if (this.updateSelectedGroup.statusChecked && !this.updateSelectedGroup.status) {
+        this.error.message = this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.status')});
+      }
+
+      if (this.error.message) {
+        return;
+      }
+
+      var promises = [];
+      this.selectedGroups.forEach(group => {
+        var updateGroup = { groupId: group.groupId };
+        if (this.updateSelectedGroup.statusChecked) {
+          updateGroup.status = this.updateSelectedGroup.status;
+        }
+        if (this.updateSelectedGroup.tagsChecked) {
+          updateGroup.tags = this.updateSelectedGroup.tags;
+        }
+        promises.push(
+          this.groupService.updateGroup(updateGroup)
+        );
+      });
+
+      Promise.all(promises)
+        .then(() => {
+          this.$toast.add({severity:'success', summary: this.$i18n.t('toast.updateSummary'), detail: this.$i18n.t('toast.updateDetail'), life: 5000});
+          this.reloadDataTable();
+          this.updateSelectedDialog = false;
+          this.updateSelectedGroup = {};
+          this.selectedGroups = null;
+        })
+        .catch(error => {
+          const errorResponse = this.handleError(error);
+          if (errorResponse.isUnauthorizedError) {
+            this.handleUnauthorizedError();
+          } else {
+            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+          }
+          this.reloadDataTable();
+          this.updateSelectedDialog = false;
+          this.updateSelectedGroup = {};
+        });
     }
   }
 };

@@ -62,6 +62,7 @@ const messages = {
       validationError: '入力エラーが発生しました。エラーメッセージを確認してください。',
       otherError: 'その他のエラーが発生しました。しばらく待ってから再度実行してください。解決しない場合はブラウザを閉じてから操作をやり直してください。',
       validationRequired: '\'{target}\'を入力してください。',
+      updateSelectedRequired: '一括更新する内容を入力してください。',
       deleteComfirmTitle: 'データを削除しようとしています',
       deleteComfirmMessage: '\'{target}\'を削除します。削除したデータは復旧できません。本当に削除してもよろしいですか？',
     },
@@ -99,6 +100,7 @@ const messages = {
     masterGroup: {
       createGroupTitle: '部署登録',
       updateGroupTitle: '部署更新',
+      updateSelectedGroupTitle: '部署一括更新',
     },
     schema: {
       group: {

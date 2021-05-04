@@ -38,7 +38,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
                 sqlWhere.AppendLine("     Name LIKE @Query OR ");
                 sqlWhere.AppendLine("     GroupId IN ( ");
                 sqlWhere.AppendLine("         SELECT TargetId ");
-                sqlWhere.AppendLine("         FROM   Tag AS TG1 ");
+                sqlWhere.AppendLine("         FROM   Tag AS TG1 WITH (NOLOCK) ");
                 sqlWhere.AppendLine("         WHERE  TG1.TargetTable = 'Group' ");
                 sqlWhere.AppendLine("         AND    TG1.Value = @TagQuery ");
                 sqlWhere.AppendLine("     ) ");
@@ -101,7 +101,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             sql.AppendLine(" SELECT GS2.* ");
             sql.AppendLine("      , (SELECT TG2.Value ");
-            sql.AppendLine("           FROM Tag AS TG2 ");
+            sql.AppendLine("           FROM Tag AS TG2 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG2.TargetId = GS2.GroupId ");
             sql.AppendLine("          ORDER BY TG2.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -109,7 +109,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
             sql.AppendLine("      , PS1.* ");
             sql.AppendLine("      , GP1.PositionType ");
             sql.AppendLine("      , (SELECT TG3.Value ");
-            sql.AppendLine("           FROM Tag AS TG3 ");
+            sql.AppendLine("           FROM Tag AS TG3 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG3.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG3.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -165,7 +165,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
                 sqlWhere.AppendLine("     PS1.Title LIKE @Query OR ");
                 sqlWhere.AppendLine("     PS1.PersonId IN ( ");
                 sqlWhere.AppendLine("         SELECT TargetId ");
-                sqlWhere.AppendLine("         FROM   Tag AS TG1 ");
+                sqlWhere.AppendLine("         FROM   Tag AS TG1 WITH (NOLOCK) ");
                 sqlWhere.AppendLine("         WHERE  TG1.TargetTable = 'Person' ");
                 sqlWhere.AppendLine("         AND    TG1.Value = @TagQuery ");
                 sqlWhere.AppendLine("     ) ");
@@ -229,7 +229,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
             sql.AppendLine(" SELECT PS1.* ");
             sql.AppendLine("      , GP1.PositionType ");
             sql.AppendLine("      , (SELECT TG3.Value ");
-            sql.AppendLine("           FROM Tag AS TG3 ");
+            sql.AppendLine("           FROM Tag AS TG3 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG3.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG3.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -261,7 +261,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             sql.AppendLine(" SELECT GS1.* ");
             sql.AppendLine("      , (SELECT TG1.Value ");
-            sql.AppendLine("           FROM Tag AS TG1 ");
+            sql.AppendLine("           FROM Tag AS TG1 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG1.TargetId = GS1.GroupId ");
             sql.AppendLine("          ORDER BY TG1.Value ");
             sql.AppendLine("            FOR JSON PATH ");
@@ -269,7 +269,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
             sql.AppendLine("      , PS1.* ");
             sql.AppendLine("      , GP1.PositionType ");
             sql.AppendLine("      , (SELECT TG2.Value ");
-            sql.AppendLine("           FROM Tag AS TG2 ");
+            sql.AppendLine("           FROM Tag AS TG2 WITH (NOLOCK) ");
             sql.AppendLine("          WHERE TG2.TargetId = PS1.PersonId ");
             sql.AppendLine("          ORDER BY TG2.Value ");
             sql.AppendLine("            FOR JSON PATH ");

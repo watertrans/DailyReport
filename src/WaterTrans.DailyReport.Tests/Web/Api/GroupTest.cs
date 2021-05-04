@@ -142,7 +142,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var requestObject = new GroupCreateRequest
             {
                 GroupCode = new String('Z', 20),
-                GroupTree = new String('Z', 8),
+                GroupTree = new String('9', 8),
                 Name = new String('Z', 256),
                 Description = new String('Z', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
@@ -249,7 +249,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var requestObject = new GroupCreateRequest
             {
                 GroupCode = new String('U', 20),
-                GroupTree = new String('U', 8),
+                GroupTree = new String('2', 8),
                 Name = new String('U', 256),
                 Description = new String('U', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
@@ -269,7 +269,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var updateRequestObject = new GroupUpdateRequest
             {
                 GroupCode = new String('V', 20),
-                GroupTree = new String('V', 8),
+                GroupTree = new String('5', 8),
                 Name = new String('V', 256),
                 Description = new String('V', 1024),
                 Status = GroupStatus.SUSPENDED.ToString(),
@@ -286,7 +286,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(group.GroupCode, new String('V', 20));
-            Assert.AreEqual(group.GroupTree, new String('V', 8));
+            Assert.AreEqual(group.GroupTree, new String('5', 8));
             Assert.AreEqual(group.Name, new String('V', 256));
             Assert.AreEqual(group.Description, new String('V', 1024));
             Assert.AreEqual(group.Status, GroupStatus.SUSPENDED.ToString());
@@ -300,7 +300,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var requestObject = new GroupCreateRequest
             {
                 GroupCode = new String('W', 20),
-                GroupTree = new String('W', 8),
+                GroupTree = new String('3', 8),
                 Name = new String('W', 256),
                 Description = new String('W', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
@@ -340,7 +340,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var requestObject = new GroupCreateRequest
             {
                 GroupCode = new String('S', 20),
-                GroupTree = new String('S', 8),
+                GroupTree = new String('4', 8),
                 Name = new String('S', 256),
                 Description = new String('S', 1024),
                 Status = GroupStatus.NORMAL.ToString(),
@@ -431,7 +431,7 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
             var requestObject = new GroupCreateRequest
             {
                 GroupCode = new String('T', 20),
-                GroupTree = new String('T', 8),
+                GroupTree = new String('1', 8),
                 Name = new String('X', 256),
                 Description = new String('X', 1024),
                 Status = GroupStatus.NORMAL.ToString(),

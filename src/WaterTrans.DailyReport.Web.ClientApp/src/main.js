@@ -27,12 +27,14 @@ import Dropdown from 'primevue/dropdown';
 import FileUpload from 'primevue/fileupload';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
+import Message from 'primevue/message';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import TabMenu from 'primevue/tabmenu';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
 import ToastService from 'primevue/toastservice';
+import ToggleButton from 'primevue/togglebutton';
 import Tooltip from 'primevue/tooltip';
 import Toolbar from 'primevue/toolbar';
 
@@ -63,10 +65,12 @@ app.component('Dropdown', Dropdown);
 app.component('FileUpload', FileUpload);
 app.component('InputText', InputText);
 app.component('InputNumber', InputNumber);
+app.component('Message', Message);
 app.component('RadioButton', RadioButton);
 app.component('TabMenu', TabMenu);
 app.component('Textarea', Textarea);
 app.component('Toast', Toast);
+app.component('ToggleButton', ToggleButton);
 app.component('Toolbar', Toolbar);
 
 app.mount('#app');
