@@ -14,8 +14,8 @@
           </template>
 
           <template v-slot:right>
-            <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block" />
-            <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)"  />
+            <FileUpload mode="basic" :customUpload="true" :auto="true" accept="text/csv" :maxFileSize="1000000" label="Import" chooseLabel="Import" @uploader="importCSV" class="p-mr-2 p-d-inline-block" />
+            <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV"  />
           </template>
         </Toolbar>
 
@@ -367,7 +367,10 @@ export default {
         });
     },
     exportCSV() {
-      this.$refs.dt.exportCSV();
+      console.log('Not implemented!'); // TODO
+    },
+    importCSV() {
+      console.log('Not implemented!'); // TODO
     },
     updateSelected() {
       this.error = null;
