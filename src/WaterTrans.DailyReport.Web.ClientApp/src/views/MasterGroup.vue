@@ -48,7 +48,7 @@
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
               <label for="groupCode">{{$t('schema.group.groupCode')}}</label>
-              <InputText id="groupCode" v-model="group.groupCode" required="true" autofocus :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupCode') }" />
+              <InputText id="groupCode" v-model="group.groupCode" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupCode') }" />
               <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'groupCode')">{{error.details.find(e => e.target == 'groupCode').message}}</small>
               <small class="help-text">{{$t('helpText.dataCode')}}</small>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="p-field p-col">
               <label for="sortNo">{{$t('schema.group.sortNo')}}</label>
-              <InputNumber id="sortNo" v-model="group.sortNo" required="true" :mode="decimal" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
+              <InputNumber id="sortNo" v-model="group.sortNo" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
               <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'sortNo')">{{error.details.find(e => e.target == 'sortNo').message}}</small>
             </div>
           </div>
@@ -259,7 +259,7 @@ export default {
     },
     openNew() {
       this.error = null;
-      this.group = { description: '', tags: []};
+      this.group = { description: '', tags: [] };
       this.groupDialogHeader = this.$i18n.t('masterGroup.createGroupTitle');
       this.groupDialog = true;
     },
