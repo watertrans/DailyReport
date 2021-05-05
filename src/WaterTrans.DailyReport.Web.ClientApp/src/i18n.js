@@ -107,6 +107,11 @@ const messages = {
       updateProjectTitle: 'プロジェクト更新',
       updateSelectedProjectTitle: 'プロジェクト一括更新',
     },
+    masterWorkType: {
+      createWorkTypeTitle: '業務分類登録',
+      updateWorkTypeTitle: '業務分類更新',
+      updateSelectedWorkTypeTitle: '業務分類一括更新',
+    },
     schema: {
       group: {
         groupId: '部署ID',
@@ -132,7 +137,19 @@ const messages = {
         persons: '所属従業員',
         createTime: '作成日時',
         updateTime: '更新日時',
-      }
+      },
+      workType: {
+        workTypeId: '業務分類ID',
+        workTypeCode: '業務分類コード',
+        workTypeTree: '業務分類階層',
+        name: '業務分類名',
+        description: '説明',
+        status: 'ステータス',
+        sortNo: '並び順',
+        tags: 'タグ',
+        createTime: '作成日時',
+        updateTime: '更新日時',
+      },
     }
   },
 };

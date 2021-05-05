@@ -29,6 +29,11 @@ const routes = [
     name: 'MasterProject',
     component: () => import('../views/MasterProject.vue')
   },
+  {
+    path: '/master/workType',
+    name: 'MasterWorkType',
+    component: () => import('../views/MasterWorkType.vue')
+  },
 ];
 
 const router = createRouter({
