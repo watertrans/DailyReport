@@ -34,6 +34,7 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
             {
                 sqlWhere.AppendLine(" AND ( ");
                 sqlWhere.AppendLine("     PersonCode LIKE @Query OR ");
+                sqlWhere.AppendLine("     LoginId LIKE @Query OR ");
                 sqlWhere.AppendLine("     Name LIKE @Query OR ");
                 sqlWhere.AppendLine("     Title LIKE @Query OR ");
                 sqlWhere.AppendLine("     PersonId IN ( ");

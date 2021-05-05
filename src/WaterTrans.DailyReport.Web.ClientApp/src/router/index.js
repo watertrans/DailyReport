@@ -34,6 +34,11 @@ const routes = [
     name: 'MasterWorkType',
     component: () => import('../views/MasterWorkType.vue')
   },
+  {
+    path: '/master/person',
+    name: 'MasterPerson',
+    component: () => import('../views/MasterPerson.vue')
+  },
 ];
 
 const router = createRouter({

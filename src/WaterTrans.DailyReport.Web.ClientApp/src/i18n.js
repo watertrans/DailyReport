@@ -69,6 +69,7 @@ const messages = {
     helpText: {
       dataCode: '英数字とハイフン20文字以内',
       dataTree: '数字2,4,6,8文字',
+      text100: '100文字以内',
       text256: '256文字以内',
       tags: 'Enterキーで確定、最大10個',
     },
@@ -112,6 +113,11 @@ const messages = {
       updateWorkTypeTitle: '業務分類更新',
       updateSelectedWorkTypeTitle: '業務分類一括更新',
     },
+    masterPerson: {
+      createPersonTitle: '従業員登録',
+      updatePersonTitle: '従業員更新',
+      updateSelectedPersonTitle: '従業員一括更新',
+    },
     schema: {
       group: {
         groupId: '部署ID',
@@ -143,6 +149,19 @@ const messages = {
         workTypeCode: '業務分類コード',
         workTypeTree: '業務分類階層',
         name: '業務分類名',
+        description: '説明',
+        status: 'ステータス',
+        sortNo: '並び順',
+        tags: 'タグ',
+        createTime: '作成日時',
+        updateTime: '更新日時',
+      },
+      person: {
+        personId: '従業員ID',
+        personCode: '従業員コード',
+        loginId: 'ログインID',
+        name: '名前',
+        title: '役職',
         description: '説明',
         status: 'ステータス',
         sortNo: '並び順',
