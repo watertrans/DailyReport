@@ -1420,7 +1420,7 @@ components:
         name:
           type: string
           maxLength: 256
-          description: 名前
+          description: 部署名
         description:
           type: string
           description: 説明
@@ -1669,7 +1669,7 @@ components:
         name:
           type: string
           maxLength: 256
-          description: 名前
+          description: プロジェクト名
         description:
           type: string
           description: 説明

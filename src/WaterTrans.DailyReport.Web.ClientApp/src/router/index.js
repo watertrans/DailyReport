@@ -24,6 +24,11 @@ const routes = [
     name: 'MasterGroup',
     component: () => import('../views/MasterGroup.vue')
   },
+  {
+    path: '/master/project',
+    name: 'MasterProject',
+    component: () => import('../views/MasterProject.vue')
+  },
 ];
 
 const router = createRouter({

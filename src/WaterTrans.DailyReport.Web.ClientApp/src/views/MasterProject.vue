@@ -1,12 +1,12 @@
 <template>
-  <div class="p-grid masterGroup">
+  <div class="p-grid masterProject">
     <div class="p-col-12">
       <div class="card">
         <Toast/>
         <Toolbar class="p-mb-4">
           <template v-slot:left>
             <Button :label="$t('general.createButtonLabel')" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />
-            <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="updateSelected" :disabled="!selectedGroups || !selectedGroups.length" />
+            <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="updateSelected" :disabled="!selectedProjects || !selectedProjects.length" />
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
               <InputText v-model="query" placeholder="Search..." @keydown.enter="onSearchKeyDown" />
@@ -19,113 +19,108 @@
           </template>
         </Toolbar>
 
-        <DataTable ref="dt" :value="groups" v-model:selection="selectedGroups" dataKey="groupId" :lazy="true" :paginator="true" :rows="rows" :first="first"
+        <DataTable ref="dt" :value="projects" v-model:selection="selectedProjects" dataKey="projectId" :lazy="true" :paginator="true" :rows="rows" :first="first"
               :totalRecords="totalRecords" :loading="loading" :resizableColumns="true" :removableSort="true" :sortOrder="sortOrder" :sortField="sortField"
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5,10,20,50,100]"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} groups" responsiveLayout="scroll" @page="onPage" @sort="onPage">
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} projects" responsiveLayout="scroll" @page="onPage" @sort="onPage">
           <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-          <Column field="groupCode" :header="$t('schema.group.groupCode')" headerStyle="width: 10rem" :sortable="true"></Column>
-          <Column field="groupTree" :header="$t('schema.group.groupTree')" headerStyle="width: 6rem" :sortable="true"></Column>
-          <Column field="name" :header="$t('schema.group.name')" :sortable="true"></Column>
-          <Column field="tags" :header="$t('schema.group.tags')" headerStyle="width: 15rem">
+          <Column field="projectCode" :header="$t('schema.project.projectCode')" headerStyle="width: 10rem" :sortable="true"></Column>
+          <Column field="name" :header="$t('schema.project.name')" :sortable="true"></Column>
+          <Column field="tags" :header="$t('schema.project.tags')" headerStyle="width: 15rem">
             <template #body="slotProps">
               <Chip v-for="tag in slotProps.data.tags" :key="tag" :label="tag" />
             </template>
           </Column>
-          <Column field="status" :header="$t('schema.group.status')" headerStyle="width: 8rem"></Column>
-          <Column field="sortNo" :header="$t('schema.group.sortNo')" headerStyle="width: 8rem" :sortable="true"></Column>
-          <Column field="persons.length" :header="$t('schema.group.persons')" headerStyle="width: 8rem"></Column>
+          <Column field="status" :header="$t('schema.project.status')" headerStyle="width: 8rem"></Column>
+          <Column field="sortNo" :header="$t('schema.project.sortNo')" headerStyle="width: 8rem" :sortable="true"></Column>
+          <Column field="persons.length" :header="$t('schema.project.persons')" headerStyle="width: 8rem"></Column>
           <Column headerStyle="width: 10rem">
             <template #body="slotProps">
-              <Button icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-success p-mr-2" @click="editGroup(slotProps.data)" />
-              <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-warning" @click="confirmDeleteGroup(slotProps.data)" :disabled="slotProps.data.persons.length > 0" />
+              <Button icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-success p-mr-2" @click="editProject(slotProps.data)" />
+              <Button icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-warning" @click="confirmDeleteProject(slotProps.data)" :disabled="slotProps.data.persons.length > 0" />
             </template>
           </Column>
         </DataTable>
 
-        <Dialog v-model:visible="groupDialog" :style="{width: '450px'}" :header="groupDialogHeader" :modal="true" class="p-fluid">
+        <Dialog v-model:visible="projectDialog" :style="{width: '450px'}" :header="projectDialogHeader" :modal="true" class="p-fluid">
           <Message v-if="error && error.message" severity="error" :closable="false">{{error.message}}</Message>
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
-              <label for="groupCode">{{$t('schema.group.groupCode')}}</label>
-              <InputText id="groupCode" v-model="group.groupCode" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupCode') }" />
-              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'groupCode')">{{error.details.find(e => e.target == 'groupCode').message}}</small>
+              <label for="projectCode">{{$t('schema.project.projectCode')}}</label>
+              <InputText id="projectCode" v-model="project.projectCode" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'projectCode') }" />
+              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'projectCode')">{{error.details.find(e => e.target == 'projectCode').message}}</small>
               <small class="help-text">{{$t('helpText.dataCode')}}</small>
             </div>
             <div class="p-field p-col">
-              <label for="groupTree">{{$t('schema.group.groupTree')}}</label>
-              <InputText id="groupTree" v-model="group.groupTree" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'groupTree') }" />
-              <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'groupTree')">{{error.details.find(e => e.target == 'groupTree').message}}</small>
-              <small class="help-text">{{$t('helpText.dataTree')}}</small>
             </div>
           </div>
           <div class="p-field">
-            <label for="name">{{$t('schema.group.name')}}</label>
-            <InputText id="name" v-model="group.name" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'name') }" />
+            <label for="name">{{$t('schema.project.name')}}</label>
+            <InputText id="name" v-model="project.name" required="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'name') }" />
             <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'name')">{{error.details.find(e => e.target == 'name').message}}</small>
             <small class="help-text">{{$t('helpText.text256')}}</small>
           </div>
           <div class="p-field">
-            <label for="description">{{$t('schema.group.description')}}</label>
-            <Textarea id="description" v-model="group.description" rows="3" cols="20" />
+            <label for="description">{{$t('schema.project.description')}}</label>
+            <Textarea id="description" v-model="project.description" rows="3" cols="20" />
           </div>
           <div class="p-formgrid p-grid">
             <div class="p-field p-col">
-              <label for="status">{{$t('schema.group.status')}}</label>
-              <Dropdown id="status" v-model="group.status" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" />
+              <label for="status">{{$t('schema.project.status')}}</label>
+              <Dropdown id="status" v-model="project.status" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" />
               <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'status')">{{error.details.find(e => e.target == 'status').message}}</small>
             </div>
             <div class="p-field p-col">
-              <label for="sortNo">{{$t('schema.group.sortNo')}}</label>
-              <InputNumber id="sortNo" v-model="group.sortNo" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
+              <label for="sortNo">{{$t('schema.project.sortNo')}}</label>
+              <InputNumber id="sortNo" v-model="project.sortNo" :useGrouping="false" :min="0" :max="2147483647" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'sortNo') }" />
               <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'sortNo')">{{error.details.find(e => e.target == 'sortNo').message}}</small>
             </div>
           </div>
           <div class="p-field">
-            <label for="tags">{{$t('schema.group.tags')}}</label>
-            <Chips id="tags" v-model="group.tags" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
+            <label for="tags">{{$t('schema.project.tags')}}</label>
+            <Chips id="tags" v-model="project.tags" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
             <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'tags')">{{error.details.find(e => e.target == 'tags').message}}</small>
             <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
-            <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="groupDialog = false"/>
-            <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveGroup" />
+            <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="projectDialog = false"/>
+            <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveProject" />
           </template>
         </Dialog>
 
-        <Dialog v-model:visible="deleteGroupDialog" :style="{width: '450px'}" :header="$t('general.deleteComfirmTitle')" :modal="true">
+        <Dialog v-model:visible="deleteProjectDialog" :style="{width: '450px'}" :header="$t('general.deleteComfirmTitle')" :modal="true">
           <div class="confirmation-content">
             <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
-            <span v-if="group">{{$t('general.deleteComfirmMessage', { target : group.name })}}</span>
+            <span v-if="project">{{$t('general.deleteComfirmMessage', { target : project.name })}}</span>
           </div>
           <template #footer>
-            <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteGroupDialog = false"/>
-            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteGroup" />
+            <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProjectDialog = false"/>
+            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProject" />
           </template>
         </Dialog>
 
-        <Dialog v-model:visible="updateSelectedDialog" :style="{width: '450px'}" :header="$t('masterGroup.updateSelectedGroupTitle')" :modal="true" class="p-fluid">
+        <Dialog v-model:visible="updateSelectedDialog" :style="{width: '450px'}" :header="$t('masterProject.updateSelectedProjectTitle')" :modal="true" class="p-fluid">
           <Message v-if="error && error.message" severity="error" :closable="false">{{error.message}}</Message>
           <div class="p-field">
-            <label for="status2">{{$t('schema.group.status')}}</label>
+            <label for="status2">{{$t('schema.project.status')}}</label>
             <div class="p-formgrid p-grid">
               <div class="p-col-fixed">
-                <ToggleButton v-model="updateSelectedGroup.statusChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
+                <ToggleButton v-model="updateSelectedProject.statusChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
               </div>
               <div class="p-col">
-                <Dropdown id="status2" v-model="updateSelectedGroup.status" :disabled="!updateSelectedGroup.statusChecked" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" :style="{width: '100%'}" />
+                <Dropdown id="status2" v-model="updateSelectedProject.status" :disabled="!updateSelectedProject.statusChecked" :options="statuses" optionLabel="label" optionValue="value" :placeholder="$t('general.selectPlaceholder')" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'status') }" :style="{width: '100%'}" />
               </div>
             </div>
             <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'status')">{{error.details.find(e => e.target == 'status').message}}</small>
           </div>
           <div class="p-field">
-            <label for="tags2">{{$t('schema.group.tags')}}</label>
+            <label for="tags2">{{$t('schema.project.tags')}}</label>
             <div class="p-formgrid p-grid">
               <div class="p-col-fixed">
-                <ToggleButton v-model="updateSelectedGroup.tagsChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
+                <ToggleButton v-model="updateSelectedProject.tagsChecked" onIcon="pi pi-check" offIcon="pi pi-times" />
               </div>
               <div class="p-col">
-                <Chips id="tags2" v-model="updateSelectedGroup.tags" :disabled="!updateSelectedGroup.tagsChecked" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
+                <Chips id="tags2" v-model="updateSelectedProject.tags" :disabled="!updateSelectedProject.tagsChecked" :addOnBlur="true" :class="{'p-invalid': error && error.details && error.details.find(e => e.target == 'tags') }" />
               </div>
             </div>
             <small class="p-error" v-if="error && error.details && error.details.find(e => e.target == 'tags')">{{error.details.find(e => e.target == 'tags').message}}</small>
@@ -133,7 +128,7 @@
           </div>
           <template #footer>
             <Button label="No" icon="pi pi-times" class="p-button-text" @click="updateSelectedDialog = false"/>
-            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="updateSelectedGroups" />
+            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="updateSelectedProjects" />
           </template>
         </Dialog>
       </div>
@@ -144,19 +139,19 @@
 
 <script>
 import ErrorHandling from '../mixins/ErrorHandling';
-import GroupService from '../service/GroupService';
+import ProjectService from '../service/ProjectService';
 
 export default {
   data() {
     return {
-      groups: null,
-      groupDialog: false,
-      groupDialogHeader: null,
-      deleteGroupDialog: false,
+      projects: null,
+      projectDialog: false,
+      projectDialogHeader: null,
+      deleteProjectDialog: false,
       updateSelectedDialog: false,
-      group: {},
-      updateSelectedGroup: {},
-      selectedGroups: null,
+      project: {},
+      updateSelectedProject: {},
+      selectedProjects: null,
       query: null,
       sortOrder: 1,
       sortField: null,
@@ -167,14 +162,15 @@ export default {
       error: null,
       statuses: [
         {label: 'NORMAL', value: 'NORMAL'},
-        {label: 'SUSPENDED', value: 'SUSPENDED'}
+        {label: 'SUSPENDED', value: 'SUSPENDED'},
+        {label: 'COMPLETED', value: 'COMPLETED'}
       ]
     };
   },
   mixins: [ErrorHandling],
-  groupService: null,
+  projectService: null,
   created() {
-    this.groupService = new GroupService(this.$axios, this.$store.state.accessToken);
+    this.projectService = new ProjectService(this.$axios, this.$store.state.accessToken);
     if (this.$route.query && this.$route.query.q)
     {
       this.query = this.$route.query.q;
@@ -237,13 +233,13 @@ export default {
         routerQuery.pageSize = pageSize;
       }
       this.$router.push({ query: routerQuery });
-      this.queryGroups(routerQuery.q, routerQuery.sort, routerQuery.page, routerQuery.pageSize);
+      this.queryProjects(routerQuery.q, routerQuery.sort, routerQuery.page, routerQuery.pageSize);
     },
-    queryGroups(query, sort, page, pageSize) {
+    queryProjects(query, sort, page, pageSize) {
       this.loading = true;
-      this.groupService.queryGroups(query, sort, page, pageSize)
+      this.projectService.queryProjects(query, sort, page, pageSize)
         .then(response => {
-          this.groups = response.data.items;
+          this.projects = response.data.items;
           this.rows = response.data.pageSize;
           this.totalRecords = response.data.total;
           this.loading = false;
@@ -259,51 +255,47 @@ export default {
     },
     openNew() {
       this.error = null;
-      this.group = { description: '', tags: [] };
-      this.groupDialogHeader = this.$i18n.t('masterGroup.createGroupTitle');
-      this.groupDialog = true;
+      this.project = { description: '', tags: [] };
+      this.projectDialogHeader = this.$i18n.t('masterProject.createProjectTitle');
+      this.projectDialog = true;
     },
-    editGroup(group) {
+    editProject(project) {
       this.error = null;
-      this.group = {...group};
-      this.groupDialogHeader = this.$i18n.t('masterGroup.updateGroupTitle');
-      this.groupDialog = true;
+      this.project = {...project};
+      this.projectDialogHeader = this.$i18n.t('masterProject.updateProjectTitle');
+      this.projectDialog = true;
     },
-    saveGroup() {
+    saveProject() {
       this.error = { details: [] };
 
-      if (!this.group.groupCode) {
+      if (!this.project.projectCode) {
         this.error.message = this.$i18n.t('general.validationError');
-        this.error.details.push({ target: 'groupCode', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.groupCode')}) });
+        this.error.details.push({ target: 'projectCode', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.project.projectCode')}) });
       }
-      if (!this.group.groupTree) {
+      if (!this.project.name) {
         this.error.message = this.$i18n.t('general.validationError');
-        this.error.details.push({ target: 'groupTree', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.groupTree')}) });
+        this.error.details.push({ target: 'name', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.project.name')}) });
       }
-      if (!this.group.name) {
+      if (!this.project.status) {
         this.error.message = this.$i18n.t('general.validationError');
-        this.error.details.push({ target: 'name', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.name')}) });
+        this.error.details.push({ target: 'status', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.project.status')}) });
       }
-      if (!this.group.status) {
+      if (!this.project.sortNo && this.project.sortNo !== 0) {
         this.error.message = this.$i18n.t('general.validationError');
-        this.error.details.push({ target: 'status', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.status')}) });
-      }
-      if (!this.group.sortNo && this.group.sortNo !== 0) {
-        this.error.message = this.$i18n.t('general.validationError');
-        this.error.details.push({ target: 'sortNo', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.sortNo')}) });
+        this.error.details.push({ target: 'sortNo', message: this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.project.sortNo')}) });
       }
 
       if (this.error.message) {
         return;
       }
 
-      if (this.group.groupId) {
-        this.groupService.updateGroup(this.group)
+      if (this.project.projectId) {
+        this.projectService.updateProject(this.project)
           .then(response => {
             this.reloadDataTable();
             this.$toast.add({severity:'success', summary: this.$i18n.t('toast.updateSummary'), detail: this.$i18n.t('toast.updateDetail'), life: 5000});
-            this.groupDialog = false;
-            this.group = response.data;
+            this.projectDialog = false;
+            this.project = response.data;
           })
           .catch(error => {
             const errorResponse = this.handleError(error);
@@ -317,12 +309,12 @@ export default {
             }
           });
       } else {
-        this.groupService.createGroup(this.group)
+        this.projectService.createProject(this.project)
           .then(response => {
             this.reloadDataTable();
             this.$toast.add({severity:'success', summary: this.$i18n.t('toast.createSummary'), detail: this.$i18n.t('toast.createDetail'), life: 5000});
-            this.groupDialog = false;
-            this.group = response.data;
+            this.projectDialog = false;
+            this.project = response.data;
           })
           .catch(error => {
             const errorResponse = this.handleError(error);
@@ -337,17 +329,17 @@ export default {
           });
       }
     },
-    confirmDeleteGroup(group) {
-      this.group = group;
-      this.deleteGroupDialog = true;
+    confirmDeleteProject(project) {
+      this.project = project;
+      this.deleteProjectDialog = true;
     },
-    deleteGroup() {
-      this.groupService.deleteGroup(this.group.groupId)
+    deleteProject() {
+      this.projectService.deleteProject(this.project.projectId)
         .then(() => {
           this.reloadDataTable();
           this.$toast.add({severity:'success', summary: this.$i18n.t('toast.deleteSummary'), detail: this.$i18n.t('toast.deleteDetail'), life: 5000});
-          this.deleteGroupDialog = false;
-          this.group = {};
+          this.deleteProjectDialog = false;
+          this.project = {};
         })
         .catch(error => {
           const errorResponse = this.handleError(error);
@@ -362,8 +354,8 @@ export default {
             this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
           }
           this.reloadDataTable();
-          this.deleteGroupDialog = false;
-          this.group = {};
+          this.deleteProjectDialog = false;
+          this.project = {};
         });
     },
     exportCSV() {
@@ -374,18 +366,18 @@ export default {
     },
     updateSelected() {
       this.error = null;
-      this.updateSelectedGroup = { tags: []};
+      this.updateSelectedProject = { tags: []};
       this.updateSelectedDialog = true;
     },
-    updateSelectedGroups() {
+    updateSelectedProjects() {
       this.error = { details: [] };
 
-      if (!this.updateSelectedGroup.statusChecked && !this.updateSelectedGroup.tagsChecked) {
+      if (!this.updateSelectedProject.statusChecked && !this.updateSelectedProject.tagsChecked) {
         this.error.message = this.$i18n.t('general.updateSelectedRequired');
       }
 
-      if (this.updateSelectedGroup.statusChecked && !this.updateSelectedGroup.status) {
-        this.error.message = this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.group.status')});
+      if (this.updateSelectedProject.statusChecked && !this.updateSelectedProject.status) {
+        this.error.message = this.$i18n.t('general.validationRequired', { target: this.$i18n.t('schema.project.status')});
       }
 
       if (this.error.message) {
@@ -393,16 +385,16 @@ export default {
       }
 
       var promises = [];
-      this.selectedGroups.forEach(group => {
-        var updateGroup = { groupId: group.groupId };
-        if (this.updateSelectedGroup.statusChecked) {
-          updateGroup.status = this.updateSelectedGroup.status;
+      this.selectedProjects.forEach(project => {
+        var updateProject = { projectId: project.projectId };
+        if (this.updateSelectedProject.statusChecked) {
+          updateProject.status = this.updateSelectedProject.status;
         }
-        if (this.updateSelectedGroup.tagsChecked) {
-          updateGroup.tags = this.updateSelectedGroup.tags;
+        if (this.updateSelectedProject.tagsChecked) {
+          updateProject.tags = this.updateSelectedProject.tags;
         }
         promises.push(
-          this.groupService.updateGroup(updateGroup)
+          this.projectService.updateProject(updateProject)
         );
       });
 
@@ -411,8 +403,8 @@ export default {
           this.$toast.add({severity:'success', summary: this.$i18n.t('toast.updateSummary'), detail: this.$i18n.t('toast.updateDetail'), life: 5000});
           this.reloadDataTable();
           this.updateSelectedDialog = false;
-          this.updateSelectedGroup = {};
-          this.selectedGroups = null;
+          this.updateSelectedProject = {};
+          this.selectedProjects = null;
         })
         .catch(error => {
           const errorResponse = this.handleError(error);
@@ -423,7 +415,7 @@ export default {
           }
           this.reloadDataTable();
           this.updateSelectedDialog = false;
-          this.updateSelectedGroup = {};
+          this.updateSelectedProject = {};
         });
     }
   }
