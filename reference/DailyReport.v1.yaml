@@ -447,7 +447,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    description: 'The Human resources.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -520,7 +520,7 @@ paths:
                   groupCode: '000001'
                   groupTree: '00'
                   name: Human Resources
-                  description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                  description: 'The Human resources.'
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -569,7 +569,7 @@ paths:
                         groupCode: '000001'
                         groupTree: '00'
                         name: Human Resources
-                        description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                        description: 'The Human resources.'
                         status: NORMAL
                         sortNo: 0
                         tags:
@@ -624,7 +624,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    description: 'The Human resources.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -660,7 +660,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                    description: 'The Human resources.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -726,7 +726,7 @@ paths:
                   groupCode: '000001'
                   groupTree: '00'
                   name: Human Resources
-                  description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+                  description: 'The Human resources.'
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -923,7 +923,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    description: 'The Software development.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -990,7 +990,7 @@ paths:
                 value:
                   projectCode: '000001'
                   name: Software Development
-                  description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                  description: 'The Software development.'
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1038,7 +1038,7 @@ paths:
                       - projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                         projectCode: '000001'
                         name: Software Development
-                        description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                        description: 'The Software development.'
                         status: NORMAL
                         sortNo: 0
                         tags:
@@ -1092,7 +1092,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    description: 'The Software development.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1127,7 +1127,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                    description: 'The Software development.'
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1188,7 +1188,7 @@ paths:
                 value:
                   projectCode: '000001'
                   name: Software Development
-                  description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+                  description: 'The Software development.'
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1350,6 +1350,330 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/sort'
+  /workTypes:
+    post:
+      summary: 業務分類登録
+      operationId: post-workTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkType'
+              examples:
+                Example:
+                  value:
+                    workTypeId: f3e5ff26-28f1-4cd6-9b1b-e303a185a13a
+                    workTypeCode: '000001'
+                    workTypeTree: '00'
+                    name: Engineering
+                    description: 'The Engineering.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Engineering
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 業務分類を登録します。
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workTypeCode:
+                  type: string
+                  description: 業務分類コード
+                  maxLength: 20
+                workTypeTree:
+                  type: string
+                  description: 業務分類階層
+                  maxLength: 8
+                name:
+                  type: string
+                  maxLength: 256
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 1024
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+              required:
+                - workTypeCode
+                - workTypeTree
+                - name
+                - description
+                - status
+                - sortNo
+                - tags
+            examples:
+              Example:
+                value:
+                  workTypeCode: '000001'
+                  workTypeTree: '00'
+                  name: Engineering
+                  description: 'The Engineering.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Engineering
+        description: ''
+      tags:
+        - WorkTypes
+    get:
+      summary: 業務分類検索
+      operationId: get-workTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                    description: ページ番号
+                  pageSize:
+                    type: integer
+                    description: ページサイズ
+                  total:
+                    type: integer
+                    description: 対象件数
+                  items:
+                    type: array
+                    description: 対象リスト
+                    items:
+                      $ref: '#/components/schemas/WorkType'
+                required:
+                  - page
+                  - pageSize
+                  - total
+                  - items
+              examples:
+                Example:
+                  value:
+                    page: 1
+                    pageSize: 20
+                    total: 1
+                    items:
+                      - workTypeId: f3e5ff26-28f1-4cd6-9b1b-e303a185a13a
+                        workTypeCode: '000001'
+                        workTypeTree: '00'
+                        name: Engineering
+                        description: 'The Engineering.'
+                        status: NORMAL
+                        sortNo: 0
+                        tags:
+                          - Engineering
+                        createTime: '2021-03-27T14:18:51+09:00'
+                        updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      tags:
+        - WorkTypes
+      description: |-
+        業務分類を検索します。
+        並び順には次の値を指定できます。
+        "SortNo", "WorkTypeCode", "WorkTypeTree", "Name", "CreateTime"
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/query'
+        - $ref: '#/components/parameters/sort'
+  '/workTypes/{workTypeId}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: workTypeId
+        in: path
+        required: true
+        description: 業務分類ID
+    get:
+      summary: 業務分類取得
+      tags:
+        - WorkTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkType'
+              examples:
+                Example:
+                  value:
+                    workTypeId: f3e5ff26-28f1-4cd6-9b1b-e303a185a13a
+                    workTypeCode: '000001'
+                    workTypeTree: '00'
+                    name: Engineering
+                    description: 'The Engineering.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Engineering
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-workTypes-workTypeId
+      description: 業務分類を取得します。
+    patch:
+      summary: 業務分類更新
+      operationId: patch-workTypes-workTypeId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkType'
+              examples:
+                Example:
+                  value:
+                    workTypeId: f3e5ff26-28f1-4cd6-9b1b-e303a185a13a
+                    workTypeCode: '000001'
+                    workTypeTree: '00'
+                    name: Engineering
+                    description: 'The Engineering.'
+                    status: NORMAL
+                    sortNo: 0
+                    tags:
+                      - Engineering
+                    createTime: '2021-03-27T14:18:51+09:00'
+                    updateTime: '2021-03-27T14:18:51+09:00'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 業務分類を更新します。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                workTypeCode:
+                  type: string
+                  description: 業務分類コード
+                  maxLength: 20
+                workTypeTree:
+                  type: string
+                  description: 業務分類階層
+                  maxLength: 8
+                name:
+                  type: string
+                  maxLength: 256
+                  description: 名前
+                description:
+                  type: string
+                  maxLength: 1024
+                  description: 説明
+                status:
+                  type: string
+                  enum:
+                    - NORMAL
+                    - SUSPENDED
+                  description: ステータス
+                sortNo:
+                  type: integer
+                  description: 並び順
+                  minimum: 0
+                  maximum: 2147483647
+                tags:
+                  type: array
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  description: タグ
+                  items:
+                    type: string
+                    maxLength: 100
+            examples:
+              Example:
+                value:
+                  workTypeCode: '000001'
+                  workTypeTree: '00'
+                  name: Engineering
+                  description: 'The Engineering.'
+                  status: NORMAL
+                  sortNo: 0
+                  tags:
+                    - Engineering
+        description: ''
+      tags:
+        - WorkTypes
+    delete:
+      summary: 業務分類削除
+      operationId: delete-workTypes-workTypeId
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      description: 業務分類を削除します。
+      tags:
+        - WorkTypes
 components:
   schemas:
     Error:
@@ -1397,7 +1721,7 @@ components:
           groupCode: '000001'
           groupTree: '00'
           name: Human Resources
-          description: 'Human resources is the set of people who make up the workforce of an organization, business sector, industry, or economy.'
+          description: 'The Human resources.'
           status: NORMAL
           sortNo: 0
           tags:
@@ -1646,11 +1970,11 @@ components:
       type: object
       description: プロジェクト
       x-examples:
-        Human Resources:
+        Software Development:
           projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
           projectCode: '000001'
           name: Software Development
-          description: 'Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.'
+          description: 'The Software development.'
           status: NORMAL
           sortNo: 0
           tags:
@@ -1704,6 +2028,82 @@ components:
       required:
         - projectId
         - projectCode
+        - name
+        - description
+        - status
+        - sortNo
+        - tags
+        - createTime
+        - updateTime
+    WorkType:
+      title: WorkType
+      type: object
+      description: 業務分類
+      x-examples:
+        Engineering:
+          workTypeId: f3e5ff26-28f1-4cd6-9b1b-e303a185a13a
+          workTypeCode: '000001'
+          workTypeTree: '00'
+          name: Engineering
+          description: 'The Engineering.'
+          status: NORMAL
+          sortNo: 0
+          tags:
+            - Engineering
+          createTime: '2021-03-27T14:18:51+09:00'
+          updateTime: '2021-03-27T14:18:51+09:00'
+      properties:
+        workTypeId:
+          type: string
+          description: 業務分類ID
+          format: uuid
+        workTypeCode:
+          type: string
+          description: 業務分類コード
+          maxLength: 20
+        workTypeTree:
+          type: string
+          description: 業務分類階層
+          maxLength: 8
+        name:
+          type: string
+          maxLength: 256
+          description: 業務分類名
+        description:
+          type: string
+          description: 説明
+          maxLength: 1024
+        status:
+          type: string
+          enum:
+            - NORMAL
+            - SUSPENDED
+          description: ステータス
+        sortNo:
+          type: integer
+          description: 並び順
+          minimum: 0
+          exclusiveMaximum: false
+          maximum: 2147483647
+        tags:
+          type: array
+          format: date
+          description: タグ
+          minItems: 0
+          maxItems: 10
+          uniqueItems: true
+          items:
+            type: string
+        createTime:
+          type: string
+          description: 作成日時
+        updateTime:
+          type: string
+          description: 更新日時
+      required:
+        - workTypeId
+        - workTypeCode
+        - workTypeTree
         - name
         - description
         - status
@@ -1846,3 +2246,4 @@ tags:
   - name: Persons
   - name: Projects
   - name: Token
+  - name: WorkTypes
