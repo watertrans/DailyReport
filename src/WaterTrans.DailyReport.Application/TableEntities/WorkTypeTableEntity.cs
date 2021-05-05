@@ -5,29 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WaterTrans.DailyReport.Application.TableEntities
 {
     /// <summary>
-    /// 作業分類テーブルエンティティ
+    /// 業務分類テーブルエンティティ
     /// </summary>
     [Table("WorkType")]
     public class WorkTypeTableEntity : SqlTableEntity
     {
         /// <summary>
-        /// 作業分類ID
+        /// 業務分類ID
         /// </summary>
         [Key]
         public Guid WorkTypeId { get; set; }
 
         /// <summary>
-        /// 作業分類コード
+        /// 業務分類コード
         /// </summary>
         public string WorkTypeCode { get; set; }
 
         /// <summary>
-        /// 作業分類階層
+        /// 業務分類階層
         /// </summary>
         public string WorkTypeTree { get; set; }
 
         /// <summary>
-        /// 作業分類名
+        /// 業務分類名
         /// </summary>
         public string Name { get; set; }
 

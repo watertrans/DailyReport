@@ -484,6 +484,87 @@ namespace WaterTrans.DailyReport.Web.Api.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 部署.
+        /// </summary>
+        public static string DisplayWorkType {
+            get {
+                return ResourceManager.GetString("DisplayWorkType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 説明.
+        /// </summary>
+        public static string DisplayWorkTypeDescription {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部署名.
+        /// </summary>
+        public static string DisplayWorkTypeName {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 並び順.
+        /// </summary>
+        public static string DisplayWorkTypeSortNo {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeSortNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ステータス.
+        /// </summary>
+        public static string DisplayWorkTypeStatus {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to タグ.
+        /// </summary>
+        public static string DisplayWorkTypeTags {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部署コード.
+        /// </summary>
+        public static string DisplayWorkTypeWorkTypeCode {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeWorkTypeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部署ID.
+        /// </summary>
+        public static string DisplayWorkTypeWorkTypeId {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeWorkTypeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 部署階層.
+        /// </summary>
+        public static string DisplayWorkTypeWorkTypeTree {
+            get {
+                return ResourceManager.GetString("DisplayWorkTypeWorkTypeTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 認証トークンの有効期限が切れています。.
         /// </summary>
         public static string ErrorResultAuthorizationTokenExpired {

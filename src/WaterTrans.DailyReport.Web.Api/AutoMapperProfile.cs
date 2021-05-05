@@ -67,6 +67,18 @@ namespace WaterTrans.DailyReport.Web.Api
                 .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
                 .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
                 .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
+
+            // 業務分類関連
+            CreateMap<WorkTypeCreateRequest, WorkTypeCreateDto>();
+            CreateMap<Domain.Entities.WorkType, WorkType>()
+                .ForMember(dest => dest.WorkTypeId, opt => opt.MapFrom(src => src.WorkTypeId.ToString()))
+                .ForMember(dest => dest.CreateTime, opt => opt.MapFrom(src => src.CreateTime.ToISO8601()))
+                .ForMember(dest => dest.UpdateTime, opt => opt.MapFrom(src => src.UpdateTime.ToISO8601()));
+            CreateMap<WorkTypeUpdateRequest, WorkTypeUpdateDto>();
+            CreateMap<WorkTypeQueryRequest, WorkTypeQueryDto>()
+                .ForMember(dest => dest.Page, opt => opt.MapFrom(src => src.Page ?? PagingQuery.DefaultPage))
+                .ForMember(dest => dest.PageSize, opt => opt.MapFrom(src => src.PageSize ?? PagingQuery.DefaultPageSize))
+                .ForMember(dest => dest.Sort, opt => opt.MapFrom(src => SortOrder.Parse(src.Sort)));
         }
     }
 }

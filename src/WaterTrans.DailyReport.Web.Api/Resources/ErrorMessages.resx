@@ -258,6 +258,33 @@
   <data name="DisplayProjectTags" xml:space="preserve">
     <value>タグ</value>
   </data>
+  <data name="DisplayWorkType" xml:space="preserve">
+    <value>部署</value>
+  </data>
+  <data name="DisplayWorkTypeDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DisplayWorkTypeName" xml:space="preserve">
+    <value>部署名</value>
+  </data>
+  <data name="DisplayWorkTypeSortNo" xml:space="preserve">
+    <value>並び順</value>
+  </data>
+  <data name="DisplayWorkTypeStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="DisplayWorkTypeTags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="DisplayWorkTypeWorkTypeCode" xml:space="preserve">
+    <value>部署コード</value>
+  </data>
+  <data name="DisplayWorkTypeWorkTypeId" xml:space="preserve">
+    <value>部署ID</value>
+  </data>
+  <data name="DisplayWorkTypeWorkTypeTree" xml:space="preserve">
+    <value>部署階層</value>
+  </data>
   <data name="ErrorResultAuthorizationTokenExpired" xml:space="preserve">
     <value>認証トークンの有効期限が切れています。</value>
     <comment>認証トークンの有効期限が切れている場合のメッセージ。</comment>

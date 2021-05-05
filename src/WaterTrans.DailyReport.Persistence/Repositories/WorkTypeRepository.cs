@@ -4,7 +4,7 @@ using WaterTrans.DailyReport.Application.TableEntities;
 namespace WaterTrans.DailyReport.Persistence.Repositories
 {
     /// <summary>
-    /// 作業分類リポジトリ
+    /// 業務分類リポジトリ
     /// </summary>
     public class WorkTypeRepository : SqlRepository<WorkTypeTableEntity>, IWorkTypeRepository
     {

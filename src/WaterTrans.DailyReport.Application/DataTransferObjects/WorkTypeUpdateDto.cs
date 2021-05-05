@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using WaterTrans.DailyReport.Domain.Constants;
 
-namespace WaterTrans.DailyReport.Domain.Entities
+namespace WaterTrans.DailyReport.Application.DataTransferObjects
 {
     /// <summary>
-    /// 業務分類
+    /// 業務分類更新DTO
     /// </summary>
-    public class WorkType
+    public class WorkTypeUpdateDto
     {
         /// <summary>
         /// 業務分類ID
@@ -37,26 +36,16 @@ namespace WaterTrans.DailyReport.Domain.Entities
         /// <summary>
         /// ステータス
         /// </summary>
-        public WorkTypeStatus Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// 並び順
         /// </summary>
-        public int SortNo { get; set; }
+        public int? SortNo { get; set; }
 
         /// <summary>
         /// タグ
         /// </summary>
-        public List<string> Tags { get; set; } = new List<string>();
-
-        /// <summary>
-        /// 作成日時
-        /// </summary>
-        public DateTimeOffset CreateTime { get; set; }
-
-        /// <summary>
-        /// 更新日時
-        /// </summary>
-        public DateTimeOffset UpdateTime { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

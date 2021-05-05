@@ -99,7 +99,9 @@ namespace WaterTrans.DailyReport.Web.Api
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IWorkTypeQueryService, WorkTypeQueryService>();
             services.AddTransient<IWorkTypeRepository, WorkTypeRepository>();
+            services.AddTransient<IWorkTypeService, WorkTypeService>();
 
             if (!WebHostEnvironment.IsProduction())
             {

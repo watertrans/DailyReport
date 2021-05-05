@@ -1,7 +1,7 @@
 ﻿namespace WaterTrans.DailyReport.Domain.Constants
 {
     /// <summary>
-    /// 作業分類ステータス
+    /// 業務分類ステータス
     /// </summary>
     public enum WorkTypeStatus
     {
