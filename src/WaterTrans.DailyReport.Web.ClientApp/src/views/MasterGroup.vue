@@ -14,6 +14,7 @@
           </template>
 
           <template v-slot:right>
+            <Button :label="$t('masterGroup.viewOrganization')" icon="pi pi-sitemap" class="p-button-info p-mr-2" @click="viewOrganization"  />
             <FileUpload mode="basic" :customUpload="true" :auto="true" accept="text/csv" :maxFileSize="1000000" label="Import" chooseLabel="Import" @uploader="importCSV" class="p-mr-2 p-d-inline-block" />
             <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV"  />
           </template>
@@ -136,6 +137,17 @@
             <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="updateSelectedGroups" />
           </template>
         </Dialog>
+
+        <Dialog :header="$t('masterGroup.viewOrganization')" v-model:visible="organizationDialog" :style="{width: '75vw'}" :maximizable="true" :modal="true">
+          <OrganizationChart :value="organization" :collapsible="true" class="organization">
+            <template #default="slotProps">
+              <div class="node-header">{{slotProps.node.data.name}}</div>
+              <div class="node-content">
+                <small v-for="manager in slotProps.node.data.managers" :key="manager" class="node-manager">{{manager.name}}</small>
+              </div>
+            </template>
+          </OrganizationChart>
+        </Dialog>
       </div>
     </div>
   </div>
@@ -154,6 +166,7 @@ export default {
       groupDialogHeader: null,
       deleteGroupDialog: false,
       updateSelectedDialog: false,
+      organizationDialog: false,
       group: {},
       updateSelectedGroup: {},
       selectedGroups: null,
@@ -168,7 +181,8 @@ export default {
       statuses: [
         {label: 'NORMAL', value: 'NORMAL'},
         {label: 'SUSPENDED', value: 'SUSPENDED'}
-      ]
+      ],
+      organization: { key: '0', data: { name: 'loading...'}},
     };
   },
   mixins: [ErrorHandling],
@@ -425,6 +439,29 @@ export default {
           this.updateSelectedDialog = false;
           this.updateSelectedGroup = {};
         });
+    },
+    viewOrganization() {
+      this.organizationDialog = true;
+      this.groupService.hierarchy()
+        .then((response) => {
+          response.data.key = response.data.groupId;
+          response.data.data = { name: 'CEO' };
+          response.data.children.forEach(element => this.convertOrganization(element));
+          this.organization = response.data;
+        })
+        .catch(error => {
+          const errorResponse = this.handleError(error);
+          if (errorResponse.isUnauthorizedError) {
+            this.handleUnauthorizedError();
+          } else {
+            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+          }
+        });
+    },
+    convertOrganization(node) {
+      node.key = node.groupId;
+      node.data = { name: node.name, managers: node.managers };
+      node.children.forEach(element => this.convertOrganization(element));
     }
   }
 };

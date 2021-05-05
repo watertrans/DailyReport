@@ -48,5 +48,11 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// <param name="groupTree">部署階層を指定します。</param>
         /// <returns>存在する場合はtrueを返します。</returns>
         bool ExistsGroupTree(string groupTree);
+
+        /// <summary>
+        /// すべての部署とマネージャーを取得します。
+        /// </summary>
+        /// <returns><see cref="List&lt;Group&gt;"/></returns>
+        IList<Group> GetOrganization();
     }
 }

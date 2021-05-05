@@ -102,6 +102,7 @@ const messages = {
       createGroupTitle: '部署登録',
       updateGroupTitle: '部署更新',
       updateSelectedGroupTitle: '部署一括更新',
+      viewOrganization: '組織図',
     },
     masterProject: {
       createProjectTitle: 'プロジェクト登録',

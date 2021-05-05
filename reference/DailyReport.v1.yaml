@@ -447,7 +447,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'The Human resources.'
+                    description: The Human resources.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -520,7 +520,7 @@ paths:
                   groupCode: '000001'
                   groupTree: '00'
                   name: Human Resources
-                  description: 'The Human resources.'
+                  description: The Human resources.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -569,7 +569,7 @@ paths:
                         groupCode: '000001'
                         groupTree: '00'
                         name: Human Resources
-                        description: 'The Human resources.'
+                        description: The Human resources.
                         status: NORMAL
                         sortNo: 0
                         tags:
@@ -624,7 +624,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'The Human resources.'
+                    description: The Human resources.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -660,7 +660,7 @@ paths:
                     groupCode: '000001'
                     groupTree: '00'
                     name: Human Resources
-                    description: 'The Human resources.'
+                    description: The Human resources.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -726,7 +726,7 @@ paths:
                   groupCode: '000001'
                   groupTree: '00'
                   name: Human Resources
-                  description: 'The Human resources.'
+                  description: The Human resources.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -923,7 +923,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'The Software development.'
+                    description: The Software development.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -990,7 +990,7 @@ paths:
                 value:
                   projectCode: '000001'
                   name: Software Development
-                  description: 'The Software development.'
+                  description: The Software development.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1038,7 +1038,7 @@ paths:
                       - projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                         projectCode: '000001'
                         name: Software Development
-                        description: 'The Software development.'
+                        description: The Software development.
                         status: NORMAL
                         sortNo: 0
                         tags:
@@ -1092,7 +1092,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'The Software development.'
+                    description: The Software development.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1127,7 +1127,7 @@ paths:
                     projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
                     projectCode: '000001'
                     name: Software Development
-                    description: 'The Software development.'
+                    description: The Software development.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1188,7 +1188,7 @@ paths:
                 value:
                   projectCode: '000001'
                   name: Software Development
-                  description: 'The Software development.'
+                  description: The Software development.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1368,7 +1368,7 @@ paths:
                     workTypeCode: '000001'
                     workTypeTree: '00'
                     name: Engineering
-                    description: 'The Engineering.'
+                    description: The Engineering.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1441,7 +1441,7 @@ paths:
                   workTypeCode: '000001'
                   workTypeTree: '00'
                   name: Engineering
-                  description: 'The Engineering.'
+                  description: The Engineering.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1490,7 +1490,7 @@ paths:
                         workTypeCode: '000001'
                         workTypeTree: '00'
                         name: Engineering
-                        description: 'The Engineering.'
+                        description: The Engineering.
                         status: NORMAL
                         sortNo: 0
                         tags:
@@ -1545,7 +1545,7 @@ paths:
                     workTypeCode: '000001'
                     workTypeTree: '00'
                     name: Engineering
-                    description: 'The Engineering.'
+                    description: The Engineering.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1581,7 +1581,7 @@ paths:
                     workTypeCode: '000001'
                     workTypeTree: '00'
                     name: Engineering
-                    description: 'The Engineering.'
+                    description: The Engineering.
                     status: NORMAL
                     sortNo: 0
                     tags:
@@ -1647,7 +1647,7 @@ paths:
                   workTypeCode: '000001'
                   workTypeTree: '00'
                   name: Engineering
-                  description: 'The Engineering.'
+                  description: The Engineering.
                   status: NORMAL
                   sortNo: 0
                   tags:
@@ -1674,6 +1674,33 @@ paths:
       description: 業務分類を削除します。
       tags:
         - WorkTypes
+  /groups/hierarchy:
+    get:
+      summary: 部署階層
+      tags:
+        - Groups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationNode'
+        '400':
+          $ref: '#/components/responses/400BadRequest'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+        '403':
+          $ref: '#/components/responses/403Forbidden'
+        '404':
+          $ref: '#/components/responses/404NotFound'
+        '500':
+          $ref: '#/components/responses/500InternalServerError'
+      operationId: get-groups-hierarchy
+      description: |-
+        すべての部署を階層化します。
+        NORMAL以外のステータスの部署は階層には含まれません。
+    parameters: []
 components:
   schemas:
     Error:
@@ -1721,7 +1748,7 @@ components:
           groupCode: '000001'
           groupTree: '00'
           name: Human Resources
-          description: 'The Human resources.'
+          description: The Human resources.
           status: NORMAL
           sortNo: 0
           tags:
@@ -1974,7 +2001,7 @@ components:
           projectId: f3e5ff26-28fe-4cd6-9b1b-e303a185a13a
           projectCode: '000001'
           name: Software Development
-          description: 'The Software development.'
+          description: The Software development.
           status: NORMAL
           sortNo: 0
           tags:
@@ -2045,7 +2072,7 @@ components:
           workTypeCode: '000001'
           workTypeTree: '00'
           name: Engineering
-          description: 'The Engineering.'
+          description: The Engineering.
           status: NORMAL
           sortNo: 0
           tags:
@@ -2140,6 +2167,62 @@ components:
           expires_in: 3600
           token_type: Bearer
           scope: full_control read write
+    OrganizationNode:
+      title: OrganizationNode
+      type: object
+      description: 組織ノード
+      properties:
+        groupId:
+          type: string
+          description: 部署ID
+        groupCode:
+          type: string
+          description: 部署コード
+        groupTree:
+          type: string
+          description: 部署階層
+        name:
+          type: string
+          description: 部署名
+        managers:
+          type: array
+          description: マネージャー
+          items:
+            type: object
+            description: マネージャー
+            properties:
+              personId:
+                type: string
+                description: 従業員ID
+              personCode:
+                type: string
+                description: 従業員コード
+              name:
+                type: string
+                description: 名前
+              title:
+                type: string
+                description: 役職
+              positionType:
+                type: string
+                description: 配属タイプ
+            required:
+              - personId
+              - personCode
+              - name
+              - title
+              - positionType
+        children:
+          type: array
+          description: 子組織ノード
+          items:
+            $ref: '#/components/schemas/OrganizationNode'
+      required:
+        - groupId
+        - groupCode
+        - groupTree
+        - name
+        - managers
   securitySchemes:
     Bearer:
       type: http

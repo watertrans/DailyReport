@@ -207,5 +207,11 @@ namespace WaterTrans.DailyReport.Application.Services
                 PersonId = personId,
             });
         }
+
+        /// <inheritdoc/>
+        public IList<Group> GetOrganization()
+        {
+            return _groupQueryService.GetOrganization();
+        }
     }
 }

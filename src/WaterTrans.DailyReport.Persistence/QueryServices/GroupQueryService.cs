@@ -343,5 +343,63 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             return Connection.ExecuteScalar<int>(sql.ToString(), param, commandTimeout: DBSettings.CommandTimeout) > 0;
         }
+
+        /// <inheritdoc/>
+        public IList<Group> GetOrganization()
+        {
+            var sql = new StringBuilder();
+
+            sql.AppendLine(" SELECT GS1.* ");
+            sql.AppendLine("      , (SELECT TG1.Value ");
+            sql.AppendLine("           FROM Tag AS TG1 WITH (NOLOCK) ");
+            sql.AppendLine("          WHERE TG1.TargetId = GS1.GroupId ");
+            sql.AppendLine("          ORDER BY TG1.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS GroupTags ");
+            sql.AppendLine("      , PS1.* ");
+            sql.AppendLine("      , GP1.PositionType ");
+            sql.AppendLine("      , (SELECT TG2.Value ");
+            sql.AppendLine("           FROM Tag AS TG2 WITH (NOLOCK) ");
+            sql.AppendLine("          WHERE TG2.TargetId = PS1.PersonId ");
+            sql.AppendLine("          ORDER BY TG2.Value ");
+            sql.AppendLine("            FOR JSON PATH ");
+            sql.AppendLine("        ) AS PersonTags ");
+            sql.AppendLine("   FROM [Group]     AS GS1 LEFT OUTER JOIN ");
+            sql.AppendLine("        GroupPerson AS GP1 ON GS1.GroupId  = GP1.GroupId LEFT OUTER JOIN ");
+            sql.AppendLine("        Person      AS PS1 ON GP1.PersonId = PS1.PersonId AND PS1.Status = @PersonStatus_NORMAL AND GP1.PositionType <> @PositionType_STAFF ");
+            sql.AppendLine("  WHERE GS1.Status = @GroupStatus_NORMAL ");
+            sql.AppendLine("  ORDER BY GS1.GroupTree, GP1.PositionType ");
+
+            var param = new
+            {
+                GroupStatus_NORMAL = GroupStatus.NORMAL.ToString(),
+                PersonStatus_NORMAL = PersonStatus.NORMAL.ToString(),
+                PositionType_STAFF = PositionType.STAFF.ToString(),
+            };
+
+            var groupDic = new Dictionary<Guid, Group>();
+            return Connection.Query<Group, string, GroupPerson, string, Group>(
+                sql.ToString(),
+                (group, groupTags, person, personTags) =>
+                {
+                    if (!groupDic.TryGetValue(group.GroupId, out Group groupEntry))
+                    {
+                        groupEntry = group;
+                        groupEntry.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(groupTags, "Value"));
+                        groupDic.Add(groupEntry.GroupId, groupEntry);
+                    }
+
+                    if (person != null && !groupEntry.Persons.Exists(e => e.PersonId == person.PersonId))
+                    {
+                        person.Tags = JsonUtil.Deserialize<List<string>>(JsonUtil.ToRawJsonArray(personTags, "Value"));
+                        groupEntry.Persons.Add(person);
+                    }
+
+                    return groupEntry;
+                },
+                param,
+                splitOn: "GroupTags,PersonId,PersonTags",
+                commandTimeout: DBSettings.CommandTimeout).Distinct().ToList();
+        }
     }
 }

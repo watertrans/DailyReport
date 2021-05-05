@@ -312,5 +312,88 @@ namespace WaterTrans.DailyReport.Web.Api.Controllers
             };
             return result;
         }
+
+        /// <summary>
+        /// 部署階層を取得する
+        /// </summary>
+        /// <returns><see cref="ActionResult"/></returns>
+        [HttpGet]
+        [Route("api/v{version:apiVersion}/groups/hierarchy")]
+        [Authorize(Policies.ReadScopePolicy)]
+        [Authorize(Roles = Roles.Owner + "," + Roles.Contributor + "," + Roles.Reader + "," + Roles.User)]
+        public ActionResult<OrganizationNode> Hierarchy()
+        {
+            var result = new OrganizationNode();
+            result.GroupId = Guid.Empty.ToString();
+            result.GroupCode = string.Empty;
+            result.GroupTree = string.Empty;
+            result.Name = string.Empty;
+
+            var groups = _groupService.GetOrganization();
+            var parent2Node = result;
+            var parent4Node = result;
+            var parent6Node = result;
+            foreach (var group in groups)
+            {
+                var currentNode = new OrganizationNode
+                {
+                    GroupId = group.GroupId.ToString(),
+                    GroupTree = group.GroupTree,
+                    GroupCode = group.GroupCode,
+                    Name = group.Name,
+                };
+
+                foreach (var manager in group.Persons)
+                {
+                    currentNode.Managers.Add(new OrganizationManager
+                    {
+                        PersonId = manager.PersonId.ToString(),
+                        PersonCode = manager.PersonCode,
+                        PositionType = manager.PositionType.ToString(),
+                        Name = manager.Name,
+                        Title = manager.Title,
+                    });
+                }
+
+                if (group.GroupTree.Length == 2)
+                {
+                    result.Children.Add(currentNode);
+                    parent2Node = currentNode;
+                    continue;
+                }
+
+                if (group.GroupTree.Length == 4 && group.GroupTree.StartsWith(parent2Node.GroupTree))
+                {
+                    parent2Node.Children.Add(currentNode);
+                    parent4Node = currentNode;
+                    continue;
+                }
+
+                if (group.GroupTree.Length == 6 && group.GroupTree.StartsWith(parent4Node.GroupTree))
+                {
+                    parent4Node.Children.Add(currentNode);
+                    parent6Node = currentNode;
+                    continue;
+                }
+
+                if (group.GroupTree.Length == 8 && group.GroupTree.StartsWith(parent6Node.GroupTree))
+                {
+                    parent6Node.Children.Add(currentNode);
+                    continue;
+                }
+
+                result.Children.Add(currentNode);
+
+                if (currentNode.GroupTree.Length == 4)
+                {
+                    parent4Node = currentNode;
+                }
+                else if (currentNode.GroupTree.Length == 6)
+                {
+                    parent6Node = currentNode;
+                }
+            }
+            return result;
+        }
     }
 }

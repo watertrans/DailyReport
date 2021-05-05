@@ -50,4 +50,12 @@ export default class GroupService {
       }
     });
   }
+
+  hierarchy() {
+    return this.axios.get(process.env.VUE_APP_API_BASE_URL + '/groups/hierarchy', {
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      }
+    });
+  }
 }

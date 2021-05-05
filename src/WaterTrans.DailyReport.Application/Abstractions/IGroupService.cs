@@ -74,5 +74,11 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// <param name="groupId">部署ID</param>
         /// <param name="personId">従業員ID</param>
         void RemoveGroupPerson(Guid groupId, Guid personId);
+
+        /// <summary>
+        /// すべての部署とマネージャーを取得します。
+        /// </summary>
+        /// <returns><see cref="List&lt;Group&gt;"/></returns>
+        IList<Group> GetOrganization();
     }
 }
