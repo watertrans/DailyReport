@@ -84,7 +84,7 @@ export default {
             if (errorResponse.isUnauthorizedError) {
               this.handleUnauthorizedError();
             } else {
-              this.$toast.add({severity:'Error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
+              this.$toast.add({severity:'error', summary: 'An error has occured.', detail:errorResponse.message, life: 5000});
             }
           });
       }

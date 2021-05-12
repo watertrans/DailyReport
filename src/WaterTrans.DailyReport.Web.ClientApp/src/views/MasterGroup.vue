@@ -267,7 +267,7 @@ export default {
           if (errorResponse.isUnauthorizedError) {
             this.handleUnauthorizedError();
           } else {
-            this.$toast.add({severity:'Error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
           }
         });
     },
