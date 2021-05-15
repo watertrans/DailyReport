@@ -65,6 +65,10 @@ const messages = {
       updateSelectedRequired: '一括更新する内容を入力してください。',
       deleteComfirmTitle: 'データを削除しようとしています',
       deleteComfirmMessage: '\'{target}\'を削除します。削除したデータは復旧できません。本当に削除してもよろしいですか？',
+      fileUploadDialogColumnsButtonLabel: '項目一覧',
+      fileUploadDialogDownloadSampleButtonLabel: 'サンプルダウンロード',
+      fileUploadDialogChooseButtonLabel: 'ファイル選択',
+      filter: 'フィルタ',
     },
     helpText: {
       dataCode: '英数字とハイフン20文字以内',
@@ -74,8 +78,14 @@ const messages = {
       tags: 'Enterキーで確定、最大10個',
     },
     dialog: {
+      cancelButtonLabel: 'Cancel',
+      noButtonLabel: 'No',
+      okButtonLabel: 'Ok',
+      saveButtonLabel: 'Save',
+      updateButtonLabel: 'Update',
       unauthorized: 'タイムアウト',
       unauthorizedMessage: 'アクセストークンがタイムアウトしました。認証画面に戻りますがよろしいですか？',
+      yesButtonLabel: 'Yes',
     },
     toast: {
       errorSummary: 'エラー',
@@ -103,21 +113,26 @@ const messages = {
       updateGroupTitle: '部署更新',
       updateSelectedGroupTitle: '部署一括更新',
       viewOrganization: '組織図',
+      fileUploadDialogHeader: '部署ファイルインポート',
     },
     masterProject: {
       createProjectTitle: 'プロジェクト登録',
       updateProjectTitle: 'プロジェクト更新',
       updateSelectedProjectTitle: 'プロジェクト一括更新',
+      fileUploadDialogHeader: 'プロジェクトファイルインポート',
     },
     masterWorkType: {
       createWorkTypeTitle: '業務分類登録',
       updateWorkTypeTitle: '業務分類更新',
       updateSelectedWorkTypeTitle: '業務分類一括更新',
+      fileUploadDialogHeader: '業務分類ファイルインポート',
+      
     },
     masterPerson: {
       createPersonTitle: '従業員登録',
       updatePersonTitle: '従業員更新',
       updateSelectedPersonTitle: '従業員一括更新',
+      fileUploadDialogHeader: '従業員ファイルインポート',
     },
     schema: {
       group: {

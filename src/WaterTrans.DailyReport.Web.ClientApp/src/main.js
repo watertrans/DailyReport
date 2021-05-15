@@ -13,6 +13,8 @@ import utils from './plugins/utils';
 
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
+import Badge from 'primevue/badge';
+import BadgeDirective from 'primevue/badgedirective';
 import Button from 'primevue/button';
 import Chart from 'primevue/chart';
 import Chip from 'primevue/chip';
@@ -29,6 +31,7 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Message from 'primevue/message';
 import OrganizationChart from 'primevue/organizationchart';
+import OverlayPanel from 'primevue/overlaypanel';
 import RadioButton from 'primevue/radiobutton';
 import Ripple from 'primevue/ripple';
 import TabMenu from 'primevue/tabmenu';
@@ -50,9 +53,11 @@ app.use(router);
 app.use(axios);
 app.use(utils);
 
+app.directive('badge', BadgeDirective);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 
+app.component('Badge', Badge);
 app.component('Button', Button);
 app.component('Chart', Chart);
 app.component('Chip', Chip);
@@ -68,6 +73,7 @@ app.component('InputText', InputText);
 app.component('InputNumber', InputNumber);
 app.component('Message', Message);
 app.component('OrganizationChart', OrganizationChart);
+app.component('OverlayPanel', OverlayPanel);
 app.component('RadioButton', RadioButton);
 app.component('TabMenu', TabMenu);
 app.component('Textarea', Textarea);

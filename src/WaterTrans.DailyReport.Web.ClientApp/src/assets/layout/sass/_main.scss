@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, "Yu Gothic Medium", "Yu Gothic", YuGothic, Verdana, Meiryo, sans-serif;
     font-size: $fontSize;
     color: $textColor;
     background-color: $bodyBgColor;
@@ -32,3 +32,10 @@ a {
     min-height: 100vh;
 }
 
+.p-button-label {
+    white-space: nowrap;
+}
+
+.p-component, .p-inputtext {
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, "Yu Gothic Medium", "Yu Gothic", YuGothic, Verdana, Meiryo, sans-serif;
+}

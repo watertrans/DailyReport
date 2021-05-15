@@ -14,8 +14,8 @@
           </template>
 
           <template v-slot:right>
-            <FileUpload mode="basic" :customUpload="true" :auto="true" accept="text/csv" :maxFileSize="1000000" label="Import" chooseLabel="Import" @uploader="importCSV" class="p-mr-2 p-d-inline-block" />
-            <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV"  />
+            <Button icon="pi pi-upload" class="p-button-success p-mr-2" @click="showUploadPanel"  />
+            <Button icon="pi pi-download" class="p-button-success" @click="exportCSV"  />
           </template>
         </Toolbar>
 
@@ -41,6 +41,14 @@
             </template>
           </Column>
         </DataTable>
+
+        <Dialog v-model:visible="fileUploadDialog" :style="{width: '450px'}" :header="$t('masterWorkType.fileUploadDialogHeader')" :modal="true">
+          <FileUpload mode="basic" :customUpload="true" :auto="true" accept="text/csv" :maxFileSize="1000000" :chooseLabel="$t('general.fileUploadDialogChooseButtonLabel')" @uploader="importCSV" class="p-d-inline-block" />
+          <template #footer>
+            <Button :label="$t('general.fileUploadDialogColumnsButtonLabel')" icon="pi pi-question-circle" class="p-button-text" />
+            <Button :label="$t('general.fileUploadDialogDownloadSampleButtonLabel')" icon="pi pi-download" class="p-button-text" />
+          </template>
+        </Dialog>
 
         <Dialog v-model:visible="workTypeDialog" :style="{width: '450px'}" :header="workTypeDialogHeader" :modal="true" class="p-fluid">
           <Message v-if="error && error.message" severity="error" :closable="false">{{error.message}}</Message>
@@ -87,8 +95,8 @@
             <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
-            <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="workTypeDialog = false"/>
-            <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveWorkType" />
+            <Button :label="$t('dialog.cancelButtonLabel')" icon="pi pi-times" class="p-button-text" @click="workTypeDialog = false"/>
+            <Button :label="$t('dialog.saveButtonLabel')" icon="pi pi-check" class="p-button-text" @click="saveWorkType" />
           </template>
         </Dialog>
 
@@ -98,8 +106,8 @@
             <span v-if="workType">{{$t('general.deleteComfirmMessage', { target : workType.name })}}</span>
           </div>
           <template #footer>
-            <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteWorkTypeDialog = false"/>
-            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteWorkType" />
+            <Button :label="$t('dialog.noButtonLabel')" icon="pi pi-times" class="p-button-text" @click="deleteWorkTypeDialog = false"/>
+            <Button :label="$t('dialog.yesButtonLabel')" icon="pi pi-check" class="p-button-text" @click="deleteWorkType" />
           </template>
         </Dialog>
 
@@ -131,8 +139,8 @@
             <small class="help-text">{{$t('helpText.tags')}}</small>
           </div>
           <template #footer>
-            <Button label="No" icon="pi pi-times" class="p-button-text" @click="updateSelectedDialog = false"/>
-            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="updateSelectedWorkTypes" />
+            <Button :label="$t('dialog.cancelButtonLabel')" icon="pi pi-times" class="p-button-text" @click="updateSelectedDialog = false"/>
+            <Button :label="$t('dialog.updateButtonLabel')" icon="pi pi-check" class="p-button-text" @click="updateSelectedWorkTypes" />
           </template>
         </Dialog>
       </div>
@@ -151,6 +159,7 @@ export default {
       workTypes: null,
       workTypeDialog: false,
       workTypeDialogHeader: null,
+      fileUploadDialog: false,
       deleteWorkTypeDialog: false,
       updateSelectedDialog: false,
       workType: {},
@@ -367,6 +376,9 @@ export default {
     },
     exportCSV() {
       console.log('Not implemented!'); // TODO
+    },
+    showUploadPanel() {
+      this.fileUploadDialog = true;
     },
     importCSV() {
       console.log('Not implemented!'); // TODO
