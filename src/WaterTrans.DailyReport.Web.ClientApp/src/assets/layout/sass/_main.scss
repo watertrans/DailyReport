@@ -39,3 +39,15 @@ a {
 .p-component, .p-inputtext {
     font-family: -apple-system, BlinkMacSystemFont, Roboto, "Segoe UI", "Helvetica Neue", HelveticaNeue, "Yu Gothic Medium", "Yu Gothic", YuGothic, Verdana, Meiryo, sans-serif;
 }
+
+.p-button-icon-only .p-badge {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

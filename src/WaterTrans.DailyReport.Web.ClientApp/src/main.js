@@ -13,6 +13,7 @@ import utils from './plugins/utils';
 
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
+import AutoComplete from 'primevue/autocomplete';
 import Badge from 'primevue/badge';
 import BadgeDirective from 'primevue/badgedirective';
 import Button from 'primevue/button';
@@ -42,6 +43,8 @@ import ToggleButton from 'primevue/togglebutton';
 import Tooltip from 'primevue/tooltip';
 import Toolbar from 'primevue/toolbar';
 
+import GroupAutoComplete from './components/GroupAutoComplete';
+
 const app = createApp(App);
 
 app.use(PrimeVue, { ripple: true });
@@ -57,6 +60,7 @@ app.directive('badge', BadgeDirective);
 app.directive('tooltip', Tooltip);
 app.directive('ripple', Ripple);
 
+app.component('AutoComplete', AutoComplete);
 app.component('Badge', Badge);
 app.component('Button', Button);
 app.component('Chart', Chart);
@@ -80,5 +84,7 @@ app.component('Textarea', Textarea);
 app.component('Toast', Toast);
 app.component('ToggleButton', ToggleButton);
 app.component('Toolbar', Toolbar);
+
+app.component('GroupAutoComplete', GroupAutoComplete);
 
 app.mount('#app');

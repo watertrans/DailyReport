@@ -14,5 +14,20 @@
         /// 並び順の指定
         /// </summary>
         public SortOrder Sort { get; set; }
+
+        /// <summary>
+        /// ステータス
+        /// </summary>
+        public string Status { get; set; }
+
+        /// <summary>
+        /// 部署コード
+        /// </summary>
+        public string GroupCode { get; set; }
+
+        /// <summary>
+        /// プロジェクトコード
+        /// </summary>
+        public string ProjectCode { get; set; }
     }
 }

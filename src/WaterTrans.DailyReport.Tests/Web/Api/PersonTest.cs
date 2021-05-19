@@ -38,6 +38,80 @@ namespace WaterTrans.DailyReport.Tests.Web.Api
         }
 
         [TestMethod]
+        public void QueryPerson_OK_StatusのNORMAL指定に一致した結果が返る()
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "status", "NORMAL" },
+            };
+
+            var requestUri = QueryHelpers.AddQueryString("/api/v1/persons", parameters);
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var pagedObject = JsonUtil.Deserialize<PagedObject<Person>>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual("NORMAL", pagedObject.Items[0].Status);
+        }
+
+        [TestMethod]
+        public void QueryPerson_OK_StatusのSUSPENDED指定に一致した結果が返る()
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "status", "SUSPENDED" },
+            };
+
+            var requestUri = QueryHelpers.AddQueryString("/api/v1/persons", parameters);
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var pagedObject = JsonUtil.Deserialize<PagedObject<Person>>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual("SUSPENDED", pagedObject.Items[0].Status);
+        }
+
+        [TestMethod]
+        public void QueryPerson_OK_GroupCodeの指定でエラーが出ない()
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "groupCode", "00001" },
+            };
+
+            var requestUri = QueryHelpers.AddQueryString("/api/v1/persons", parameters);
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var pagedObject = JsonUtil.Deserialize<PagedObject<Person>>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void QueryPerson_OK_ProjectCodeの指定でエラーが出ない()
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "projectCode", "00001" },
+            };
+
+            var requestUri = QueryHelpers.AddQueryString("/api/v1/persons", parameters);
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "normal-read");
+            var response = _httpclient.SendAsync(request).ConfigureAwait(false).GetAwaiter().GetResult();
+            var responseBody = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var pagedObject = JsonUtil.Deserialize<PagedObject<Person>>(responseBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
         public void QueryPerson_ValidationError_Pageの指定が数字でない場合はエラー()
         {
             var parameters = new Dictionary<string, string>()

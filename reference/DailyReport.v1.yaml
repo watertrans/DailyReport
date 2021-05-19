@@ -260,6 +260,26 @@ paths:
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/query'
         - $ref: '#/components/parameters/sort'
+        - schema:
+            type: string
+            enum:
+              - NORMAL
+              - SUSPENDED
+          in: query
+          name: status
+          description: ステータス
+        - schema:
+            type: string
+            maxLength: 20
+          in: query
+          name: groupCode
+          description: 部署コード
+        - schema:
+            type: string
+            maxLength: 20
+          in: query
+          name: projectCode
+          description: プロジェクトコード
   '/persons/{personId}':
     parameters:
       - schema:

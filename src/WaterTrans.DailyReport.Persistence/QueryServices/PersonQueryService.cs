@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using WaterTrans.DailyReport.Application;
 using WaterTrans.DailyReport.Application.Abstractions;
+using WaterTrans.DailyReport.Application.DataTransferObjects;
 using WaterTrans.DailyReport.Application.Utils;
 using WaterTrans.DailyReport.Domain.Constants;
 using WaterTrans.DailyReport.Domain.Entities;
@@ -26,11 +27,11 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
         }
 
         /// <inheritdoc/>
-        public IList<Person> Query(string query, SortOrder sort, PagingQuery paging)
+        public IList<Person> Query(PersonQueryDto dto)
         {
             var sqlWhere = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(dto.Query))
             {
                 sqlWhere.AppendLine(" AND ( ");
                 sqlWhere.AppendLine("     PersonCode LIKE @Query OR ");
@@ -46,15 +47,40 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
                 sqlWhere.AppendLine(" ) ");
             }
 
+            if (!string.IsNullOrEmpty(dto.Status))
+            {
+                sqlWhere.AppendLine(" AND Status = @Status ");
+            }
+
+            if (!string.IsNullOrEmpty(dto.GroupCode))
+            {
+                sqlWhere.AppendLine(" AND EXISTS (");
+                sqlWhere.AppendLine("     SELECT PersonId ");
+                sqlWhere.AppendLine("     FROM   [Group]     AS GR1 WITH (NOLOCK) INNER JOIN ");
+                sqlWhere.AppendLine("            GroupPerson AS GP1 WITH (NOLOCK) ON GR1.GroupId = GP1.GroupID ");
+                sqlWhere.AppendLine("     WHERE  GR1.GroupCode = @GroupCode ");
+                sqlWhere.AppendLine(" ) ");
+            }
+
+            if (!string.IsNullOrEmpty(dto.ProjectCode))
+            {
+                sqlWhere.AppendLine(" AND EXISTS (");
+                sqlWhere.AppendLine("     SELECT PersonId ");
+                sqlWhere.AppendLine("     FROM   Project       AS PR1 WITH (NOLOCK) INNER JOIN ");
+                sqlWhere.AppendLine("            ProjectPerson AS PP1 WITH (NOLOCK) ON PR1.ProjectId = PP1.ProjectID ");
+                sqlWhere.AppendLine("     WHERE  PR1.ProjectCode = @ProjectCode ");
+                sqlWhere.AppendLine(" ) ");
+            }
+
             var sqlSort = new StringBuilder();
-            if (sort.Count == 0)
+            if (dto.Sort.Count == 0)
             {
                 sqlSort.AppendLine(" ORDER BY {0}.SortNo ASC, {0}.PersonCode ASC ");
             }
             else
             {
                 sqlSort.AppendLine(" ORDER BY ");
-                foreach (var item in sort)
+                foreach (var item in dto.Sort)
                 {
                     if (item.Field.Equals("PersonCode", StringComparison.OrdinalIgnoreCase))
                     {
@@ -79,17 +105,20 @@ namespace WaterTrans.DailyReport.Persistence.QueryServices
 
             var param = new
             {
-                Query = DataUtil.EscapeLike(query, LikeMatchType.PrefixSearch),
-                TagQuery = query,
-                Page = paging.Page,
-                PageSize = paging.PageSize,
+                Status = dto.Status,
+                GroupCode = dto.GroupCode,
+                ProjectCode = dto.ProjectCode,
+                Query = DataUtil.EscapeLike(dto.Query, LikeMatchType.PrefixSearch),
+                TagQuery = dto.Query,
+                Page = dto.Page,
+                PageSize = dto.PageSize,
             };
 
             var sqlCount = new StringBuilder();
             sqlCount.AppendLine(" SELECT COUNT(*) FROM Person WHERE  1 = 1 ");
             sqlCount.AppendLine(sqlWhere.ToString());
 
-            paging.TotalCount = (int)Connection.ExecuteScalar(
+            dto.TotalCount = (int)Connection.ExecuteScalar(
                 sqlCount.ToString(),
                 param,
                 commandTimeout: DBSettings.CommandTimeout);

@@ -9,12 +9,12 @@
             <Button :label="$t('general.updateSelectedButtonLabel')" icon="pi pi-tags" class="p-button-success p-mr-2" @click="updateSelected" :disabled="!selectedProjects || !selectedProjects.length" />
             <span class="p-input-icon-left">
               <i class="pi pi-search" />
-              <InputText v-model="query" placeholder="Search..." @keydown.enter="onSearchKeyDown" />
+              <InputText v-model="query" :placeholder="$t('general.search')" @keydown.enter="onSearchKeyDown" />
             </span>
           </template>
 
           <template v-slot:right>
-            <Button icon="pi pi-upload" class="p-button-success p-mr-2" @click="showUploadPanel"  />
+            <Button icon="pi pi-upload" class="p-button-success p-mr-2" @click="showUploadDialog"  />
             <Button icon="pi pi-download" class="p-button-success" @click="exportCSV"  />
           </template>
         </Toolbar>
@@ -180,12 +180,13 @@ export default {
   projectService: null,
   created() {
     this.projectService = new ProjectService(this.$axios, this.$store.state.accessToken);
-    if (this.$route.query && this.$route.query.q)
-    {
-      this.query = this.$route.query.q;
+    if (!this.$route.query) {
+      return;
     }
-    if (this.$route.query && this.$route.query.sort)
-    {
+    if (this.$route.query.query) {
+      this.query = this.$route.query.query;
+    }
+    if (this.$route.query.sort) {
       const firstChar = this.$route.query.sort.substring(0,1);
       if (firstChar === '-') {
         this.sortField = this.$route.query.sort.replace('-','');
@@ -195,12 +196,10 @@ export default {
         this.sortOrder = 1;
       }
     }
-    if (this.$route.query && this.$route.query.pageSize && !isNaN(this.$route.query.pageSize))
-    {
+    if (this.$route.query.pageSize && !isNaN(this.$route.query.pageSize)) {
       this.rows = parseInt(this.$route.query.pageSize);
     }
-    if (this.$route.query && this.$route.query.page && !isNaN(this.$route.query.page))
-    {
+    if (this.$route.query.page && !isNaN(this.$route.query.page)) {
       this.first = (this.rows * parseInt(this.$route.query.page)) - 1;
     }
   },
@@ -227,26 +226,26 @@ export default {
       }), Math.floor(this.$refs.dt.first / this.$refs.dt.d_rows) + 1);
     },
     loadDataTable(sort = null, page = 1) {
-      const routerQuery = {};
+      const queryParams = {};
       const pageSize = this.$refs.dt.d_rows;
       if (this.query) {
-        routerQuery.q = this.query;
+        queryParams.query = this.query;
       }
       if (sort) {
-        routerQuery.sort = sort;
+        queryParams.sort = sort;
       }
       if (page != 1) {
-        routerQuery.page = page;
+        queryParams.page = page;
       }
       if (pageSize != 20) {
-        routerQuery.pageSize = pageSize;
+        queryParams.pageSize = pageSize;
       }
-      this.$router.push({ query: routerQuery });
-      this.queryProjects(routerQuery.q, routerQuery.sort, routerQuery.page, routerQuery.pageSize);
+      this.$router.push({ query: queryParams });
+      this.queryProjects(queryParams);
     },
-    queryProjects(query, sort, page, pageSize) {
+    queryProjects(queryParams) {
       this.loading = true;
-      this.projectService.queryProjects(query, sort, page, pageSize)
+      this.projectService.queryProjects(queryParams)
         .then(response => {
           this.projects = response.data.items;
           this.rows = response.data.pageSize;
@@ -259,6 +258,9 @@ export default {
             this.handleUnauthorizedError();
           } else {
             this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+            errorResponse.details.forEach(element => {
+              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
+            });
           }
         });
     },
@@ -370,7 +372,7 @@ export default {
     exportCSV() {
       console.log('Not implemented!'); // TODO
     },
-    showUploadPanel() {
+    showUploadDialog() {
       this.fileUploadDialog = true;
     },
     importCSV() {
@@ -433,13 +435,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-
-  .confirmation-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-</style>

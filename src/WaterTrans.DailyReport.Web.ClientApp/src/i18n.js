@@ -69,6 +69,7 @@ const messages = {
       fileUploadDialogDownloadSampleButtonLabel: 'サンプルダウンロード',
       fileUploadDialogChooseButtonLabel: 'ファイル選択',
       filter: 'フィルタ',
+      search: 'Search...',
     },
     helpText: {
       dataCode: '英数字とハイフン20文字以内',
@@ -136,6 +137,7 @@ const messages = {
     },
     schema: {
       group: {
+        group: '部署',
         groupId: '部署ID',
         groupCode: '部署コード',
         groupTree: '部署階層',
@@ -149,6 +151,7 @@ const messages = {
         updateTime: '更新日時',
       },
       project: {
+        project: 'プロジェクト',
         projectId: 'プロジェクトID',
         projectCode: 'プロジェクトコード',
         name: 'プロジェクト名',
@@ -161,6 +164,7 @@ const messages = {
         updateTime: '更新日時',
       },
       workType: {
+        workType: '業務分類',
         workTypeId: '業務分類ID',
         workTypeCode: '業務分類コード',
         workTypeTree: '業務分類階層',
@@ -173,6 +177,7 @@ const messages = {
         updateTime: '更新日時',
       },
       person: {
+        person: '従業員',
         personId: '従業員ID',
         personCode: '従業員コード',
         loginId: 'ログインID',

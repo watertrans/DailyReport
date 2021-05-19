@@ -5,19 +5,19 @@ export default class GroupService {
     this.token = token;
   }
 
-  queryGroups(query, sort, page, pageSize) {
+  queryGroups(queryParams) {
     var params = {};
-    if (page) {
-      params['page'] = page;
+    if (queryParams.page) {
+      params['page'] = queryParams.page;
     }
-    if (pageSize) {
-      params['pageSize'] = pageSize;
+    if (queryParams.pageSize) {
+      params['pageSize'] = queryParams.pageSize;
     }
-    if (query) {
-      params['query'] = query;
+    if (queryParams.query) {
+      params['query'] = queryParams.query;
     }
-    if (sort) {
-      params['sort'] = sort;
+    if (queryParams.sort) {
+      params['sort'] = queryParams.sort;
     }
     return this.axios.get(process.env.VUE_APP_API_BASE_URL + '/groups', {
       params: params,

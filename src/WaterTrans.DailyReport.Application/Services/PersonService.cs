@@ -38,7 +38,7 @@ namespace WaterTrans.DailyReport.Application.Services
         /// <inheritdoc/>
         public IList<Person> QueryPerson(PersonQueryDto dto)
         {
-            return _personQueryService.Query(dto.Query, dto.Sort, dto);
+            return _personQueryService.Query(dto);
         }
 
         /// <inheritdoc/>

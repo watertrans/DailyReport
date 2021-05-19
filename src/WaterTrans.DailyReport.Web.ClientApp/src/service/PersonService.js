@@ -5,19 +5,28 @@ export default class PersonService {
     this.token = token;
   }
 
-  queryPersons(query, sort, page, pageSize) {
+  queryPersons(queryParams) {
     var params = {};
-    if (page) {
-      params['page'] = page;
+    if (queryParams.page) {
+      params['page'] = queryParams.page;
     }
-    if (pageSize) {
-      params['pageSize'] = pageSize;
+    if (queryParams.pageSize) {
+      params['pageSize'] = queryParams.pageSize;
     }
-    if (query) {
-      params['query'] = query;
+    if (queryParams.query) {
+      params['query'] = queryParams.query;
     }
-    if (sort) {
-      params['sort'] = sort;
+    if (queryParams.sort) {
+      params['sort'] = queryParams.sort;
+    }
+    if (queryParams.status) {
+      params['status'] = queryParams.status;
+    }
+    if (queryParams.groupCode) {
+      params['groupCode'] = queryParams.groupCode;
+    }
+    if (queryParams.projectCode) {
+      params['projectCode'] = queryParams.projectCode;
     }
     return this.axios.get(process.env.VUE_APP_API_BASE_URL + '/persons', {
       params: params,

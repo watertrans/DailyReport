@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WaterTrans.DailyReport.Application.DataTransferObjects;
 using WaterTrans.DailyReport.Domain.Entities;
 
 namespace WaterTrans.DailyReport.Application.Abstractions
@@ -12,11 +13,9 @@ namespace WaterTrans.DailyReport.Application.Abstractions
         /// <summary>
         /// 従業員を検索します。
         /// </summary>
-        /// <param name="query">キーワードを指定します。</param>
-        /// <param name="sort"><see cref="SortOrder"/></param>
-        /// <param name="paging">ページ情報を指定します。</param>
+        /// <param name="dto"><see cref="PersonQueryDto"/></param>
         /// <returns>従業員の一覧を返します。</returns>
-        IList<Person> Query(string query, SortOrder sort, PagingQuery paging);
+        IList<Person> Query(PersonQueryDto dto);
 
         /// <summary>
         /// 従業員エンティティを取得します。

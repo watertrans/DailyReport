@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WaterTrans.DailyReport.Domain.Constants;
 using WaterTrans.DailyReport.Web.Api.DataAnnotations;
 
 namespace WaterTrans.DailyReport.Web.Api.RequestObjects
@@ -36,5 +37,26 @@ namespace WaterTrans.DailyReport.Web.Api.RequestObjects
         [StringLength(100, ErrorMessage = "DataAnnotationStringLength")]
         [Sort("SortNo", "PersonCode", "Name", "CreateTime", ErrorMessage = "DataAnnotationSort")]
         public string Sort { get; set; }
+
+        /// <summary>
+        /// ステータス
+        /// </summary>
+        [Display(Name = "DisplayPersonStatus")]
+        [EnumContains(typeof(PersonStatus), PersonStatus.NORMAL, PersonStatus.SUSPENDED, ErrorMessage = "DataAnnotationEnumContains")]
+        public string Status { get; set; }
+
+        /// <summary>
+        /// 部署コード
+        /// </summary>
+        [Display(Name = "DisplayGroupGroupCode")]
+        [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
+        public string GroupCode { get; set; }
+
+        /// <summary>
+        /// プロジェクトコード
+        /// </summary>
+        [Display(Name = "DisplayProjectProjectCode")]
+        [StringLength(20, ErrorMessage = "DataAnnotationStringLength")]
+        public string ProjectCode { get; set; }
     }
 }
