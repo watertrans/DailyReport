@@ -39,7 +39,7 @@ export default {
           this.filteredGroups = response.data.items;
         })
         .catch(error => {
-          const errorResponse = this.handleError(error);
+          const errorResponse = this.handleErrorResponse(error);
           if (errorResponse.isUnauthorizedError) {
             this.handleUnauthorizedError();
           } else {

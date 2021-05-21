@@ -300,17 +300,7 @@ export default {
           this.totalRecords = response.data.total;
           this.loading = false;
         })
-        .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            errorResponse.details.forEach(element => {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
-            });
-          }
-        });
+        .catch(error => this.handleErrorAndToastMessage(error));
     },
     openNew() {
       this.error = null;
@@ -360,17 +350,7 @@ export default {
             this.personDialog = false;
             this.person = response.data;
           })
-          .catch(error => {
-            const errorResponse = this.handleError(error);
-            if (errorResponse.isUnauthorizedError) {
-              this.handleUnauthorizedError();
-            } else if (errorResponse.isValidationError) {
-              this.error.message = errorResponse.message;
-              this.error.details = errorResponse.details;
-            } else {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            }
-          });
+          .catch(error => this.handleErrorAndDiplayMessage(error));
       } else {
         this.personService.createPerson(this.person)
           .then(response => {
@@ -379,17 +359,7 @@ export default {
             this.personDialog = false;
             this.person = response.data;
           })
-          .catch(error => {
-            const errorResponse = this.handleError(error);
-            if (errorResponse.isUnauthorizedError) {
-              this.handleUnauthorizedError();
-            } else if (errorResponse.isValidationError) {
-              this.error.message = errorResponse.message;
-              this.error.details = errorResponse.details;
-            } else {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            }
-          });
+          .catch(error => this.handleErrorAndDiplayMessage(error));
       }
     },
     confirmDeletePerson(person) {
@@ -405,17 +375,7 @@ export default {
           this.person = {};
         })
         .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else if (errorResponse.isValidationError) {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            errorResponse.details.forEach(element => {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
-            });
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-          }
+          this.handleErrorAndToastMessage(error);
           this.reloadDataTable();
           this.deletePersonDialog = false;
           this.person = {};
@@ -484,12 +444,7 @@ export default {
           this.selectedPersons = null;
         })
         .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-          }
+          this.handleErrorAndToastMessage(error);
           this.reloadDataTable();
           this.updateSelectedDialog = false;
           this.updateSelectedPerson = {};

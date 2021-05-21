@@ -11,7 +11,31 @@ export default {
         }
       });
     },
-    handleError(error, customMessages = {}) {
+    handleErrorAndToastMessage(error) {
+      const errorResponse = this.handleErrorResponse(error);
+      if (errorResponse.isUnauthorizedError) {
+        this.handleUnauthorizedError();
+      } else {
+        this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+        errorResponse.details.forEach(element => {
+          this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
+        });
+      }
+    },
+    handleErrorAndDiplayMessage(error) {
+      const errorResponse = this.handleErrorResponse(error);
+      if (errorResponse.isUnauthorizedError) {
+        this.handleUnauthorizedError();
+      } else if (errorResponse.isValidationError) {
+        this.error = { message: errorResponse.message, details: errorResponse.details };
+      } else {
+        this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
+        errorResponse.details.forEach(element => {
+          this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
+        });
+      }
+    },
+    handleErrorResponse(error, customMessages = {}) {
       const errorResponse = {
         isValidationError: false,
         isUnauthorizedError: false,

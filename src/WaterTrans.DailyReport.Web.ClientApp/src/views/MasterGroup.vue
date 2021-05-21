@@ -270,17 +270,7 @@ export default {
           this.totalRecords = response.data.total;
           this.loading = false;
         })
-        .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            errorResponse.details.forEach(element => {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
-            });
-          }
-        });
+        .catch(error => this.handleErrorAndToastMessage(error));
     },
     openNew() {
       this.error = null;
@@ -330,17 +320,7 @@ export default {
             this.groupDialog = false;
             this.group = response.data;
           })
-          .catch(error => {
-            const errorResponse = this.handleError(error);
-            if (errorResponse.isUnauthorizedError) {
-              this.handleUnauthorizedError();
-            } else if (errorResponse.isValidationError) {
-              this.error.message = errorResponse.message;
-              this.error.details = errorResponse.details;
-            } else {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            }
-          });
+          .catch(error => this.handleErrorAndDiplayMessage(error));
       } else {
         this.groupService.createGroup(this.group)
           .then(response => {
@@ -349,17 +329,7 @@ export default {
             this.groupDialog = false;
             this.group = response.data;
           })
-          .catch(error => {
-            const errorResponse = this.handleError(error);
-            if (errorResponse.isUnauthorizedError) {
-              this.handleUnauthorizedError();
-            } else if (errorResponse.isValidationError) {
-              this.error.message = errorResponse.message;
-              this.error.details = errorResponse.details;
-            } else {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            }
-          });
+          .catch(error => this.handleErrorAndDiplayMessage(error));
       }
     },
     confirmDeleteGroup(group) {
@@ -375,17 +345,7 @@ export default {
           this.group = {};
         })
         .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else if (errorResponse.isValidationError) {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-            errorResponse.details.forEach(element => {
-              this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorDetail'), detail:element.message, life: 5000});
-            });
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-          }
+          this.handleErrorAndToastMessage(error);
           this.reloadDataTable();
           this.deleteGroupDialog = false;
           this.group = {};
@@ -443,12 +403,7 @@ export default {
           this.selectedGroups = null;
         })
         .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-          }
+          this.handleErrorAndToastMessage(error);
           this.reloadDataTable();
           this.updateSelectedDialog = false;
           this.updateSelectedGroup = {};
@@ -463,14 +418,7 @@ export default {
           response.data.children.forEach(element => this.convertOrganization(element));
           this.organization = response.data;
         })
-        .catch(error => {
-          const errorResponse = this.handleError(error);
-          if (errorResponse.isUnauthorizedError) {
-            this.handleUnauthorizedError();
-          } else {
-            this.$toast.add({severity:'error', summary: this.$i18n.t('toast.errorSummary'), detail:errorResponse.message, life: 5000});
-          }
-        });
+        .catch(error => this.handleErrorAndToastMessage(error));
     },
     convertOrganization(node) {
       node.key = node.groupId;

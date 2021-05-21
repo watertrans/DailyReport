@@ -80,7 +80,7 @@ export default {
             this.$store.commit('setAuthorizationCode', this.$route.query.code);
           })
           .catch(error => {
-            const errorResponse = this.handleError(error);
+            const errorResponse = this.handleErrorResponse(error);
             if (errorResponse.isUnauthorizedError) {
               this.handleUnauthorizedError();
             } else {
